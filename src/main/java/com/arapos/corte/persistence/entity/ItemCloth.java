@@ -23,4 +23,13 @@ public class ItemCloth {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
+    //    relationship: 1
+    @ManyToOne
+    @JoinColumn(name = "op_id")
+    private Op op;
+
+    //   relationship: 1
+    @ManyToOne
+    @JoinColumn(name = "cloth_id")
+    private Cloth cloth;
 }

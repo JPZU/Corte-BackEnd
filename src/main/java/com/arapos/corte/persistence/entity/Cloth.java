@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "cloths")
@@ -28,4 +29,13 @@ public class Cloth {
 
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
+
+    //    relationship: 0..*
+    @OneToMany(mappedBy = "cloth")
+    private List<ItemCloth> itemClothsList;
+
+    //    relationship: 1
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -35,4 +35,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Op> opsList;
 
+    //    relationship: 0..*
+    @OneToMany(mappedBy = "user")
+    private List<Cloth> clothsList;
+
 }
