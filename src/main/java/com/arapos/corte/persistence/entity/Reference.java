@@ -14,7 +14,7 @@ public class Reference {
     @Column(name = "id", nullable = false, length = 50)
     private String referenceId;
 
-    @Column(length = 255, nullable = false)
+    @Column(name = "descriptions", length = 255, nullable = false)
     private String description;
 
     @Column(name = "created_at", insertable = false, updatable = false)
