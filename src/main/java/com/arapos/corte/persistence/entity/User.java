@@ -31,11 +31,11 @@ public class User {
     @Column(nullable = false)
     private Rol role;
 
-//    relationship: 0..*
+//    relationship users with ops: 0..*
     @OneToMany(mappedBy = "user")
     private List<Op> opsList;
 
-    //    relationship: 0..*
+//    relationship users with cloths: 0..*
     @OneToMany(mappedBy = "user")
     private List<Cloth> clothsList;
 

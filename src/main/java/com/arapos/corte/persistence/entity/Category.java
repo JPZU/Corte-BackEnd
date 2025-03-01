@@ -24,7 +24,7 @@ public class Category {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
-    //    relationship: 0..*
+    //    relationship categories with cloths: 0..*
     @OneToMany(mappedBy = "category")
     private List<Cloth> clothsList;
 }

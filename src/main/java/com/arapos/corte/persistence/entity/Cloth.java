@@ -30,21 +30,21 @@ public class Cloth {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
-    //    relationship: 0..*
+    //    relationship cloths with item_cloths: 0..*
     @OneToMany(mappedBy = "cloth")
     private List<ItemCloth> itemClothsList;
 
-    //    relationship: 1
+    //    relationship cloths with users: 1
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    //    relationship: 1
+    //    relationship cloths with categories: 1
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    //    relationship: 1
+    //    relationship cloths with suppliers: 1
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;

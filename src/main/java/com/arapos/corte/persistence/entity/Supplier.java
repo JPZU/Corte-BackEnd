@@ -23,7 +23,7 @@ public class Supplier {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
-    //    relationship: 0..*
+    //    relationship suppliers with cloths: 0..*
     @OneToMany(mappedBy = "supplier")
     private List<Cloth> clothsList;
 }

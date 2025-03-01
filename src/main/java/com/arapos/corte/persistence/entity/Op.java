@@ -30,17 +30,19 @@ public class Op {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
-//    relationship: 1..*
+//    relationship ops with item_referencess: 1..*
     @OneToMany(mappedBy = "op")
     private List<ItemReference> itemReferencesList;
 
-//    relationship: 1
+//    relationship ops with item_cloths: 1..*
+    @OneToMany(mappedBy = "op")
+    private List<ItemCloth> itemClothsList;
+
+//    relationship ops with users: 1
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    //    relationship: 1..*
-    @OneToMany(mappedBy = "op")
-    private List<ItemCloth> itemClothsList;
+
 
 }
