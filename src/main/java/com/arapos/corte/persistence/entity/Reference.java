@@ -22,4 +22,8 @@ public class Reference {
 
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
+
+    @OneToMany(mappedBy = "reference")
+    private List<ItemReference> itemReferences;
+
 }

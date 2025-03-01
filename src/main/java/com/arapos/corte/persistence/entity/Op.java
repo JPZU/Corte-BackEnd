@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "ops")
@@ -28,4 +29,9 @@ public class Op {
 
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
+
+    @OneToMany(mappedBy = "op")
+    private List<ItemReference> itemReferences;
+
+
 }
