@@ -32,7 +32,7 @@ public class User {
     private Rol role;
 
 //    relationship users with ops: 0..*
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE})
     private List<Op> opsList;
 
 //    relationship users with cloths: 0..*

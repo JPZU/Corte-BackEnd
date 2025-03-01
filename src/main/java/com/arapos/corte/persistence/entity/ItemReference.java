@@ -21,11 +21,11 @@ public class ItemReference {
 
 //    relationship item_referencess with ops: 1
     @ManyToOne
-    @JoinColumn(name = "op_id")
+    @JoinColumn(name = "op_id", nullable = false)
     private Op op;
 
 //   relationship item_referencess with referencess: 1
     @ManyToOne
-    @JoinColumn(name = "reference_id")
+    @JoinColumn(name = "reference_id", nullable = false)
     private Reference reference;
 }

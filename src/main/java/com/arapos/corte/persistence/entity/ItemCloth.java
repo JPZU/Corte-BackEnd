@@ -25,11 +25,11 @@ public class ItemCloth {
 
     //    relationship item_cloths with ops: 1
     @ManyToOne
-    @JoinColumn(name = "op_id")
+    @JoinColumn(name = "op_id", nullable = false)
     private Op op;
 
     //   relationship item_cloths with cloths: 1
     @ManyToOne
-    @JoinColumn(name = "cloth_id")
+    @JoinColumn(name = "cloth_id", nullable = false)
     private Cloth cloth;
 }
