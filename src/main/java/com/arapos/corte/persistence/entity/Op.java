@@ -1,0 +1,31 @@
+package com.arapos.corte.persistence.entity;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "ops")
+public class Op {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int opId;
+
+    @Column(name = "total_meters", precision = 8, scale = 2, nullable = false)
+    private BigDecimal totalMeters;
+
+    @Column(name = "quantity_cloths", nullable = false)
+    private int quantityCloths;
+
+    @Column(name = "schema_length", precision = 8, scale = 2, nullable = false)
+    private BigDecimal schemaLength;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "update_at", insertable = false, updatable = false)
+    private LocalDateTime updateAt;
+}
