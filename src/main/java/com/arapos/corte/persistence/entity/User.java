@@ -2,6 +2,7 @@ package com.arapos.corte.persistence.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,5 +30,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol role;
+
+//    relationship: 0..*
+    @OneToMany(mappedBy = "user")
+    private List<Op> opsList;
 
 }

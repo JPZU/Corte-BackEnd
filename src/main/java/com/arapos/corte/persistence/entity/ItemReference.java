@@ -19,10 +19,12 @@ public class ItemReference {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
+//    relationship: 1
     @ManyToOne
     @JoinColumn(name = "op_id")
     private Op op;
 
+//   relationship: 1
     @ManyToOne
     @JoinColumn(name = "reference_id")
     private Reference reference;

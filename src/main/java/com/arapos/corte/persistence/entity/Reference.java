@@ -23,7 +23,8 @@ public class Reference {
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
 
+//    relationship: 0..*
     @OneToMany(mappedBy = "reference")
-    private List<ItemReference> itemReferences;
+    private List<ItemReference> itemReferencesList;
 
 }
