@@ -4,6 +4,7 @@ package com.arapos.corte.persistence.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -22,4 +23,8 @@ public class Category {
 
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
+
+    //    relationship: 0..*
+    @OneToMany(mappedBy = "category")
+    private List<Cloth> clothsList;
 }

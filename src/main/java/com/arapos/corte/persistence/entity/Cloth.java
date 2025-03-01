@@ -38,4 +38,14 @@ public class Cloth {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    //    relationship: 1
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    //    relationship: 1
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 }

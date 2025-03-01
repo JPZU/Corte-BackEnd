@@ -1,12 +1,10 @@
 package com.arapos.corte.persistence.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
@@ -24,4 +22,8 @@ public class Supplier {
 
     @Column(name = "update_at", insertable = false, updatable = false)
     private LocalDateTime updateAt;
+
+    //    relationship: 0..*
+    @OneToMany(mappedBy = "supplier")
+    private List<Cloth> clothsList;
 }
