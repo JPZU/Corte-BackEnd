@@ -27,8 +27,8 @@ public class Cloth {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", insertable = false, updatable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
     //    relationship cloths with item_cloths: 0..*
     @OneToMany(mappedBy = "cloth")
@@ -48,4 +48,78 @@ public class Cloth {
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
+
+    public Cloth(){}
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public int getClothId() {
+        return clothId;
+    }
+
+    public void setClothId(int clothId) {
+        this.clothId = clothId;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<ItemCloth> getItemClothsList() {
+        return itemClothsList;
+    }
+
+    public void setItemClothsList(List<ItemCloth> itemClothsList) {
+        this.itemClothsList = itemClothsList;
+    }
+
+    public BigDecimal getMeters() {
+        return meters;
+    }
+
+    public void setMeters(BigDecimal meters) {
+        this.meters = meters;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

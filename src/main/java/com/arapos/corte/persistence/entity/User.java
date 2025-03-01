@@ -24,8 +24,8 @@ public class User {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", insertable = false, updatable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,4 +39,71 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Cloth> clothsList;
 
+    public User() {
+    }
+
+    public List<Cloth> getClothsList() {
+        return clothsList;
+    }
+
+    public void setClothsList(List<Cloth> clothsList) {
+        this.clothsList = clothsList;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Op> getOpsList() {
+        return opsList;
+    }
+
+    public void setOpsList(List<Op> opsList) {
+        this.opsList = opsList;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Rol getRole() {
+        return role;
+    }
+
+    public void setRole(Rol role) {
+        this.role = role;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

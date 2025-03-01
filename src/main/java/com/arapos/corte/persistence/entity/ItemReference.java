@@ -16,8 +16,8 @@ public class ItemReference {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", insertable = false, updatable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
 //    relationship item_referencess with ops: 1
     @ManyToOne
@@ -28,4 +28,38 @@ public class ItemReference {
     @ManyToOne
     @JoinColumn(name = "reference_id", nullable = false)
     private Reference reference;
+
+    public ItemReference() {}
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public int getItemReferenceId() {
+        return itemReferenceId;
+    }
+
+    public void setItemReferenceId(int itemReferenceId) {
+        this.itemReferenceId = itemReferenceId;
+    }
+
+    public Op getOp() {
+        return op;
+    }
+
+    public void setOp(Op op) {
+        this.op = op;
+    }
+
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }

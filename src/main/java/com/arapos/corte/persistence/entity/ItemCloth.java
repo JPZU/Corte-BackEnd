@@ -20,8 +20,8 @@ public class ItemCloth {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", insertable = false, updatable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
     //    relationship item_cloths with ops: 1
     @ManyToOne
@@ -32,4 +32,46 @@ public class ItemCloth {
     @ManyToOne
     @JoinColumn(name = "cloth_id", nullable = false)
     private Cloth cloth;
+
+    public ItemCloth(){}
+
+    public Cloth getCloth() {
+        return cloth;
+    }
+
+    public void setCloth(Cloth cloth) {
+        this.cloth = cloth;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public int getItemClothId() {
+        return itemClothId;
+    }
+
+    public void setItemClothId(int itemClothId) {
+        this.itemClothId = itemClothId;
+    }
+
+    public BigDecimal getMeters() {
+        return meters;
+    }
+
+    public void setMeters(BigDecimal meters) {
+        this.meters = meters;
+    }
+
+    public Op getOp() {
+        return op;
+    }
+
+    public void setOp(Op op) {
+        this.op = op;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }

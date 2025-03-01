@@ -27,8 +27,8 @@ public class Op {
     @Column(name = "created_at", insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", insertable = false, updatable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
 //    relationship ops with item_referencess: 1..*
     @OneToMany(mappedBy = "op")
@@ -43,6 +43,69 @@ public class Op {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public Op() {}
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
+    public List<ItemCloth> getItemClothsList() {
+        return itemClothsList;
+    }
+
+    public void setItemClothsList(List<ItemCloth> itemClothsList) {
+        this.itemClothsList = itemClothsList;
+    }
+
+    public List<ItemReference> getItemReferencesList() {
+        return itemReferencesList;
+    }
+
+    public void setItemReferencesList(List<ItemReference> itemReferencesList) {
+        this.itemReferencesList = itemReferencesList;
+    }
+
+    public int getOpId() {
+        return opId;
+    }
+
+    public void setOpId(int opId) {
+        this.opId = opId;
+    }
+
+    public int getQuantityCloths() {
+        return quantityCloths;
+    }
+
+    public void setQuantityCloths(int quantityCloths) {
+        this.quantityCloths = quantityCloths;
+    }
+
+    public BigDecimal getSchemaLength() {
+        return schemaLength;
+    }
+
+    public void setSchemaLength(BigDecimal schemaLength) {
+        this.schemaLength = schemaLength;
+    }
+
+    public BigDecimal getTotalMeters() {
+        return totalMeters;
+    }
+
+    public void setTotalMeters(BigDecimal totalMeters) {
+        this.totalMeters = totalMeters;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
