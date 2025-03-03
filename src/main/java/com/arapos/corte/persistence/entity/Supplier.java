@@ -11,7 +11,7 @@ import java.util.List;
 public class Supplier {
 
     @Id
-    @Column(name = "id", nullable = false, length = 50)
+    @Column(name = "id", nullable = false, length = 11)
     private String supplierId;
 
     @Column(length = 50, nullable = false)
