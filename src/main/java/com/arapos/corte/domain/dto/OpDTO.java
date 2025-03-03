@@ -26,4 +26,64 @@ public class OpDTO {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private UserResponseDTO user;
+
+    public OpDTO(){}
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public int getOpId() {
+        return opId;
+    }
+
+    public void setOpId(int opId) {
+        this.opId = opId;
+    }
+
+    public int getQuantityCloths() {
+        return quantityCloths;
+    }
+
+    public void setQuantityCloths(int quantityCloths) {
+        this.quantityCloths = quantityCloths;
+    }
+
+    public BigDecimal getSchemaLength() {
+        return schemaLength;
+    }
+
+    public void setSchemaLength(BigDecimal schemaLength) {
+        this.schemaLength = schemaLength;
+    }
+
+    public BigDecimal getTotalMeters() {
+        return totalMeters;
+    }
+
+    public void setTotalMeters(BigDecimal totalMeters) {
+        this.totalMeters = totalMeters;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public UserResponseDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserResponseDTO user) {
+        this.user = user;
+    }
 }
