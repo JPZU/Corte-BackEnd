@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ClothRepository {
     List<ClothDTO> getAll();
-    Optional<ClothDTO> getById(int id);
+    Optional<ClothDTO> getById(int clothId);
     Optional<ClothDTO> getByName(String name);
     List<ClothDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<ClothDTO> findByMetersEqualsZero();

@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public interface OpRepository {
     List<OpDTO> getAll();
-    Optional<OpDTO> getById(int id);
+    Optional<OpDTO> getById(int opId);
     List<OpDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    List<OpDTO> getByUserId(int id);
-    List<OpDTO> getByUserName(String name);
+    List<OpDTO> getByUserId(int userId);
+    List<OpDTO> getByUserName(String UserName);
     OpDTO save(OpDTO opDTO);
     void delete(OpDTO opDTO);
 }

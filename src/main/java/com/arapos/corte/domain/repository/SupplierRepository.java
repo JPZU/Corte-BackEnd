@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface SupplierRepository {
     List<SupplierDTO> getAll();
-    Optional<SupplierDTO> getById(String id);
+    Optional<SupplierDTO> getById(String supplierId);
     Optional<SupplierDTO> getByName(String name);
     List<SupplierDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     SupplierDTO save(SupplierDTO supplierDTO);

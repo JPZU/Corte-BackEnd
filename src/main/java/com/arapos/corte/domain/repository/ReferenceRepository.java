@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ReferenceRepository {
     List<ReferenceDTO> getAll();
-    Optional<ReferenceDTO> getById(String id);
+    Optional<ReferenceDTO> getById(String referenceId);
     List<ReferenceDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     ReferenceDTO save(ReferenceDTO referenceDTO);
     void delete(ReferenceDTO referenceDTO);
