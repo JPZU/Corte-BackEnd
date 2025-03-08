@@ -1,16 +1,18 @@
 package com.arapos.corte.domain.repository;
 
-import com.arapos.corte.domain.dto.CategoryDTO;
+import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
+import com.arapos.corte.domain.dto.Supplier.CreateSupplierDTO;
+import com.arapos.corte.persistence.entity.Category;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository {
-    List<CategoryDTO> getAll();
-    Optional<CategoryDTO> getById(int categoryId);
-    Optional<CategoryDTO> getByName(String name);
-    List<CategoryDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    CategoryDTO save(CategoryDTO categoryDTO);
-    void delete(CategoryDTO categoryDTO);
+    List<CategoryResponseDTO> getAll();
+    Optional<CategoryResponseDTO> getById(int categoryId);
+    Optional<CategoryResponseDTO> getByName(String name);
+    List<CategoryResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    CategoryResponseDTO save(Category category);
+    void delete(Category category);
 }

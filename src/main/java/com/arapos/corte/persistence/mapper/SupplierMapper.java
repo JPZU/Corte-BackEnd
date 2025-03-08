@@ -1,8 +1,8 @@
 package com.arapos.corte.persistence.mapper;
 
-import com.arapos.corte.domain.dto.SupplierDTO;
+import com.arapos.corte.domain.dto.Supplier.CreateSupplierDTO;
+import com.arapos.corte.domain.dto.Supplier.SupplierResponseDTO;
 import com.arapos.corte.persistence.entity.Supplier;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -13,12 +13,16 @@ public interface SupplierMapper {
             @Mapping(source = "supplierId", target = "supplierId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "updatedAt", target = "updatedAt"),
-            @Mapping(source = "user", target = "user")
+            @Mapping(source = "updatedAt", target = "updatedAt")
     })
-    SupplierDTO toSupplierDTO(Supplier supplier);
+    SupplierResponseDTO toSupplierResponseDTO(Supplier supplier);
 
-    @InheritInverseConfiguration
-    @Mapping(target = "clothsList", ignore = true)
-    Supplier toSupplier(SupplierDTO supplierDTO);
+    @Mappings({
+            @Mapping(source = "supplierId", target = "supplierId"),
+            @Mapping(source = "name", target = "name"),
+            @Mapping(target = "createdAt", ignore = true),
+            @Mapping(target = "updatedAt", ignore = true),
+            @Mapping(target = "clothsList", ignore = true),
+    })
+    Supplier toSupplier(CreateSupplierDTO createSupplierDTO);
 }

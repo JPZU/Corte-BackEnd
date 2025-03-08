@@ -1,27 +1,20 @@
-package com.arapos.corte.domain.dto;
+package com.arapos.corte.domain.dto.Cloth;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.DecimalMin;
+import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
+import com.arapos.corte.domain.dto.Supplier.SupplierResponseDTO;
+import com.arapos.corte.domain.dto.User.UserResponseDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ClothDTO {
+public class ClothResponseDTO {
 
     private int clothId;
 
-    @NotBlank(message = "Name cannot be blank")
-    @Size(max = 50, message = "Name must not exceed 50 character")
     private String name;
 
-    @NotBlank(message = "Color cannot be blank")
-    @Size(max = 50, message = "Color must not exceed 50 character")
     private String color;
 
-    @NotNull(message = "meters is required")
-    @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal meters;
 
     private LocalDateTime createdAt;
@@ -30,17 +23,17 @@ public class ClothDTO {
 
     private UserResponseDTO user;
 
-    private CategoryDTO category;
+    private CategoryResponseDTO category;
 
-    private SupplierDTO supplier;
+    private SupplierResponseDTO supplier;
 
-    public ClothDTO(){}
+    public ClothResponseDTO(){}
 
-    public CategoryDTO getCategory() {
+    public CategoryResponseDTO getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryDTO category) {
+    public void setCategory(CategoryResponseDTO category) {
         this.category = category;
     }
 
@@ -84,11 +77,11 @@ public class ClothDTO {
         this.name = name;
     }
 
-    public SupplierDTO getSupplier() {
+    public SupplierResponseDTO getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(SupplierDTO supplier) {
+    public void setSupplier(SupplierResponseDTO supplier) {
         this.supplier = supplier;
     }
 

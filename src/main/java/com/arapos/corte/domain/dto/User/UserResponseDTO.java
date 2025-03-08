@@ -1,4 +1,4 @@
-package com.arapos.corte.domain.dto;
+package com.arapos.corte.domain.dto.User;
 
 import com.arapos.corte.persistence.entity.Rol;
 
@@ -6,11 +6,10 @@ import java.time.LocalDateTime;
 
 public class UserResponseDTO {
 
-    private int id;
+    private int userId;
     private String name;
     private String email;
     private Rol role;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -30,14 +29,6 @@ public class UserResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -62,5 +53,13 @@ public class UserResponseDTO {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

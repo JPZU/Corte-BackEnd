@@ -1,17 +1,19 @@
 package com.arapos.corte.domain.repository;
 
-import com.arapos.corte.domain.dto.OpDTO;
+import com.arapos.corte.domain.dto.Op.CreateOpDTO;
+import com.arapos.corte.domain.dto.Op.OpResponseDTO;
+import com.arapos.corte.persistence.entity.Op;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface OpRepository {
-    List<OpDTO> getAll();
-    Optional<OpDTO> getById(int opId);
-    List<OpDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    List<OpDTO> getByUserId(int userId);
-    List<OpDTO> getByUserName(String UserName);
-    OpDTO save(OpDTO opDTO);
-    void delete(OpDTO opDTO);
+    List<OpResponseDTO> getAll();
+    Optional<OpResponseDTO> getById(int opId);
+    List<OpResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<OpResponseDTO> getByUserId(int userId);
+    List<OpResponseDTO> getByUserName(String UserName);
+    OpResponseDTO save(Op op);
+    void delete(Op op);
 }

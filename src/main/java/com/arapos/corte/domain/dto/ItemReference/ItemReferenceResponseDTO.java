@@ -1,8 +1,11 @@
-package com.arapos.corte.domain.dto;
+package com.arapos.corte.domain.dto.ItemReference;
+
+import com.arapos.corte.domain.dto.Op.OpResponseDTO;
+import com.arapos.corte.domain.dto.Reference.ReferenceResponseDTO;
 
 import java.time.LocalDateTime;
 
-public class ItemReferenceDTO {
+public class ItemReferenceResponseDTO {
 
     private int itemReferenceId;
 
@@ -10,11 +13,11 @@ public class ItemReferenceDTO {
 
     private LocalDateTime updatedAt;
 
-    private OpDTO op;
+    private OpResponseDTO op;
 
-    private ReferenceDTO reference;
+    private ReferenceResponseDTO reference;
 
-    public ItemReferenceDTO() {}
+    public ItemReferenceResponseDTO() {}
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -32,19 +35,19 @@ public class ItemReferenceDTO {
         this.itemReferenceId = itemReferenceId;
     }
 
-    public OpDTO getOp() {
+    public OpResponseDTO getOp() {
         return op;
     }
 
-    public void setOp(OpDTO op) {
+    public void setOp(OpResponseDTO op) {
         this.op = op;
     }
 
-    public ReferenceDTO getReference() {
+    public ReferenceResponseDTO getReference() {
         return reference;
     }
 
-    public void setReference(ReferenceDTO reference) {
+    public void setReference(ReferenceResponseDTO reference) {
         this.reference = reference;
     }
 

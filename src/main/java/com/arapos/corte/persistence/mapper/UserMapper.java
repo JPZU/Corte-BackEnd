@@ -1,18 +1,16 @@
 package com.arapos.corte.persistence.mapper;
 
-import com.arapos.corte.domain.dto.CreateUserDTO;
-import com.arapos.corte.domain.dto.UserResponseDTO;
+import com.arapos.corte.domain.dto.User.CreateUserDTO;
+import com.arapos.corte.domain.dto.User.UserResponseDTO;
 import com.arapos.corte.persistence.entity.User;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
+    // 📌 Convertir de Entity a Response DTO (para enviar datos al frontend)
     @Mappings({
-            @Mapping(source = "userId", target = "id"),
+            @Mapping(source = "userId", target = "userId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "role", target = "role"),
@@ -21,15 +19,17 @@ public interface UserMapper {
     })
     UserResponseDTO toUserResponseDTO(User user);
 
-    @InheritInverseConfiguration
+    // 📌 Convertir de Create DTO a Entity (para guardar en BD)
     @Mappings({
-            @Mapping(source = "userId", target = "userId"),
+            @Mapping(target = "userId", ignore = true), // Se generará automáticamente por la BD
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "role", target = "role"),
-            @Mapping(target = "clothsList", ignore = true),
-            @Mapping(target = "opsList", ignore = true)
+            @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(target = "opsList", ignore = true), // Evita mapear relaciones OneToMany
+            @Mapping(target = "clothsList", ignore = true)
     })
     User toUser(CreateUserDTO createUserDTO);
 }

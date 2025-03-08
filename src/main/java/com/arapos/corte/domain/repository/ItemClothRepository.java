@@ -1,18 +1,20 @@
 package com.arapos.corte.domain.repository;
 
-import com.arapos.corte.domain.dto.ItemClothDTO;
+import com.arapos.corte.domain.dto.ItemCloth.CreateItemClothDTO;
+import com.arapos.corte.domain.dto.ItemCloth.ItemClothResponseDTO;
+import com.arapos.corte.persistence.entity.ItemCloth;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface ItemClothRepository{
-    List<ItemClothDTO> getAll();
-    Optional<ItemClothDTO> getById(int itemClothId);
-    List<ItemClothDTO> findByClothId(int clothId);  // Buscar por tela
-    List<ItemClothDTO> findByOpId(int opId);        // Buscar por orden de producción (Op)
-    List<ItemClothDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    ItemClothDTO save(ItemClothDTO itemClothDTO);
-    void delete(ItemClothDTO itemClothDTO);
+    List<ItemClothResponseDTO> getAll();
+    Optional<ItemClothResponseDTO> getById(int itemClothId);
+    List<ItemClothResponseDTO> findByClothId(int clothId);  // Buscar por tela
+    List<ItemClothResponseDTO> findByOpId(int opId);        // Buscar por orden de producción (Op)
+    List<ItemClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    ItemClothResponseDTO save(ItemCloth itemCloth);
+    void delete(ItemCloth itemCloth);
 }
 

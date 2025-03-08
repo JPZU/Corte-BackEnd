@@ -1,6 +1,6 @@
 package com.arapos.corte.domain.repository;
 
-import com.arapos.corte.domain.dto.UserResponseDTO;
+import com.arapos.corte.domain.dto.User.UserResponseDTO;
 import com.arapos.corte.persistence.entity.User;
 
 import java.time.LocalDateTime;

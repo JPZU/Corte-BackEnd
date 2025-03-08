@@ -1,16 +1,18 @@
 package com.arapos.corte.domain.repository;
 
 
-import com.arapos.corte.domain.dto.ReferenceDTO;
+import com.arapos.corte.domain.dto.Reference.CreateReferenceDTO;
+import com.arapos.corte.domain.dto.Reference.ReferenceResponseDTO;
+import com.arapos.corte.persistence.entity.Reference;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface ReferenceRepository {
-    List<ReferenceDTO> getAll();
-    Optional<ReferenceDTO> getById(String referenceId);
-    List<ReferenceDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    ReferenceDTO save(ReferenceDTO referenceDTO);
-    void delete(ReferenceDTO referenceDTO);
+    List<ReferenceResponseDTO> getAll();
+    Optional<ReferenceResponseDTO> getById(String referenceId);
+    List<ReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    ReferenceResponseDTO save(Reference reference);
+    void delete(Reference reference);
 }

@@ -1,34 +1,32 @@
-package com.arapos.corte.domain.dto;
+package com.arapos.corte.domain.dto.ItemCloth;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
+import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
+import com.arapos.corte.domain.dto.Op.OpResponseDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ItemClothDTO {
+public class ItemClothResponseDTO {
 
     private int itemClothId;
 
-    @NotNull(message = "meters is required")
-    @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal meters;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    private OpDTO op;
+    private OpResponseDTO op;
 
-    private ClothDTO cloth;
+    private ClothResponseDTO cloth;
 
-    public ItemClothDTO() {}
+    public ItemClothResponseDTO() {}
 
-    public ClothDTO getCloth() {
+    public ClothResponseDTO getCloth() {
         return cloth;
     }
 
-    public void setCloth(ClothDTO cloth) {
+    public void setCloth(ClothResponseDTO cloth) {
         this.cloth = cloth;
     }
 
@@ -56,11 +54,11 @@ public class ItemClothDTO {
         this.meters = meters;
     }
 
-    public OpDTO getOp() {
+    public OpResponseDTO getOp() {
         return op;
     }
 
-    public void setOp(OpDTO op) {
+    public void setOp(OpResponseDTO op) {
         this.op = op;
     }
 

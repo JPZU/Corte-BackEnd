@@ -1,23 +1,21 @@
-package com.arapos.corte.domain.dto;
+package com.arapos.corte.domain.dto.Supplier;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-public class CategoryDTO {
+public class SupplierResponseDTO {
 
-    private int categoryId;
+    private String supplierId;
 
-    @NotBlank(message = "Name cannot be blank")
-    @Size(max = 50, message = "Name must not exceed 50 character")
     private String name;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    public CategoryDTO() {}
+    public SupplierResponseDTO() {}
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -27,20 +25,20 @@ public class CategoryDTO {
         this.createdAt = createdAt;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
     }
 
     public LocalDateTime getUpdatedAt() {

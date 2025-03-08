@@ -1,4 +1,4 @@
-package com.arapos.corte.domain.dto;
+package com.arapos.corte.domain.dto.User;
 
 import com.arapos.corte.persistence.entity.Rol;
 import jakarta.validation.constraints.Email;
@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class CreateUserDTO {
-
-    private int userId;
 
     @NotBlank(message = "Name cannot be blank")
     @Size(max = 50, message = "Name must not exceed 50 character")
@@ -57,13 +55,5 @@ public class CreateUserDTO {
 
     public void setRole(Rol role) {
         this.role = role;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 }
