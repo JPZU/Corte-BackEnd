@@ -78,7 +78,6 @@ public class CategoryRepositoryImp implements CategoryRepository {
         }
     }
 
-
     @Override
     public void delete(int categoryId) {
         if (categoryCrudRepository.existsById(categoryId)) {
