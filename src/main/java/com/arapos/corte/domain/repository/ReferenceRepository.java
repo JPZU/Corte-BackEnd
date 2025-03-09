@@ -13,6 +13,7 @@ public interface ReferenceRepository {
     List<ReferenceResponseDTO> getAll();
     Optional<ReferenceResponseDTO> getById(String referenceId);
     List<ReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    ReferenceResponseDTO save(Reference reference);
-    void delete(Reference reference);
+    ReferenceResponseDTO save(CreateReferenceDTO reference);
+    ReferenceResponseDTO update(CreateReferenceDTO reference);
+    void delete(String referenceId);
 }

@@ -58,6 +58,10 @@ public class SupplierRepositoryImp implements SupplierRepository {
             throw new IllegalArgumentException("Supplier ID is required for creating a new supplier.");
         }
 
+        if(supplierCrudRepository.existsById(createSupplierDTO.getSupplierId())){
+            throw new IllegalArgumentException("supplier already exists.");
+        }
+
         Supplier supplierEntity = supplierMapper.toSupplier(createSupplierDTO);
         Supplier savedSupplier = supplierCrudRepository.save(supplierEntity);
         return supplierMapper.toSupplierResponseDTO(savedSupplier);
