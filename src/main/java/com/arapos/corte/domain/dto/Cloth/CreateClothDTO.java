@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 
 public class CreateClothDTO {
 
+    private int clothId;
+
     @NotBlank(message = "Name cannot be blank")
     @Size(max = 50, message = "Name must not exceed 50 character")
     private String name;
@@ -81,5 +83,13 @@ public class CreateClothDTO {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getClothId() {
+        return clothId;
+    }
+
+    public void setClothId(int clothId) {
+        this.clothId = clothId;
     }
 }

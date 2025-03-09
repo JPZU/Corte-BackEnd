@@ -55,6 +55,10 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
     @Override
     public CategoryResponseDTO save(CreateCategoryDTO  createCategoryDTO){
+        // Verificamos si el ID ya existe en la BD
+        if (createCategoryDTO.getCategoryId() != 0) {
+            throw new IllegalArgumentException("ID cannot be present for create a new category.");
+        }
         Category categoryEntity = categoryMapper.toCategory(createCategoryDTO);
         Category savedCategory = categoryCrudRepository.save(categoryEntity);
         return categoryMapper.toCategoryResponseDTO(savedCategory);
