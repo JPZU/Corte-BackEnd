@@ -1,5 +1,6 @@
 package com.arapos.corte.domain.repository;
 
+import com.arapos.corte.domain.dto.Category.CreateCategoryDTO;
 import com.arapos.corte.domain.dto.Reference.CreateReferenceDTO;
 import com.arapos.corte.domain.dto.Supplier.CreateSupplierDTO;
 import com.arapos.corte.domain.dto.Supplier.SupplierResponseDTO;
@@ -15,6 +16,7 @@ public interface SupplierRepository {
     Optional<SupplierResponseDTO> getById(String supplierId);
     Optional<SupplierResponseDTO> getByName(String name);
     List<SupplierResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    SupplierResponseDTO save(Supplier supplier);
-    void delete(Supplier supplier);
+    SupplierResponseDTO save(CreateSupplierDTO supplier);
+    SupplierResponseDTO update(CreateSupplierDTO supplier);
+    void delete(String supplierId);
 }
