@@ -27,10 +27,10 @@ public interface ClothMapper {
 
     // Convertir de Create DTO a Entity (para guardar en BD)
     @Mappings({
+            @Mapping(source = "clothId", target = "clothId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "color", target = "color"),
             @Mapping(source = "meters", target = "meters"),
-            @Mapping(target = "clothId", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "itemClothsList", ignore = true), // Evita mapear relaciones OneToMany
