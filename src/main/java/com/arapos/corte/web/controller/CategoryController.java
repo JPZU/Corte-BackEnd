@@ -25,7 +25,7 @@ public class CategoryController {
     }
 
     // 🔹 Buscar una categoría por ID
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<CategoryResponseDTO> findById(@PathVariable("id") int categoryId) {
         return categoryService.getById(categoryId)
                 .map(categoryDTO -> new ResponseEntity<>(categoryDTO, HttpStatus.OK))
@@ -49,7 +49,7 @@ public class CategoryController {
     }
 
     // 🔹 Crear una nueva categoría
-    @PostMapping("/save")
+    @PostMapping("/create")
     public ResponseEntity<CategoryResponseDTO> save(@RequestBody CreateCategoryDTO createCategoryDTO) {
         return new ResponseEntity<>(categoryService.save(createCategoryDTO), HttpStatus.CREATED);
     }

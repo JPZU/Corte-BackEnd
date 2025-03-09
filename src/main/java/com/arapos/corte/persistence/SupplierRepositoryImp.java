@@ -54,25 +54,35 @@ public class SupplierRepositoryImp implements SupplierRepository {
 
     @Override
     public SupplierResponseDTO save(CreateSupplierDTO createSupplierDTO){
-        if(!createSupplierDTO.getSupplierId().isEmpty()){
-            throw new IllegalArgumentException("ID cannot be present for create a new supplier.");
+        if (createSupplierDTO.getSupplierId() == null || createSupplierDTO.getSupplierId().isEmpty()) {
+            throw new IllegalArgumentException("Supplier ID is required for creating a new supplier.");
         }
+
         Supplier supplierEntity = supplierMapper.toSupplier(createSupplierDTO);
         Supplier savedSupplier = supplierCrudRepository.save(supplierEntity);
         return supplierMapper.toSupplierResponseDTO(savedSupplier);
     }
 
+
     @Override
-    public SupplierResponseDTO update(CreateSupplierDTO createSupplierDTO){
+    public SupplierResponseDTO update(CreateSupplierDTO createSupplierDTO) {
+        if (createSupplierDTO.getSupplierId() == null || createSupplierDTO.getSupplierId().isEmpty()) {
+            throw new IllegalArgumentException("Supplier ID is required for updating a supplier.");
+        }
+
         Optional<Supplier> existingSupplier = supplierCrudRepository.findById(createSupplierDTO.getSupplierId());
-        if(existingSupplier.isPresent()){
+
+        if (existingSupplier.isPresent()) {
             Supplier supplierToUpdate = existingSupplier.get();
-            supplierToUpdate.setName(createSupplierDTO.getName());
-            return supplierMapper.toSupplierResponseDTO(supplierToUpdate);
+            supplierToUpdate.setName(createSupplierDTO.getName()); // Actualiza solo el nombre
+
+            Supplier updatedSupplier = supplierCrudRepository.save(supplierToUpdate); // 🔹 Guarda la actualización en BD
+            return supplierMapper.toSupplierResponseDTO(updatedSupplier);
         } else {
             throw new IllegalArgumentException("Supplier not found.");
         }
     }
+
 
     @Override
     public void delete(String supplierId){
