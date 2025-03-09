@@ -12,5 +12,6 @@ public interface CategoryRepository {
     Optional<CategoryResponseDTO> getByName(String name);
     List<CategoryResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     CategoryResponseDTO save(CreateCategoryDTO category);
+    CategoryResponseDTO update(CreateCategoryDTO category);
     void delete(int categoryId);
 }

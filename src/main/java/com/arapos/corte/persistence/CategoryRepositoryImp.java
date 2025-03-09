@@ -61,6 +61,21 @@ public class CategoryRepositoryImp implements CategoryRepository {
     }
 
     @Override
+    public CategoryResponseDTO update(CreateCategoryDTO categoryDTO) {
+        Optional<Category> existingCategory = categoryCrudRepository.findById(categoryDTO.getCategoryId());
+
+        if (existingCategory.isPresent()) {
+            Category categoryToUpdate = existingCategory.get();
+            categoryToUpdate.setName(categoryDTO.getName()); // ✅ Actualiza solo el nombre
+            Category updatedCategory = categoryCrudRepository.save(categoryToUpdate);
+            return categoryMapper.toCategoryResponseDTO(updatedCategory);
+        } else {
+            throw new RuntimeException("Category not found"); // Manejo de error
+        }
+    }
+
+
+    @Override
     public void delete(int categoryId) {
         if (categoryCrudRepository.existsById(categoryId)) {
             categoryCrudRepository.deleteById(categoryId);

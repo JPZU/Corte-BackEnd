@@ -36,6 +36,10 @@ public class CategoryService {
         return categoryRepository.save(createCategoryDTO);
     }
 
+    public CategoryResponseDTO update(CreateCategoryDTO categoryDTO) {
+        return categoryRepository.update(categoryDTO);
+    }
+
     public boolean delete(int categoryId) {
         if (categoryRepository.getById(categoryId).isPresent()) {
             categoryRepository.delete(categoryId);

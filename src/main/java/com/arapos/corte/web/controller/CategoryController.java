@@ -54,6 +54,11 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.save(createCategoryDTO), HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<CategoryResponseDTO> update(@RequestBody CreateCategoryDTO categoryDTO) {
+        return new ResponseEntity<>(categoryService.update(categoryDTO), HttpStatus.OK);
+    }
+
     // 🔹 Eliminar una categoría por ID
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") int categoryId) {

@@ -21,8 +21,8 @@ public interface CategoryMapper {
 
 //    CreateDTO -> Entity
     @Mappings({
+            @Mapping(source = "categoryId", target = "categoryId"),
             @Mapping(source = "name", target = "name"),
-            @Mapping(target = "categoryId", ignore = true),
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true),
             @Mapping(target = "clothsList", ignore = true)
