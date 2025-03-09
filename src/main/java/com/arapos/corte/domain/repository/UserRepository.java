@@ -1,6 +1,8 @@
 package com.arapos.corte.domain.repository;
 
+import com.arapos.corte.domain.dto.User.CreateUserDTO;
 import com.arapos.corte.domain.dto.User.UserResponseDTO;
+import com.arapos.corte.persistence.entity.Rol;
 import com.arapos.corte.persistence.entity.User;
 
 import java.time.LocalDateTime;
@@ -13,7 +15,8 @@ public interface UserRepository {
     Optional<UserResponseDTO> getByName(String name);
     Optional<UserResponseDTO> getByEmail(String email);
     List<UserResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    List<UserResponseDTO> findByRole(String role);
-    UserResponseDTO save(User user);
-    void delete(User user);
+    List<UserResponseDTO> findByRole(Rol role);
+    UserResponseDTO save(CreateUserDTO user);
+    UserResponseDTO update(CreateUserDTO user);
+    void delete(int userId);
 }

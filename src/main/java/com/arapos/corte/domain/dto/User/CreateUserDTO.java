@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 
 public class CreateUserDTO {
 
+    private int userId;
+
     @NotBlank(message = "Name cannot be blank")
     @Size(max = 50, message = "Name must not exceed 50 character")
     private String name;
@@ -55,5 +57,13 @@ public class CreateUserDTO {
 
     public void setRole(Rol role) {
         this.role = role;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

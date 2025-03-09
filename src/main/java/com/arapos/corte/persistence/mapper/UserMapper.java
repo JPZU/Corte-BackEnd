@@ -21,7 +21,7 @@ public interface UserMapper {
 
     // 📌 Convertir de Create DTO a Entity (para guardar en BD)
     @Mappings({
-            @Mapping(target = "userId", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(source = "userId",target = "userId"), // Se generará automáticamente por la BD
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "password", target = "password"),
