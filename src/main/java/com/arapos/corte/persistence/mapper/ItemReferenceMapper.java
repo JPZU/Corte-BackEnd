@@ -25,7 +25,7 @@ public interface ItemReferenceMapper {
 
     // 📌 Convertir de Create DTO a Entity (para guardar en BD)
     @Mappings({
-            @Mapping(target = "itemReferenceId", ignore = true),
+            @Mapping(source = "itemReferenceId",target = "itemReferenceId"),
             @Mapping(target = "op", expression = "java(mapOp(createItemReferenceDTO.getOpId()))"),
             @Mapping(target = "reference", expression = "java(mapReference(createItemReferenceDTO.getReferenceId()))")
     })

@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class CreateItemReferenceDTO {
 
+    private int itemReferenceId;
+
     @NotNull(message = "Op ID is required")
     private int opId;
 
@@ -26,5 +28,13 @@ public class CreateItemReferenceDTO {
 
     public void setReferenceId(String referenceId) {
         this.referenceId = referenceId;
+    }
+
+    public int getItemReferenceId() {
+        return itemReferenceId;
+    }
+
+    public void setItemReferenceId(int itemReferenceId) {
+        this.itemReferenceId = itemReferenceId;
     }
 }

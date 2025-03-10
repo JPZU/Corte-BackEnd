@@ -2,6 +2,7 @@ package com.arapos.corte.domain.repository;
 
 
 import com.arapos.corte.domain.dto.ItemCloth.CreateItemClothDTO;
+import com.arapos.corte.domain.dto.ItemReference.CreateItemReferenceDTO;
 import com.arapos.corte.domain.dto.ItemReference.ItemReferenceResponseDTO;
 import com.arapos.corte.persistence.entity.ItemReference;
 
@@ -12,9 +13,10 @@ import java.util.Optional;
 public interface ItemReferenceRepository {
     List<ItemReferenceResponseDTO> getAll();
     Optional<ItemReferenceResponseDTO> getById(int itemReferenceId);
+    List<ItemReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<ItemReferenceResponseDTO> findByReferenceId(String referenceId);
     List<ItemReferenceResponseDTO> findByOpId(int opId);
-    List<ItemReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    ItemReferenceResponseDTO save(ItemReference itemReference);
-    void delete(ItemReference itemReference);
+    ItemReferenceResponseDTO save(CreateItemReferenceDTO createItemReferenceDTO);
+    ItemReferenceResponseDTO update(CreateItemReferenceDTO createItemReferenceDTO);
+    void delete(int itemReference);
 }

@@ -4,7 +4,6 @@ package com.arapos.corte.domain.Service;
 import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
 import com.arapos.corte.domain.dto.Cloth.CreateClothDTO;
 import com.arapos.corte.domain.repository.ClothRepository;
-import com.arapos.corte.persistence.entity.Cloth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
