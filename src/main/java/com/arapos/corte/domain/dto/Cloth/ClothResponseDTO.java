@@ -100,4 +100,6 @@ public class ClothResponseDTO {
     public void setUser(UserResponseDTO user) {
         this.user = user;
     }
+
+
 }
