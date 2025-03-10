@@ -87,7 +87,9 @@ public class ClothController {
 
     // Eliminar un Cloth por ID
     @DeleteMapping("/delete/{clothId}")
-    public ResponseEntity<Void> delete(@PathVariable int clothId) {
-        return clothService.delete(clothId) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<Void> delete(@PathVariable("clothId") int clothId) {
+        return clothService.delete(clothId)
+                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND); // Categoría no encontrada
     }
 }
