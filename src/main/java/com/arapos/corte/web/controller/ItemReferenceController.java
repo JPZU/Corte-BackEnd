@@ -53,7 +53,7 @@ public class ItemReferenceController {
     }
 
     // Crear nuevo ítem de referencia
-    @PostMapping("/save")
+    @PostMapping("/create")
     public ResponseEntity<ItemReferenceResponseDTO> save(@RequestBody CreateItemReferenceDTO createItemReferenceDTO) {
         return new ResponseEntity<>(itemReferenceService.save(createItemReferenceDTO), HttpStatus.CREATED);
     }
