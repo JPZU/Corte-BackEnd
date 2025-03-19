@@ -24,7 +24,7 @@ public interface ItemClothMapper {
     // 📌 Convertir de Create DTO a Entity (para guardar en BD)
     @Mappings({
             @Mapping(source = "meters", target = "meters"),
-            @Mapping(target = "itemClothId", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(source = "itemClothId", target = "itemClothId"),
             @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "op", expression = "java(mapOp(createItemClothDTO.getOpId()))"), // Asigna el ID a la entidad Op

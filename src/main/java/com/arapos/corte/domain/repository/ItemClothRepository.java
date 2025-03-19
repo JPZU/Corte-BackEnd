@@ -14,7 +14,8 @@ public interface ItemClothRepository{
     List<ItemClothResponseDTO> findByClothId(int clothId);  // Buscar por tela
     List<ItemClothResponseDTO> findByOpId(int opId);        // Buscar por orden de producción (Op)
     List<ItemClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    ItemClothResponseDTO save(ItemCloth itemCloth);
-    void delete(ItemCloth itemCloth);
+    ItemClothResponseDTO save(CreateItemClothDTO createItemClothDTO);
+    ItemClothResponseDTO update(CreateItemClothDTO createItemClothDTO);
+    void delete(int itemClothId);
 }
 

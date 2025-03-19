@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 
 public class CreateItemClothDTO {
 
+    private int itemClothId;
+
     @NotNull(message = "meters is required")
     @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal meters;
@@ -42,5 +44,13 @@ public class CreateItemClothDTO {
 
     public void setOpId(int opId) {
         this.opId = opId;
+    }
+
+    public int getItemClothId() {
+        return itemClothId;
+    }
+
+    public void setItemClothId(int itemClothId) {
+        this.itemClothId = itemClothId;
     }
 }
