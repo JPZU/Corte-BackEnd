@@ -27,7 +27,7 @@ public interface OpMapper {
             @Mapping(source = "totalMeters", target = "totalMeters"),
             @Mapping(source = "quantityCloths", target = "quantityCloths"),
             @Mapping(source = "schemaLength", target = "schemaLength"),
-            @Mapping(target = "opId", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(source = "opId", target = "opId"), // Para poder actualizar
             @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "itemReferencesList", ignore = true), // Evita mapear relaciones OneToMany

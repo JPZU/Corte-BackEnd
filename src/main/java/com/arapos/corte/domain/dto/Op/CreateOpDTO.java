@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 
 public class CreateOpDTO {
 
+    private int opId;
+
     @NotNull(message = "Total meters is required")
     @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal totalMeters;
@@ -53,5 +55,13 @@ public class CreateOpDTO {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getOpId() {
+        return opId;
+    }
+
+    public void setOpId(int opId) {
+        this.opId = opId;
     }
 }

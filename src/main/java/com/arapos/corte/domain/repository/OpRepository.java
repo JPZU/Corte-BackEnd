@@ -13,7 +13,7 @@ public interface OpRepository {
     Optional<OpResponseDTO> getById(int opId);
     List<OpResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<OpResponseDTO> getByUserId(int userId);
-    List<OpResponseDTO> getByUserName(String UserName);
-    OpResponseDTO save(Op op);
-    void delete(Op op);
+    OpResponseDTO save(CreateOpDTO createOpDTO);
+    OpResponseDTO update(CreateOpDTO createOpDTO);
+    void delete(int opId);
 }
