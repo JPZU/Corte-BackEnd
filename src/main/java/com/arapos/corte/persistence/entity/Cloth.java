@@ -30,6 +30,9 @@ public class Cloth {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "is_active", nullable = false, columnDefinition = "TINYINT(1)")
+    private boolean isActive;
+
     //    relationship cloths with item_cloths: 0..*
     @OneToMany(mappedBy = "cloth")
     private List<ItemCloth> itemClothsList;
@@ -121,5 +124,13 @@ public class Cloth {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean active) {
+        isActive = active;
     }
 }

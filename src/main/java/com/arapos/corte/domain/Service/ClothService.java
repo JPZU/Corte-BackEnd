@@ -21,6 +21,14 @@ public class ClothService {
         return clothRepository.getAll();
     }
 
+    public List<ClothResponseDTO> getIsActive(){
+        return clothRepository.findByIsActiveTrue();
+    }
+
+    public List<ClothResponseDTO> getIsNotActive(){
+        return clothRepository.findByIsActiveFalse();
+    }
+
     public Optional<ClothResponseDTO> getById(int clothId){
         return clothRepository.getById(clothId);
     }
@@ -33,9 +41,6 @@ public class ClothService {
         return clothRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
-    public List<ClothResponseDTO> getByMetersEqualsZero() {
-        return clothRepository.findByMeters(BigDecimal.ZERO);
-    }
 
     public List<ClothResponseDTO> getBySupplierId(String supplierId){
         return clothRepository.findBySupplierId(supplierId);

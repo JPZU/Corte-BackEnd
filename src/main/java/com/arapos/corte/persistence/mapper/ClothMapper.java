@@ -21,7 +21,8 @@ public interface ClothMapper {
             @Mapping(source = "updatedAt", target = "updatedAt"),
             @Mapping(source = "user", target = "user"), // Usa UserMapper
             @Mapping(source = "category", target = "category"), // Usa CategoryMapper
-            @Mapping(source = "supplier", target = "supplier") // Usa SupplierMapper
+            @Mapping(source = "supplier", target = "supplier"), // Usa SupplierMapper
+            @Mapping(source = "isActive", target = "isActive"),
     })
     ClothResponseDTO toClothResponseDTO(Cloth cloth);
 
@@ -36,7 +37,8 @@ public interface ClothMapper {
             @Mapping(target = "itemClothsList", ignore = true), // Evita mapear relaciones OneToMany
             @Mapping(target = "user", expression = "java(mapUser(createClothDTO.getUserId()))"), // Convierte ID a entidad
             @Mapping(target = "category", expression = "java(mapCategory(createClothDTO.getCategoryId()))"), // Convierte ID a entidad
-            @Mapping(target = "supplier", expression = "java(mapSupplier(createClothDTO.getSupplierId()))") // Convierte ID a entidad
+            @Mapping(target = "supplier", expression = "java(mapSupplier(createClothDTO.getSupplierId()))"),// Convierte ID a entidad
+            @Mapping(source = "isActive", target = "isActive"),
     })
     Cloth toCloth(CreateClothDTO createClothDTO);
 

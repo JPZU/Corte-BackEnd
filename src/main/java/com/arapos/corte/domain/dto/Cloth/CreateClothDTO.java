@@ -35,6 +35,9 @@ public class CreateClothDTO {
     @NotNull(message = "Supplier ID is required")
     private String supplierId;
 
+    @NotNull(message = "isActive is required")
+    private Boolean isActive;
+
     public CreateClothDTO() {}
 
     public int getCategoryId() {
@@ -91,5 +94,13 @@ public class CreateClothDTO {
 
     public void setClothId(int clothId) {
         this.clothId = clothId;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean active) {
+        isActive = active;
     }
 }

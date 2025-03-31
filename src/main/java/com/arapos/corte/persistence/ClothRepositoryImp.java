@@ -54,14 +54,6 @@ public class ClothRepositoryImp implements ClothRepository {
     }
 
     @Override
-    public List<ClothResponseDTO> findByMeters(BigDecimal meters){
-        Iterable<Cloth> cloths = clothCrudRepository.findByMeters(meters);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<ClothResponseDTO> findBySupplierId(String supplierName){
         Iterable<Cloth> cloths = clothCrudRepository.findBySupplier_SupplierId(supplierName);
         return StreamSupport.stream(cloths.spliterator(), false)
@@ -91,6 +83,7 @@ public class ClothRepositoryImp implements ClothRepository {
             throw new IllegalArgumentException("Id cannot be present for create a new cloth");
         }
         Cloth clothEntity = clothMapper.toCloth(createClothDTO);
+        clothEntity.setIsActive(createClothDTO.getIsActive()); // 💡 Agrega esta línea
         Cloth savedCloth = clothCrudRepository.save(clothEntity);
         return clothMapper.toClothResponseDTO(savedCloth);
     }
@@ -106,6 +99,8 @@ public class ClothRepositoryImp implements ClothRepository {
             clothToUpdate.setName(createClothDTO.getName());
             clothToUpdate.setColor(createClothDTO.getColor());
             clothToUpdate.setMeters(createClothDTO.getMeters());
+            clothToUpdate.setIsActive(createClothDTO.getIsActive()); // 💡 Agrega esta línea también
+
 
             // Mapear entidades usando el Mapper
             clothToUpdate.setUser(clothMapper.mapUser(createClothDTO.getUserId()));
@@ -120,6 +115,22 @@ public class ClothRepositoryImp implements ClothRepository {
         } else {
             throw new IllegalArgumentException("Cloth not found with ID: " + createClothDTO.getClothId());
         }
+    }
+
+    @Override
+    public List<ClothResponseDTO> findByIsActiveTrue() {
+        Iterable<Cloth> cloths = clothCrudRepository.findByIsActiveTrue();
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClothResponseDTO> findByIsActiveFalse() {
+        Iterable<Cloth> cloths = clothCrudRepository.findByIsActiveFalse();
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

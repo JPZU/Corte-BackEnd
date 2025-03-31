@@ -27,6 +27,8 @@ public class ClothResponseDTO {
 
     private SupplierResponseDTO supplier;
 
+    private Boolean isActive;
+
     public ClothResponseDTO(){}
 
     public CategoryResponseDTO getCategory() {
@@ -101,5 +103,11 @@ public class ClothResponseDTO {
         this.user = user;
     }
 
+    public Boolean getIsActive() {
+        return isActive;
+    }
 
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 }

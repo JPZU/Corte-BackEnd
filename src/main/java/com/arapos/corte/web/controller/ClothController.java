@@ -50,9 +50,15 @@ public class ClothController {
     }
 
     // Obtener Cloths con metros igual a 0
-    @GetMapping("/meters-zero")
-    public ResponseEntity<List<ClothResponseDTO>> getByMetersEqualsZero() {
-        return ResponseEntity.ok(clothService.getByMetersEqualsZero());
+    @GetMapping("/is-active")
+    public ResponseEntity<List<ClothResponseDTO>> getIsActive() {
+        return ResponseEntity.ok(clothService.getIsActive());
+    }
+
+    // Obtener Cloths con metros igual a 0
+    @GetMapping("/is-not-active")
+    public ResponseEntity<List<ClothResponseDTO>> getIsNotActive() {
+        return ResponseEntity.ok(clothService.getIsNotActive());
     }
 
     // Obtener Cloths por nombre de proveedor

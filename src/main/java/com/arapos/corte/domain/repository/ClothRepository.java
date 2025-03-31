@@ -14,10 +14,11 @@ public interface ClothRepository {
     Optional<ClothResponseDTO> getById(int clothId);
     Optional<ClothResponseDTO> getByName(String name);
     List<ClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
-    List<ClothResponseDTO> findByMeters(BigDecimal meters);
     List<ClothResponseDTO> findBySupplierId(String supplierId);
     List<ClothResponseDTO> findByCategoryId(int categoryId);
     List<ClothResponseDTO> findByUserId(int userId);
+    List<ClothResponseDTO> findByIsActiveTrue();
+    List<ClothResponseDTO> findByIsActiveFalse();
     ClothResponseDTO save(CreateClothDTO cloth);
     ClothResponseDTO update(CreateClothDTO cloth);
     void delete(int clothId);
