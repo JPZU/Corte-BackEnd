@@ -10,6 +10,10 @@ import java.util.List;
 @Table(name = "categories")
 public class Category {
 
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -18,17 +22,39 @@ public class Category {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false,
+    updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @Column(name = "updated_at", insertable = false,
+    updatable = false)
     private LocalDateTime updatedAt;
+
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
 
     //    relationship categories with cloths: 0..*
     @OneToMany(mappedBy = "category")
     private List<Cloth> clothsList;
 
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public Category() {}
+
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
 
     public int getCategoryId() {
         return categoryId;
@@ -36,18 +62,6 @@ public class Category {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public List<Cloth> getClothsList() {
-        return clothsList;
-    }
-
-    public void setClothsList(List<Cloth> clothsList) {
-        this.clothsList = clothsList;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public String getName() {
@@ -58,7 +72,31 @@ public class Category {
         this.name = name;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    public List<Cloth> getClothsList() {
+        return clothsList;
+    }
+
+    public void setClothsList(List<Cloth> clothsList) {
+        this.clothsList = clothsList;
+    }
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }

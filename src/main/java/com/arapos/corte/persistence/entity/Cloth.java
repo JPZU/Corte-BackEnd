@@ -10,6 +10,10 @@ import java.util.List;
 @Table(name = "cloths")
 public class Cloth {
 
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,18 +28,33 @@ public class Cloth {
     @Column(precision = 8, scale = 2, nullable = false)
     private BigDecimal meters;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false,
+    updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @Column(name = "updated_at", insertable = false,
+    updatable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_active", nullable = false, columnDefinition = "TINYINT(1)")
+    @Column(name = "is_active", nullable = false,
+    columnDefinition = "TINYINT(1)")
     private boolean isActive;
+
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
 
     //    relationship cloths with item_cloths: 0..*
     @OneToMany(mappedBy = "cloth")
     private List<ItemCloth> itemClothsList;
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 
     //    relationship cloths with users: 1
     @ManyToOne
@@ -52,15 +71,15 @@ public class Cloth {
     @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public Cloth(){}
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
 
     public int getClothId() {
         return clothId;
@@ -68,34 +87,6 @@ public class Cloth {
 
     public void setClothId(int clothId) {
         this.clothId = clothId;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public List<ItemCloth> getItemClothsList() {
-        return itemClothsList;
-    }
-
-    public void setItemClothsList(List<ItemCloth> itemClothsList) {
-        this.itemClothsList = itemClothsList;
-    }
-
-    public BigDecimal getMeters() {
-        return meters;
-    }
-
-    public void setMeters(BigDecimal meters) {
-        this.meters = meters;
     }
 
     public String getName() {
@@ -106,24 +97,28 @@ public class Cloth {
         this.name = name;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public String getColor() {
+        return color;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public BigDecimal getMeters() {
+        return meters;
+    }
+
+    public void setMeters(BigDecimal meters) {
+        this.meters = meters;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public boolean getIsActive() {
@@ -132,5 +127,49 @@ public class Cloth {
 
     public void setIsActive(boolean active) {
         isActive = active;
+    }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    public List<ItemCloth> getItemClothsList() {
+        return itemClothsList;
+    }
+
+    public void setItemClothsList(List<ItemCloth> itemClothsList) {
+        this.itemClothsList = itemClothsList;
+    }
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

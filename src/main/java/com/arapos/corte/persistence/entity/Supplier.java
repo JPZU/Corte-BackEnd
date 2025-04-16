@@ -10,6 +10,10 @@ import java.util.List;
 @Table(name = "suppliers")
 public class Supplier {
 
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @Column(name = "id", nullable = false, length = 11)
     private String supplierId;
@@ -23,22 +27,38 @@ public class Supplier {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
     //    relationship suppliers with cloths: 0..*
     @OneToMany(mappedBy = "supplier")
     private List<Cloth> clothsList;
 
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public Supplier() {}
 
-    public List<Cloth> getClothsList() {
-        return clothsList;
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
+
+    public String getSupplierId() {
+        return supplierId;
     }
 
-    public void setClothsList(List<Cloth> clothsList) {
-        this.clothsList = clothsList;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
     }
 
     public String getName() {
@@ -49,15 +69,31 @@ public class Supplier {
         this.name = name;
     }
 
-    public String getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    public List<Cloth> getClothsList() {
+        return clothsList;
+    }
+
+    public void setClothsList(List<Cloth> clothsList) {
+        this.clothsList = clothsList;
+    }
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }

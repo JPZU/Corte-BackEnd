@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 @Table(name = "item_referencess")
 public class ItemReference {
 
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -19,6 +23,18 @@ public class ItemReference {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
 //    relationship item_referencess with ops: 1
     @ManyToOne
     @JoinColumn(name = "op_id", nullable = false)
@@ -29,11 +45,15 @@ public class ItemReference {
     @JoinColumn(name = "reference_id", nullable = false)
     private Reference reference;
 
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public ItemReference() {}
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
 
     public int getItemReferenceId() {
         return itemReferenceId;
@@ -42,6 +62,26 @@ public class ItemReference {
     public void setItemReferenceId(int itemReferenceId) {
         this.itemReferenceId = itemReferenceId;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 
     public Op getOp() {
         return op;
@@ -57,9 +97,5 @@ public class ItemReference {
 
     public void setReference(Reference reference) {
         this.reference = reference;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
     }
 }

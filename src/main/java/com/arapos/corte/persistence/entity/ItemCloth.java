@@ -9,6 +9,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "item_cloths")
 public class ItemCloth {
+
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,6 +28,18 @@ public class ItemCloth {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
     //    relationship item_cloths with ops: 1
     @ManyToOne
     @JoinColumn(name = "op_id", nullable = false)
@@ -33,19 +50,15 @@ public class ItemCloth {
     @JoinColumn(name = "cloth_id", nullable = false)
     private Cloth cloth;
 
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public ItemCloth(){}
 
-    public Cloth getCloth() {
-        return cloth;
-    }
-
-    public void setCloth(Cloth cloth) {
-        this.cloth = cloth;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
 
     public int getItemClothId() {
         return itemClothId;
@@ -63,6 +76,26 @@ public class ItemCloth {
         this.meters = meters;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
     public Op getOp() {
         return op;
     }
@@ -71,7 +104,11 @@ public class ItemCloth {
         this.op = op;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public Cloth getCloth() {
+        return cloth;
+    }
+
+    public void setCloth(Cloth cloth) {
+        this.cloth = cloth;
     }
 }

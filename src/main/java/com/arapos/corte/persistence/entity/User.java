@@ -7,6 +7,11 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
+
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,15 +26,25 @@ public class User {
     @Column(length = 255, nullable = false)
     private String password;
 
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false,
+    updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    @Column(name = "updated_at", insertable = false,
+    updatable = false)
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol role;
+
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
 
 //    relationship users with ops: 0..*
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE})
@@ -39,28 +54,26 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Cloth> clothsList;
 
-    public User() {
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
+    public User(){}
+
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
+
+    public int getUserId() {
+        return userId;
     }
 
-    public List<Cloth> getClothsList() {
-        return clothsList;
-    }
-
-    public void setClothsList(List<Cloth> clothsList) {
-        this.clothsList = clothsList;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -71,12 +84,12 @@ public class User {
         this.name = name;
     }
 
-    public List<Op> getOpsList() {
-        return opsList;
+    public String getEmail() {
+        return email;
     }
 
-    public void setOpsList(List<Op> opsList) {
-        this.opsList = opsList;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -87,6 +100,14 @@ public class User {
         this.password = password;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public Rol getRole() {
         return role;
     }
@@ -95,15 +116,31 @@ public class User {
         this.role = role;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
+    public List<Cloth> getClothsList() {
+        return clothsList;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setClothsList(List<Cloth> clothsList) {
+        this.clothsList = clothsList;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public List<Op> getOpsList() {
+        return opsList;
     }
+
+    public void setOpsList(List<Op> opsList) {
+        this.opsList = opsList;
+    }
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }

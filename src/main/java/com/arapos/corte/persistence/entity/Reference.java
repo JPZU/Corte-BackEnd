@@ -10,6 +10,10 @@ import java.util.List;
 @Table(name = "referencess")
 public class Reference {
 
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
+
     @Id
     @Column(name = "id", nullable = false, length = 50)
     private String referenceId;
@@ -23,14 +27,38 @@ public class Reference {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
 //  relationship referencess with item_referencess: 0..*
     @OneToMany(mappedBy = "reference")
     private List<ItemReference> itemReferencesList;
 
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public Reference() {}
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
+
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
     }
 
     public String getDescription() {
@@ -41,6 +69,22 @@ public class Reference {
         this.description = description;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            oneToMany
+    ------------------------ */
+
     public List<ItemReference> getItemReferencesList() {
         return itemReferencesList;
     }
@@ -49,15 +93,7 @@ public class Reference {
         this.itemReferencesList = itemReferencesList;
     }
 
-    public String getReferenceId() {
-        return referenceId;
-    }
-
-    public void setReferenceId(String referenceId) {
-        this.referenceId = referenceId;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }
