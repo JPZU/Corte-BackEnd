@@ -7,6 +7,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OpCrudRepository extends CrudRepository<Op, Integer> {
+    /* --------------------------------------------------------
+                            METHOD CLASS
+    --------------------------------------------------------- */
     List<Op> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    /* --------------------------------------------------------
+                        METHOD REAlATIONSHIP
+    --------------------------------------------------------- */
     List<Op> findByUser_UserId(int userId);
 }

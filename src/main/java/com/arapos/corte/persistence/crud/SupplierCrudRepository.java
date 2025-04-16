@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SupplierCrudRepository extends CrudRepository<Supplier, String> {
+    /* --------------------------------------------------------
+                            METHOD CLASS
+    --------------------------------------------------------- */
     Optional<Supplier> findByName(String name);
     List<Supplier> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    /* --------------------------------------------------------
+                        METHOD REAlATIONSHIP
+    --------------------------------------------------------- */
 }

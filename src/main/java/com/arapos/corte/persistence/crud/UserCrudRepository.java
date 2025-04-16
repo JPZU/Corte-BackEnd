@@ -9,8 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserCrudRepository extends CrudRepository<User, Integer> {
+    /* --------------------------------------------------------
+                            METHOD CLASS
+    --------------------------------------------------------- */
     Optional<User> findByName(String name);
     Optional<User> findByEmail(String email);
     List<User> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<User> findByRole(Rol rol);
+    /* --------------------------------------------------------
+                        METHOD REAlATIONSHIP
+    --------------------------------------------------------- */
 }

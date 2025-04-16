@@ -7,7 +7,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ItemClothCrudRepository extends CrudRepository<ItemCloth, Integer> {
+    /* --------------------------------------------------------
+                            METHOD CLASS
+    --------------------------------------------------------- */
+    List<ItemCloth> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    /* --------------------------------------------------------
+                        METHOD REAlATIONSHIP
+    --------------------------------------------------------- */
     List<ItemCloth> findByOp_OpId(int opId);
     List<ItemCloth> findByCloth_ClothId(int clothId);
-    List<ItemCloth> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
 }

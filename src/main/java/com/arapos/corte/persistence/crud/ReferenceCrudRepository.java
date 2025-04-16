@@ -7,5 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReferenceCrudRepository extends CrudRepository<Reference, String> {
+    /* --------------------------------------------------------
+                            METHOD CLASS
+    --------------------------------------------------------- */
     List<Reference> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    /* --------------------------------------------------------
+                        METHOD REAlATIONSHIP
+    --------------------------------------------------------- */
 }
