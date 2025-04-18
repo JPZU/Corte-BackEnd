@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class CreateSupplierDTO {
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
 
     @NotBlank(message = "Supplier id cannot be blank")
     @Size(max = 11, message = "Supplier id must not exceed 11 character")
@@ -13,8 +16,22 @@ public class CreateSupplierDTO {
     @Size(max = 50, message = "Name must not exceed 50 character")
     private String name;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public CreateSupplierDTO() {}
 
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
     public String getName() {
         return name;
     }
@@ -30,4 +47,12 @@ public class CreateSupplierDTO {
     public void setSupplierId(String supplierId) {
         this.supplierId = supplierId;
     }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }

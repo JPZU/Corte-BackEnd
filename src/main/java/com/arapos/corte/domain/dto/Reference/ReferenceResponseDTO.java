@@ -1,22 +1,31 @@
 package com.arapos.corte.domain.dto.Reference;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import java.time.LocalDateTime;
 
 public class ReferenceResponseDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private String referenceId;
-
     private String description;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public ReferenceResponseDTO() {}
 
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -48,4 +57,12 @@ public class ReferenceResponseDTO {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }

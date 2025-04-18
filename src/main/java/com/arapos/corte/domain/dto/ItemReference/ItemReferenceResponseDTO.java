@@ -6,19 +6,31 @@ import com.arapos.corte.domain.dto.Reference.ReferenceResponseDTO;
 import java.time.LocalDateTime;
 
 public class ItemReferenceResponseDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private int itemReferenceId;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
-    private OpResponseDTO op;
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
 
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+    private OpResponseDTO op;
     private ReferenceResponseDTO reference;
 
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public ItemReferenceResponseDTO() {}
 
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -35,6 +47,21 @@ public class ItemReferenceResponseDTO {
         this.itemReferenceId = itemReferenceId;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
     public OpResponseDTO getOp() {
         return op;
     }
@@ -49,13 +76,5 @@ public class ItemReferenceResponseDTO {
 
     public void setReference(ReferenceResponseDTO reference) {
         this.reference = reference;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

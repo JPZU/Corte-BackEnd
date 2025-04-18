@@ -1,45 +1,51 @@
 package com.arapos.corte.domain.dto.Op;
 
 import com.arapos.corte.domain.dto.User.UserResponseDTO;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OpResponseDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private int opId;
-
     private BigDecimal totalMeters;
-
     private int quantityCloths;
-
     private BigDecimal schemaLength;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
     private UserResponseDTO user;
 
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public OpResponseDTO() {}
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
     public int getOpId() {
         return opId;
     }
 
     public void setOpId(int opId) {
         this.opId = opId;
+    }
+
+    public BigDecimal getTotalMeters() {
+        return totalMeters;
+    }
+
+    public void setTotalMeters(BigDecimal totalMeters) {
+        this.totalMeters = totalMeters;
     }
 
     public int getQuantityCloths() {
@@ -58,12 +64,12 @@ public class OpResponseDTO {
         this.schemaLength = schemaLength;
     }
 
-    public BigDecimal getTotalMeters() {
-        return totalMeters;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setTotalMeters(BigDecimal totalMeters) {
-        this.totalMeters = totalMeters;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {
@@ -74,6 +80,13 @@ public class OpResponseDTO {
         this.updatedAt = updatedAt;
     }
 
+    /* --------------------------------------------------------
+    GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
     public UserResponseDTO getUser() {
         return user;
     }

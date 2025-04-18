@@ -3,17 +3,30 @@ package com.arapos.corte.domain.dto.Category;
 import java.time.LocalDateTime;
 
 public class CategoryResponseDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private int categoryId;
-
     private String name;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public CategoryResponseDTO() {}
 
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
     public int getCategoryId() {
         return categoryId;
     }
@@ -45,4 +58,12 @@ public class CategoryResponseDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }

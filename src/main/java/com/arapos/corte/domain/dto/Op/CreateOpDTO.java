@@ -6,7 +6,9 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class CreateOpDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private int opId;
 
     @NotNull(message = "Total meters is required")
@@ -21,9 +23,39 @@ public class CreateOpDTO {
     @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal schemaLength;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
     private int userId;
 
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
+
     public CreateOpDTO(){}
+
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
+    public int getOpId() {
+        return opId;
+    }
+
+    public void setOpId(int opId) {
+        this.opId = opId;
+    }
+
+    public BigDecimal getTotalMeters() {
+        return totalMeters;
+    }
+
+    public void setTotalMeters(BigDecimal totalMeters) {
+        this.totalMeters = totalMeters;
+    }
 
     public int getQuantityCloths() {
         return quantityCloths;
@@ -41,13 +73,13 @@ public class CreateOpDTO {
         this.schemaLength = schemaLength;
     }
 
-    public BigDecimal getTotalMeters() {
-        return totalMeters;
-    }
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
 
-    public void setTotalMeters(BigDecimal totalMeters) {
-        this.totalMeters = totalMeters;
-    }
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 
     public int getUserId() {
         return userId;
@@ -55,13 +87,5 @@ public class CreateOpDTO {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getOpId() {
-        return opId;
-    }
-
-    public void setOpId(int opId) {
-        this.opId = opId;
     }
 }

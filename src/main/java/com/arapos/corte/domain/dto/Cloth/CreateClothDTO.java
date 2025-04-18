@@ -1,8 +1,5 @@
 package com.arapos.corte.domain.dto.Cloth;
 
-import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
-import com.arapos.corte.domain.dto.Supplier.SupplierResponseDTO;
-import com.arapos.corte.domain.dto.User.UserResponseDTO;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +8,9 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public class CreateClothDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private int clothId;
 
     @NotBlank(message = "Name cannot be blank")
@@ -26,6 +25,17 @@ public class CreateClothDTO {
     @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal meters;
 
+    @NotNull(message = "isActive is required")
+    private Boolean isActive;
+
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
     @NotNull(message = "User ID is required")
     private int userId;
 
@@ -35,18 +45,13 @@ public class CreateClothDTO {
     @NotNull(message = "Supplier ID is required")
     private String supplierId;
 
-    @NotNull(message = "isActive is required")
-    private Boolean isActive;
-
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public CreateClothDTO() {}
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
 
     public String getColor() {
         return color;
@@ -72,6 +77,30 @@ public class CreateClothDTO {
         this.name = name;
     }
 
+    public int getClothId() {
+        return clothId;
+    }
+
+    public void setClothId(int clothId) {
+        this.clothId = clothId;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean active) {
+        isActive = active;
+    }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
     public String getSupplierId() {
         return supplierId;
     }
@@ -88,19 +117,11 @@ public class CreateClothDTO {
         this.userId = userId;
     }
 
-    public int getClothId() {
-        return clothId;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setClothId(int clothId) {
-        this.clothId = clothId;
-    }
-
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean active) {
-        isActive = active;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }

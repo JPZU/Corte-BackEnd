@@ -1,22 +1,31 @@
 package com.arapos.corte.domain.dto.Supplier;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import java.time.LocalDateTime;
 
 public class SupplierResponseDTO {
-
+    /* --------------------------------------------------------
+                            ATTRIBUTES
+    --------------------------------------------------------- */
     private String supplierId;
-
     private String name;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
+    /* --------------------------------------------------------
+                        RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
+
+    /* --------------------------------------------------------
+                        CONSTRUCTOR
+    --------------------------------------------------------- */
     public SupplierResponseDTO() {}
 
+    /* --------------------------------------------------------
+                    GETTER AND SETTER ATRIBUTES
+    --------------------------------------------------------- */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -48,4 +57,12 @@ public class SupplierResponseDTO {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    /* --------------------------------------------------------
+                GETTER AND SETTER RELATIONSHIPS
+    --------------------------------------------------------- */
+
+    /* -----------------------
+            manyToOne
+    ------------------------ */
 }
