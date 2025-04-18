@@ -9,20 +9,48 @@ import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
 public interface SupplierMapper {
+    /* --------------------------------------------------------
+                    ENTITY -> RESPONSEDTO
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "supplierId", target = "supplierId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "updatedAt", target = "updatedAt")
+            @Mapping(source = "updatedAt", target = "updatedAt"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
     })
     SupplierResponseDTO toSupplierResponseDTO(Supplier supplier);
 
+    /* --------------------------------------------------------
+                    CREATEDTO -> ENTITY
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "supplierId", target = "supplierId"),
             @Mapping(source = "name", target = "name"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true),
             @Mapping(target = "clothsList", ignore = true),
     })
     Supplier toSupplier(CreateSupplierDTO createSupplierDTO);
+
+    /* --------------------------------------------------------
+                AUXILIARY METHODS TO MAPPER ENTITIES
+    --------------------------------------------------------- */
 }

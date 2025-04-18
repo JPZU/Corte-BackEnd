@@ -9,23 +9,48 @@ import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
-
-//    Entity -> ResponseDTO
+    /* --------------------------------------------------------
+                    ENTITY -> RESPONSEDTO
+    --------------------------------------------------------- */
     @Mappings({
-            @Mapping(source = "categoryId", target = "categoryId"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "updatedAt", target = "updatedAt")
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
+        @Mapping(source = "categoryId", target = "categoryId"),
+        @Mapping(source = "name", target = "name"),
+        @Mapping(source = "createdAt", target = "createdAt"),
+        @Mapping(source = "updatedAt", target = "updatedAt")
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
     })
     CategoryResponseDTO toCategoryResponseDTO(Category category);
 
-//    CreateDTO -> Entity
+    /* --------------------------------------------------------
+                    CREATEDTO -> ENTITY
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "categoryId", target = "categoryId"),
             @Mapping(source = "name", target = "name"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true),
             @Mapping(target = "clothsList", ignore = true)
     })
     Category toCategory(CreateCategoryDTO createCategoryDTO);
+
+    /* --------------------------------------------------------
+                AUXILIARY METHODS TO MAPPER ENTITIES
+    --------------------------------------------------------- */
 }

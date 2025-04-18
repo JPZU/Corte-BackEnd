@@ -8,35 +8,60 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring",
-        uses = {UserMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface OpMapper {
+    /* --------------------------------------------------------
+                    ENTITY -> RESPONSEDTO
+    --------------------------------------------------------- */
     @Mappings({
-            @Mapping(source = "opId", target = "opId"),
-            @Mapping(source = "totalMeters", target = "totalMeters"),
-            @Mapping(source = "quantityCloths", target = "quantityCloths"),
-            @Mapping(source = "schemaLength", target = "schemaLength"),
-            @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "updatedAt", target = "updatedAt"),
-            @Mapping(source = "user", target = "user")
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
+        @Mapping(source = "opId", target = "opId"),
+        @Mapping(source = "totalMeters", target = "totalMeters"),
+        @Mapping(source = "quantityCloths", target = "quantityCloths"),
+        @Mapping(source = "schemaLength", target = "schemaLength"),
+        @Mapping(source = "createdAt", target = "createdAt"),
+        @Mapping(source = "updatedAt", target = "updatedAt"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+                @Mapping(source = "user", target = "user")
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
+
     })
     OpResponseDTO toOpResponseDTO(Op op);
 
-    // 📌 Convertir de Create DTO a Entity (para guardar en BD)
+    /* --------------------------------------------------------
+                    CREATEDTO -> ENTITY
+    --------------------------------------------------------- */
     @Mappings({
-            @Mapping(source = "totalMeters", target = "totalMeters"),
-            @Mapping(source = "quantityCloths", target = "quantityCloths"),
-            @Mapping(source = "schemaLength", target = "schemaLength"),
-            @Mapping(source = "opId", target = "opId"), // Para poder actualizar
-            @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
-            @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
-            @Mapping(target = "itemReferencesList", ignore = true), // Evita mapear relaciones OneToMany
-            @Mapping(target = "itemClothsList", ignore = true),
-            @Mapping(target = "user", expression = "java(mapUser(createOpDTO.getUserId()))") // Mapea ID de usuario
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
+        @Mapping(source = "opId", target = "opId"), // Para poder actualizar
+        @Mapping(source = "totalMeters", target = "totalMeters"),
+        @Mapping(source = "quantityCloths", target = "quantityCloths"),
+        @Mapping(source = "schemaLength", target = "schemaLength"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+        @Mapping(target = "user", expression = "java(mapUser(createOpDTO.getUserId()))"), // Mapea ID de usuario
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
+        @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
+        @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
+        @Mapping(target = "itemReferencesList", ignore = true), // Evita mapear relaciones OneToMany
+        @Mapping(target = "itemClothsList", ignore = true),
     })
     Op toOp(CreateOpDTO createOpDTO);
 
-    // 📌 Método auxiliar para mapear userId a User
+    /* --------------------------------------------------------
+                AUXILIARY METHODS TO MAPPER ENTITIES
+    --------------------------------------------------------- */
     default User mapUser(int userId) {
         User user = new User();
         user.setUserId(userId);

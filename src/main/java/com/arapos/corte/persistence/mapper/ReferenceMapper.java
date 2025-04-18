@@ -10,22 +10,48 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring")
 public interface ReferenceMapper {
 
-    // 📌 Convertir de Entity a ReferenceResponse
+    /* --------------------------------------------------------
+                    ENTITY -> RESPONSEDTO
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "referenceId", target = "referenceId"),
             @Mapping(source = "description", target = "description"),
             @Mapping(source = "createdAt", target = "createdAt"),
             @Mapping(source = "updatedAt", target = "updatedAt"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
     })
     ReferenceResponseDTO toReferenceResponseDTO(Reference reference);
 
-    // 📌 Convertir de Create DTO a Entity (para guardar en BD)
+    /* --------------------------------------------------------
+                    CREATEDTO -> ENTITY
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "referenceId", target = "referenceId"),
             @Mapping(source = "description", target = "description"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true),
             @Mapping(target = "itemReferencesList", ignore = true),
     })
     Reference toReference(CreateReferenceDTO createReferenceDTO);
+
+    /* --------------------------------------------------------
+                AUXILIARY METHODS TO MAPPER ENTITIES
+    --------------------------------------------------------- */
 }

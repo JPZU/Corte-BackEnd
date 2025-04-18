@@ -10,39 +10,62 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {UserMapper.class, CategoryMapper.class, SupplierMapper.class})
 public interface ClothMapper {
-
-    // Convertir de Entity a Response DTO (para enviar datos completos al front)
+    /* --------------------------------------------------------
+                    ENTITY -> RESPONSEDTO
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "clothId", target = "clothId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "color", target = "color"),
             @Mapping(source = "meters", target = "meters"),
             @Mapping(source = "createdAt", target = "createdAt"),
             @Mapping(source = "updatedAt", target = "updatedAt"),
+            @Mapping(source = "isActive", target = "isActive"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
             @Mapping(source = "user", target = "user"), // Usa UserMapper
             @Mapping(source = "category", target = "category"), // Usa CategoryMapper
             @Mapping(source = "supplier", target = "supplier"), // Usa SupplierMapper
-            @Mapping(source = "isActive", target = "isActive"),
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
     })
     ClothResponseDTO toClothResponseDTO(Cloth cloth);
 
-    // Convertir de Create DTO a Entity (para guardar en BD)
+    /* --------------------------------------------------------
+                    CREATEDTO -> ENTITY
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "clothId", target = "clothId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "color", target = "color"),
             @Mapping(source = "meters", target = "meters"),
-            @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
-            @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
-            @Mapping(target = "itemClothsList", ignore = true), // Evita mapear relaciones OneToMany
+            @Mapping(source = "isActive", target = "isActive"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
             @Mapping(target = "user", expression = "java(mapUser(createClothDTO.getUserId()))"), // Convierte ID a entidad
             @Mapping(target = "category", expression = "java(mapCategory(createClothDTO.getCategoryId()))"), // Convierte ID a entidad
             @Mapping(target = "supplier", expression = "java(mapSupplier(createClothDTO.getSupplierId()))"),// Convierte ID a entidad
-            @Mapping(source = "isActive", target = "isActive"),
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
+            @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(target = "itemClothsList", ignore = true), // Evita mapear relaciones OneToMany
     })
     Cloth toCloth(CreateClothDTO createClothDTO);
 
-    // 📌 Métodos auxiliares para mapear IDs a entidades
+    /* --------------------------------------------------------
+                AUXILIARY METHODS TO MAPPER ENTITIES
+    --------------------------------------------------------- */
     default User mapUser(int userId) {
         User user = new User();
         user.setUserId(userId);

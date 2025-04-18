@@ -13,25 +13,49 @@ import org.mapstruct.Mappings;
         uses = {OpMapper.class, ReferenceMapper.class})
 public interface ItemReferenceMapper {
 
-    // 📌 Convertir de Entity a Response DTO (para enviar datos completos al front)
+    /* --------------------------------------------------------
+                    ENTITY -> RESPONSEDTO
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "itemReferenceId", target = "itemReferenceId"),
             @Mapping(source = "createdAt", target = "createdAt"),
             @Mapping(source = "updatedAt", target = "updatedAt"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
             @Mapping(source = "op", target = "op"),
             @Mapping(source = "reference", target = "reference")
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
     })
     ItemReferenceResponseDTO toItemReferenceResponseDTO(ItemReference itemReference);
 
-    // 📌 Convertir de Create DTO a Entity (para guardar en BD)
+    /* --------------------------------------------------------
+                    CREATEDTO -> ENTITY
+    --------------------------------------------------------- */
     @Mappings({
+    /* --------------------------------------------------------
+                        mapped
+    --------------------------------------------------------- */
             @Mapping(source = "itemReferenceId",target = "itemReferenceId"),
+    /* --------------------------------------------------------
+                    relationships
+    --------------------------------------------------------- */
             @Mapping(target = "op", expression = "java(mapOp(createItemReferenceDTO.getOpId()))"),
             @Mapping(target = "reference", expression = "java(mapReference(createItemReferenceDTO.getReferenceId()))")
+    /* --------------------------------------------------------
+                        unmapped
+    --------------------------------------------------------- */
     })
     ItemReference toItemReference(CreateItemReferenceDTO createItemReferenceDTO);
 
-    // 📌 Métodos auxiliares para mapear IDs a entidades
+    /* --------------------------------------------------------
+                AUXILIARY METHODS TO MAPPER ENTITIES
+    --------------------------------------------------------- */
     default Op mapOp(int opId) {
         Op op = new Op();
         op.setOpId(opId);
