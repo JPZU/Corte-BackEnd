@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository {
+    /* --------------------------------------------------------
+                            METHOD CLASS
+    --------------------------------------------------------- */
     List<CategoryResponseDTO> getAll();
     Optional<CategoryResponseDTO> getById(int categoryId);
     Optional<CategoryResponseDTO> getByName(String name);
@@ -14,4 +17,7 @@ public interface CategoryRepository {
     CategoryResponseDTO save(CreateCategoryDTO category);
     CategoryResponseDTO update(CreateCategoryDTO category);
     void delete(int categoryId);
+    /* --------------------------------------------------------
+                        METHOD REAlATIONSHIP
+    --------------------------------------------------------- */
 }
