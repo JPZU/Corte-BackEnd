@@ -10,9 +10,6 @@ public class CreateOpDTO {
                             ATTRIBUTES
     --------------------------------------------------------- */
     private int opId;
-
-    @NotNull(message = "Total meters is required")
-    @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal totalMeters;
 
     @NotNull(message = "Quantity cloths are required")

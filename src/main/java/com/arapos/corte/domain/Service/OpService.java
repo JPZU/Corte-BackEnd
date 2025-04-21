@@ -24,8 +24,8 @@ public class OpService {
         return opRepository.getAll();
     }
 
-    public Optional<OpResponseDTO> getById(int userId){
-        return opRepository.getById(userId);
+    public Optional<OpResponseDTO> getById(int opId){
+        return opRepository.getById(opId);
     }
 
     public OpResponseDTO save(CreateOpDTO createOpDTO){

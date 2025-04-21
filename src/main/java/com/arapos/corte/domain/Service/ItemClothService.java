@@ -4,6 +4,8 @@ import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
 import com.arapos.corte.domain.dto.Cloth.CreateClothDTO;
 import com.arapos.corte.domain.dto.ItemCloth.CreateItemClothDTO;
 import com.arapos.corte.domain.dto.ItemCloth.ItemClothResponseDTO;
+import com.arapos.corte.domain.dto.Op.OpResponseDTO;
+import com.arapos.corte.domain.dto.Op.CreateOpDTO;
 import com.arapos.corte.domain.repository.ItemClothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class ItemClothService {
     @Autowired
     private ClothService clothService; // Asegúrate de inyectar el servicio
 
+    @Autowired
+    private OpService opService;
+
     /* --------------------------------------------------------
                             BASIC CRUD
     --------------------------------------------------------- */
@@ -36,6 +41,9 @@ public class ItemClothService {
 
     @Transactional
     public ItemClothResponseDTO save(CreateItemClothDTO createItemClothDTO) {
+        /* --------------------------------------------------------
+                            Saved cloth meters
+        --------------------------------------------------------- */
         ClothResponseDTO cloth = clothService.getById(createItemClothDTO.getClothId())
                 .orElseThrow(() -> new IllegalArgumentException("Cloth not found with ID: " + createItemClothDTO.getClothId()));
 
@@ -43,21 +51,21 @@ public class ItemClothService {
             throw new IllegalStateException("The cloth is inactive and cannot be used.");
         }
 
-        BigDecimal metrosActuales = cloth.getMeters();
-        BigDecimal metrosADescontar = createItemClothDTO.getMeters();
-        BigDecimal metrosActualizados = metrosActuales.subtract(metrosADescontar);
+        BigDecimal actualMeters = cloth.getMeters();
+        BigDecimal metersDiscount = createItemClothDTO.getMeters();
+        BigDecimal metersUpdated = actualMeters.subtract(metersDiscount);
 
-        if (metrosActualizados.compareTo(BigDecimal.ZERO) < 0) {
+        if (metersUpdated.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Not enough meters in cloth to subtract");
         }
 
-        boolean isActive = metrosActualizados.compareTo(new BigDecimal("1")) > 0;
+        boolean isActive = metersUpdated.compareTo(new BigDecimal("1")) > 0;
 
         CreateClothDTO updatedClothDTO = new CreateClothDTO();
         updatedClothDTO.setClothId(cloth.getClothId());
         updatedClothDTO.setName(cloth.getName());
         updatedClothDTO.setColor(cloth.getColor());
-        updatedClothDTO.setMeters(metrosActualizados);
+        updatedClothDTO.setMeters(metersUpdated);
         updatedClothDTO.setIsActive(isActive);
         updatedClothDTO.setCategoryId(cloth.getCategory().getCategoryId());
         updatedClothDTO.setSupplierId(cloth.getSupplier().getSupplierId());
@@ -65,7 +73,36 @@ public class ItemClothService {
 
         clothService.update(updatedClothDTO);
 
-        return itemClothRepository.save(createItemClothDTO);
+        /* --------------------------------------------------------
+                            Save itemCloth
+        --------------------------------------------------------- */
+        ItemClothResponseDTO savedItem = itemClothRepository.save(createItemClothDTO);
+
+        /* --------------------------------------------------------
+                        Update Op total meters
+        --------------------------------------------------------- */
+        OpResponseDTO op = opService.getById(createItemClothDTO.getOpId())
+                .orElseThrow(() -> new IllegalArgumentException("Op not found with ID: " + createItemClothDTO.getOpId()));
+
+        List<ItemClothResponseDTO> itemCloths = getByOpId(op.getOpId());
+
+        BigDecimal totalMeters = BigDecimal.ZERO;
+
+        for (ItemClothResponseDTO item : itemCloths) {
+            totalMeters = totalMeters.add(item.getMeters());
+        }
+
+
+        CreateOpDTO updatedOpDTO = new CreateOpDTO();
+        updatedOpDTO.setOpId(op.getOpId());
+        updatedOpDTO.setTotalMeters(totalMeters);
+        updatedOpDTO.setQuantityCloths(op.getQuantityCloths());
+        updatedOpDTO.setSchemaLength(op.getSchemaLength());
+        updatedOpDTO.setUserId(op.getUser().getUserId());
+
+        opService.update(updatedOpDTO);
+
+        return savedItem;
     }
 
     public ItemClothResponseDTO update(CreateItemClothDTO createItemClothDTO){
