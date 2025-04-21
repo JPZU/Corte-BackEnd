@@ -18,13 +18,14 @@ public class ReferenceController {
     @Autowired
     private ReferenceService referenceService;
 
-    // 🔹 Obtener todas las referencias
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @GetMapping("/all")
     public ResponseEntity<List<ReferenceResponseDTO>> getAll() {
         return new ResponseEntity<>(referenceService.getAll(), HttpStatus.OK);
     }
 
-    // 🔹 Obtener referencia por ID
     @GetMapping("/id/{id}")
     public ResponseEntity<ReferenceResponseDTO> getById(@PathVariable("id") String referenceId) {
         return referenceService.getById(referenceId)
@@ -32,7 +33,26 @@ public class ReferenceController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // 🔹 Filtrar referencias por rango de fecha de creación
+    @PostMapping("/create")
+    public ResponseEntity<ReferenceResponseDTO> save(@RequestBody CreateReferenceDTO createReferenceDTO) {
+        return new ResponseEntity<>(referenceService.save(createReferenceDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ReferenceResponseDTO> update(@RequestBody CreateReferenceDTO createReferenceDTO) {
+        return new ResponseEntity<>(referenceService.update(createReferenceDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") String referenceId) {
+        return referenceService.delete(referenceId)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
     @GetMapping("/created-between")
     public ResponseEntity<List<ReferenceResponseDTO>> getByCreatedAtBetween(
             @RequestParam("startDate") LocalDateTime startDate,
@@ -40,23 +60,7 @@ public class ReferenceController {
         return new ResponseEntity<>(referenceService.getByCreatedAtBetween(startDate, endDate), HttpStatus.OK);
     }
 
-    // 🔹 Crear una nueva referencia
-    @PostMapping("/create")
-    public ResponseEntity<ReferenceResponseDTO> save(@RequestBody CreateReferenceDTO createReferenceDTO) {
-        return new ResponseEntity<>(referenceService.save(createReferenceDTO), HttpStatus.CREATED);
-    }
-
-    // 🔹 Actualizar una referencia existente
-    @PutMapping("/update")
-    public ResponseEntity<ReferenceResponseDTO> update(@RequestBody CreateReferenceDTO createReferenceDTO) {
-        return new ResponseEntity<>(referenceService.update(createReferenceDTO), HttpStatus.OK);
-    }
-
-    // 🔹 Eliminar una referencia por ID
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String referenceId) {
-        return referenceService.delete(referenceId)
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

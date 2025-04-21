@@ -18,13 +18,14 @@ public class ItemClothController {
     @Autowired
     private ItemClothService itemClothService;
 
-    // Obtener todos los ítems de tela
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @GetMapping("/all")
     public ResponseEntity<List<ItemClothResponseDTO>> getAll() {
         return ResponseEntity.ok(itemClothService.getAll());
     }
 
-    // Obtener ítem de tela por ID
     @GetMapping("/id/{id}")
     public ResponseEntity<ItemClothResponseDTO> getById(@PathVariable("id") int clothId) {
         return itemClothService.getById(clothId)
@@ -32,7 +33,26 @@ public class ItemClothController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Filtrar ítems de tela por rango de fechas
+    @PostMapping("/create")
+    public ResponseEntity<ItemClothResponseDTO> save(@RequestBody CreateItemClothDTO createItemClothDTO) {
+        return new ResponseEntity<>(itemClothService.save(createItemClothDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ItemClothResponseDTO> update(@RequestBody CreateItemClothDTO createItemClothDTO) {
+        return ResponseEntity.ok(itemClothService.update(createItemClothDTO));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") int itemClothId) {
+        return itemClothService.delete(itemClothId)
+                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
     @GetMapping("/created-between")
     public ResponseEntity<List<ItemClothResponseDTO>> getByCreatedAtBetween(
             @RequestParam LocalDateTime startDate,
@@ -40,35 +60,16 @@ public class ItemClothController {
         return ResponseEntity.ok(itemClothService.getByCreatedAtBetween(startDate, endDate));
     }
 
-    // Obtener ítems de tela por Cloth ID
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
     @GetMapping("/cloth/{clothId}")
     public ResponseEntity<List<ItemClothResponseDTO>> getByClothId(@PathVariable("clothId") int clothId) {
         return ResponseEntity.ok(itemClothService.getByClothId(clothId));
     }
 
-    // Obtener ítems de tela por Op ID
     @GetMapping("/op/{opId}")
     public ResponseEntity<List<ItemClothResponseDTO>> getByOpId(@PathVariable("opId") int opId) {
         return ResponseEntity.ok(itemClothService.getByOpId(opId));
-    }
-
-    // Crear nuevo ítem de tela
-    @PostMapping("/create")
-    public ResponseEntity<ItemClothResponseDTO> save(@RequestBody CreateItemClothDTO createItemClothDTO) {
-        return new ResponseEntity<>(itemClothService.save(createItemClothDTO), HttpStatus.CREATED);
-    }
-
-    // Actualizar ítem de tela
-    @PutMapping("/update")
-    public ResponseEntity<ItemClothResponseDTO> update(@RequestBody CreateItemClothDTO createItemClothDTO) {
-        return ResponseEntity.ok(itemClothService.update(createItemClothDTO));
-    }
-
-    // Eliminar ítem de tela por ID
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int itemClothId) {
-        return itemClothService.delete(itemClothId)
-                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

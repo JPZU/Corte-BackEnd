@@ -19,13 +19,14 @@ public class ClothController {
     @Autowired
     private ClothService clothService;
 
-    // Obtener todos los Cloths
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @GetMapping("/all")
     public ResponseEntity<List<ClothResponseDTO>> getAll() {
         return ResponseEntity.ok(clothService.getAll());
     }
 
-    // Obtener Cloth por ID
     @GetMapping("/id/{clothId}")
     public ResponseEntity<ClothResponseDTO> getById(@PathVariable int clothId) {
         return clothService.getById(clothId)
@@ -33,7 +34,26 @@ public class ClothController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Obtener Cloth por nombre
+    @PostMapping("/create")
+    public ResponseEntity<ClothResponseDTO> save(@RequestBody CreateClothDTO createClothDTO) {
+        return new ResponseEntity<>(clothService.save(createClothDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ClothResponseDTO> update(@RequestBody CreateClothDTO createClothDTO) {
+        return ResponseEntity.ok(clothService.update(createClothDTO));
+    }
+
+    @DeleteMapping("/delete/{clothId}")
+    public ResponseEntity<Void> delete(@PathVariable("clothId") int clothId) {
+        return clothService.delete(clothId)
+                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND); // Categoría no encontrada
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
     @GetMapping("/name/{name}")
     public ResponseEntity<ClothResponseDTO> getByName(@PathVariable String name) {
         return clothService.getByName(name)
@@ -41,7 +61,6 @@ public class ClothController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Filtrar Cloths por rango de fechas de creación
     @GetMapping("/created-between")
     public ResponseEntity<List<ClothResponseDTO>> getByCreatedAtBetween(
             @RequestParam LocalDateTime startDate,
@@ -49,53 +68,31 @@ public class ClothController {
         return ResponseEntity.ok(clothService.getByCreatedAtBetween(startDate, endDate));
     }
 
-    // Obtener Cloths con metros igual a 0
     @GetMapping("/is-active")
     public ResponseEntity<List<ClothResponseDTO>> getIsActive() {
         return ResponseEntity.ok(clothService.getIsActive());
     }
 
-    // Obtener Cloths con metros igual a 0
     @GetMapping("/is-not-active")
     public ResponseEntity<List<ClothResponseDTO>> getIsNotActive() {
         return ResponseEntity.ok(clothService.getIsNotActive());
     }
 
-    // Obtener Cloths por nombre de proveedor
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
     @GetMapping("/supplier/{supplierId}")
     public ResponseEntity<List<ClothResponseDTO>> getBySupplierName(@PathVariable String supplierId) {
         return ResponseEntity.ok(clothService.getBySupplierId(supplierId));
     }
 
-    // Obtener Cloths por nombre de categoría
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ClothResponseDTO>> getByCategoryName(@PathVariable int categoryId) {
         return ResponseEntity.ok(clothService.getByCategoryId(categoryId));
     }
 
-    // Obtener Cloths por ID de usuario
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ClothResponseDTO>> getByUserId(@PathVariable int userId) {
         return ResponseEntity.ok(clothService.findByUserId(userId));
-    }
-
-    // Crear un nuevo Cloth
-    @PostMapping("/create")
-    public ResponseEntity<ClothResponseDTO> save(@RequestBody CreateClothDTO createClothDTO) {
-        return new ResponseEntity<>(clothService.save(createClothDTO), HttpStatus.CREATED);
-    }
-
-    // Actualizar un Cloth existente
-    @PutMapping("/update")
-    public ResponseEntity<ClothResponseDTO> update(@RequestBody CreateClothDTO createClothDTO) {
-        return ResponseEntity.ok(clothService.update(createClothDTO));
-    }
-
-    // Eliminar un Cloth por ID
-    @DeleteMapping("/delete/{clothId}")
-    public ResponseEntity<Void> delete(@PathVariable("clothId") int clothId) {
-        return clothService.delete(clothId)
-                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND); // Categoría no encontrada
     }
 }

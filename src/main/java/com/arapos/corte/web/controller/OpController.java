@@ -18,13 +18,14 @@ public class OpController {
     @Autowired
     private OpService opService;
 
-    // Obtener todas las operaciones
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @GetMapping("/all")
     public ResponseEntity<List<OpResponseDTO>> getAll() {
         return ResponseEntity.ok(opService.getAll());
     }
 
-    // Obtener operación por ID
     @GetMapping("/id/{id}")
     public ResponseEntity<OpResponseDTO> getById(@PathVariable("id") int userId) {
         return opService.getById(userId)
@@ -32,7 +33,26 @@ public class OpController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Filtrar operaciones por rango de fechas
+    @PostMapping("/create")
+    public ResponseEntity<OpResponseDTO> save(@RequestBody CreateOpDTO createOpDTO) {
+        return new ResponseEntity<>(opService.save(createOpDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<OpResponseDTO> update(@RequestBody CreateOpDTO createOpDTO) {
+        return ResponseEntity.ok(opService.update(createOpDTO));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") int opId) {
+        return opService.delete(opId)
+                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
     @GetMapping("/created-between")
     public ResponseEntity<List<OpResponseDTO>> getByCreatedAtBetween(
             @RequestParam LocalDateTime startDate,
@@ -40,29 +60,11 @@ public class OpController {
         return ResponseEntity.ok(opService.getByCreatedAtBetween(startDate, endDate));
     }
 
-    // Obtener operaciones por User ID
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<OpResponseDTO>> getByUserId(@PathVariable("userId") int userId) {
         return ResponseEntity.ok(opService.getByUserId(userId));
-    }
-
-    // Crear nueva operación
-    @PostMapping("/create")
-    public ResponseEntity<OpResponseDTO> save(@RequestBody CreateOpDTO createOpDTO) {
-        return new ResponseEntity<>(opService.save(createOpDTO), HttpStatus.CREATED);
-    }
-
-    // Actualizar operación
-    @PutMapping("/update")
-    public ResponseEntity<OpResponseDTO> update(@RequestBody CreateOpDTO createOpDTO) {
-        return ResponseEntity.ok(opService.update(createOpDTO));
-    }
-
-    // Eliminar operación por ID
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int opId) {
-        return opService.delete(opId)
-                ? new ResponseEntity<>(HttpStatus.OK) // Eliminación exitosa
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

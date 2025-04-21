@@ -19,13 +19,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Obtener todos los usuarios
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @GetMapping("/all")
     public ResponseEntity<List<UserResponseDTO>> getAll() {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
-    // Obtener usuario por ID
     @GetMapping("/id/{id}")
     public ResponseEntity<UserResponseDTO> getById(@PathVariable("id") int userId) {
         return userService.getById(userId)
@@ -33,7 +34,26 @@ public class UserController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Obtener usuario por nombre
+    @PostMapping("/create")
+    public ResponseEntity<UserResponseDTO> save(@RequestBody CreateUserDTO createUserDTO) {
+        return new ResponseEntity<>(userService.save(createUserDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserResponseDTO> update(@RequestBody CreateUserDTO createUserDTO) {
+        return new ResponseEntity<>(userService.update(createUserDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") int userId) {
+        return userService.delete(userId)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
     @GetMapping("/name/{name}")
     public ResponseEntity<UserResponseDTO> getByName(@PathVariable("name") String name) {
         return userService.getByName(name)
@@ -41,7 +61,6 @@ public class UserController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Obtener usuario por email
     @GetMapping("/email/{email}")
     public ResponseEntity<UserResponseDTO> getByEmail(@PathVariable("email") String email) {
         return userService.getByEmail(email)
@@ -49,13 +68,11 @@ public class UserController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Filtrar usuarios por rol
     @GetMapping("/role/{role}")
     public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable("role") Rol role) {
         return new ResponseEntity<>(userService.getByRole(role), HttpStatus.OK);
     }
 
-    // Filtrar usuarios por rango de fechas de creación
     @GetMapping("/created-between")
     public ResponseEntity<List<UserResponseDTO>> getByCreatedAtBetween(
             @RequestParam LocalDateTime startDate,
@@ -63,23 +80,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getByCreatedAtBetween(startDate, endDate), HttpStatus.OK);
     }
 
-    // Crear usuario
-    @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> save(@RequestBody CreateUserDTO createUserDTO) {
-        return new ResponseEntity<>(userService.save(createUserDTO), HttpStatus.CREATED);
-    }
-
-    // Actualizar usuario
-    @PutMapping("/update")
-    public ResponseEntity<UserResponseDTO> update(@RequestBody CreateUserDTO createUserDTO) {
-        return new ResponseEntity<>(userService.update(createUserDTO), HttpStatus.OK);
-    }
-
-    // Eliminar usuario por ID
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int userId) {
-        return userService.delete(userId)
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }
