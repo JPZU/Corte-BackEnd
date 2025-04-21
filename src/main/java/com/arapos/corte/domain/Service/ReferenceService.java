@@ -15,16 +15,15 @@ public class ReferenceService {
     @Autowired
     private ReferenceRepository referenceRepository;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     public List<ReferenceResponseDTO> getAll(){
         return referenceRepository.getAll();
     }
 
     public Optional<ReferenceResponseDTO> getById(String referenceId){
         return referenceRepository.getById(referenceId);
-    }
-
-    public List<ReferenceResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return referenceRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
     public ReferenceResponseDTO save(CreateReferenceDTO createReferenceDTO){
@@ -42,4 +41,15 @@ public class ReferenceService {
             return false;
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public List<ReferenceResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return referenceRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

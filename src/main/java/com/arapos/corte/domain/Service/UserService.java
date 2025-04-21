@@ -20,28 +20,15 @@ public class UserService {
 
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     public List<UserResponseDTO> getAll(){
         return userRepository.getAll();
     }
 
     public Optional<UserResponseDTO> getById(int userId){
         return userRepository.getById(userId);
-    }
-
-    public Optional<UserResponseDTO> getByName(String name){
-        return userRepository.getByName(name);
-    }
-
-    public Optional<UserResponseDTO> getByEmail(String email){
-        return userRepository.getByEmail(email);
-    }
-
-    public List<UserResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return userRepository.findByCreatedAtBetween(startDate, endDate);
-    }
-
-    public List<UserResponseDTO> getByRole(Rol role){
-        return userRepository.findByRole(role);
     }
 
     public UserResponseDTO save(CreateUserDTO createUserDTO){
@@ -62,4 +49,27 @@ public class UserService {
             return false;
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public Optional<UserResponseDTO> getByName(String name){
+        return userRepository.getByName(name);
+    }
+
+    public Optional<UserResponseDTO> getByEmail(String email){
+        return userRepository.getByEmail(email);
+    }
+
+    public List<UserResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return userRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    public List<UserResponseDTO> getByRole(Rol role){
+        return userRepository.findByRole(role);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

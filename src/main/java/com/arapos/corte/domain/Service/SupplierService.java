@@ -16,20 +16,15 @@ public class SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     public List<SupplierResponseDTO> getAll() {
         return supplierRepository.getAll();
     }
 
     public Optional<SupplierResponseDTO> getById(String supplierId) {
         return supplierRepository.getById(supplierId);
-    }
-
-    public Optional<SupplierResponseDTO> getByName(String name) {
-        return supplierRepository.getByName(name);
-    }
-
-    public List<SupplierResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return supplierRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
     public SupplierResponseDTO save(CreateSupplierDTO createSupplierDTO) {
@@ -48,4 +43,19 @@ public class SupplierService {
             return false;
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public Optional<SupplierResponseDTO> getByName(String name) {
+        return supplierRepository.getByName(name);
+    }
+
+    public List<SupplierResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return supplierRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

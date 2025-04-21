@@ -17,20 +17,15 @@ public class OpService {
     @Autowired
     private OpRepository opRepository;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     public List<OpResponseDTO> getAll(){
         return opRepository.getAll();
     }
 
     public Optional<OpResponseDTO> getById(int userId){
         return opRepository.getById(userId);
-    }
-
-    public List<OpResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return opRepository.findByCreatedAtBetween(startDate, endDate);
-    }
-
-    public List<OpResponseDTO> getByUserId(int userId){
-        return opRepository.getByUserId(userId);
     }
 
     public OpResponseDTO save(CreateOpDTO createOpDTO){
@@ -48,5 +43,19 @@ public class OpService {
         }else{
             return false;
         }
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public List<OpResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return opRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
+    public List<OpResponseDTO> getByUserId(int userId){
+        return opRepository.getByUserId(userId);
     }
 }

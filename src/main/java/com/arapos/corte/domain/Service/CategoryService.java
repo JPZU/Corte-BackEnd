@@ -16,20 +16,16 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
+
     public List<CategoryResponseDTO> getAll() {
         return categoryRepository.getAll();
     }
 
     public Optional<CategoryResponseDTO> getById(int categoryId) {
         return categoryRepository.getById(categoryId);
-    }
-
-    public Optional<CategoryResponseDTO> getByName(String name) {
-        return categoryRepository.getByName(name);
-    }
-
-    public List<CategoryResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        return categoryRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
     public CategoryResponseDTO save(CreateCategoryDTO createCategoryDTO) {
@@ -48,4 +44,20 @@ public class CategoryService {
             return false;
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+
+    public Optional<CategoryResponseDTO> getByName(String name) {
+        return categoryRepository.getByName(name);
+    }
+
+    public List<CategoryResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        return categoryRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

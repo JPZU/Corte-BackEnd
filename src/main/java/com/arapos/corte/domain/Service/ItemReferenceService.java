@@ -16,24 +16,15 @@ public class ItemReferenceService {
     @Autowired
     private ItemReferenceRepository itemReferenceRepository;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     public List<ItemReferenceResponseDTO> getAll() {
         return itemReferenceRepository.getAll();
     }
 
     public Optional<ItemReferenceResponseDTO> getById(int itemReferenceId) {
         return itemReferenceRepository.getById(itemReferenceId);
-    }
-
-    public List<ItemReferenceResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return itemReferenceRepository.findByCreatedAtBetween(startDate, endDate);
-    }
-
-    public List<ItemReferenceResponseDTO> getByReferenceId(String referenceId){
-        return itemReferenceRepository.findByReferenceId(referenceId);
-    }
-
-    public List<ItemReferenceResponseDTO> getByOpId(int opId){
-        return itemReferenceRepository.findByOpId(opId);
     }
 
     public ItemReferenceResponseDTO save(CreateItemReferenceDTO createItemReferenceDTO) {
@@ -52,4 +43,21 @@ public class ItemReferenceService {
         }
     }
 
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public List<ItemReferenceResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return itemReferenceRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
+    public List<ItemReferenceResponseDTO> getByReferenceId(String referenceId){
+        return itemReferenceRepository.findByReferenceId(referenceId);
+    }
+
+    public List<ItemReferenceResponseDTO> getByOpId(int opId){
+        return itemReferenceRepository.findByOpId(opId);
+    }
 }

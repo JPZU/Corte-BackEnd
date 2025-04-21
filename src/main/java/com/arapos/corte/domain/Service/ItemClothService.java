@@ -23,24 +23,15 @@ public class ItemClothService {
     @Autowired
     private ClothService clothService; // Asegúrate de inyectar el servicio
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     public List<ItemClothResponseDTO> getAll(){
         return itemClothRepository.getAll();
     }
 
     public Optional<ItemClothResponseDTO> getById(int ClothId) {
         return itemClothRepository.getById(ClothId);
-    }
-
-    public List<ItemClothResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        return itemClothRepository.findByCreatedAtBetween(startDate, endDate);
-    }
-
-    public List<ItemClothResponseDTO> getByClothId(int clothId){
-        return itemClothRepository.findByClothId(clothId);
-    }
-
-    public List<ItemClothResponseDTO> getByOpId(int opId){
-        return itemClothRepository.findByOpId(opId);
     }
 
     @Transactional
@@ -88,5 +79,23 @@ public class ItemClothService {
         }else{
             return false;
         }
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public List<ItemClothResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return itemClothRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
+    public List<ItemClothResponseDTO> getByClothId(int clothId){
+        return itemClothRepository.findByClothId(clothId);
+    }
+
+    public List<ItemClothResponseDTO> getByOpId(int opId){
+        return itemClothRepository.findByOpId(opId);
     }
 }
