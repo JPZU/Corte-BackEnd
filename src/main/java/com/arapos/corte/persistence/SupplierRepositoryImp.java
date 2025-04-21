@@ -24,6 +24,9 @@ public class SupplierRepositoryImp implements SupplierRepository {
     @Autowired
     private SupplierMapper supplierMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<SupplierResponseDTO> getAll(){
         Iterable<Supplier> suppliers = supplierCrudRepository.findAll();
@@ -36,20 +39,6 @@ public class SupplierRepositoryImp implements SupplierRepository {
     public Optional<SupplierResponseDTO> getById(String supplierId){
         return supplierCrudRepository.findById(supplierId)
                 .map(supplierMapper::toSupplierResponseDTO);
-    }
-
-    @Override
-    public Optional<SupplierResponseDTO> getByName(String supplierId){
-        return supplierCrudRepository.findByName(supplierId)
-                .map(supplierMapper::toSupplierResponseDTO);
-    }
-
-    @Override
-    public List<SupplierResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        Iterable<Supplier> suppliers = supplierCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(suppliers.spliterator(), false)
-                .map(supplierMapper::toSupplierResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -96,4 +85,25 @@ public class SupplierRepositoryImp implements SupplierRepository {
             throw new IllegalArgumentException("Supplier not found.");
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public Optional<SupplierResponseDTO> getByName(String supplierId){
+        return supplierCrudRepository.findByName(supplierId)
+                .map(supplierMapper::toSupplierResponseDTO);
+    }
+
+    @Override
+    public List<SupplierResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        Iterable<Supplier> suppliers = supplierCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(suppliers.spliterator(), false)
+                .map(supplierMapper::toSupplierResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

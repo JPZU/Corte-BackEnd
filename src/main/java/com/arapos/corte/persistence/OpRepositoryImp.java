@@ -9,7 +9,6 @@ import com.arapos.corte.persistence.entity.Op;
 import com.arapos.corte.persistence.mapper.OpMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +24,9 @@ public class OpRepositoryImp implements OpRepository {
     @Autowired
     private OpMapper opMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<OpResponseDTO> getAll(){
         Iterable<Op> ops = opCrudRepository.findAll();
@@ -37,22 +39,6 @@ public class OpRepositoryImp implements OpRepository {
     public Optional<OpResponseDTO> getById(int opId){
         return opCrudRepository.findById(opId)
                 .map(opMapper::toOpResponseDTO);
-    }
-
-    @Override
-    public List<OpResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        Iterable<Op> ops = opCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(ops.spliterator(), false)
-                .map(opMapper::toOpResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<OpResponseDTO> getByUserId(int userId){
-        Iterable<Op> ops = opCrudRepository.findByUser_UserId(userId);
-        return StreamSupport.stream(ops.spliterator(), false)
-                .map(opMapper::toOpResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -92,5 +78,27 @@ public class OpRepositoryImp implements OpRepository {
         }else {
             throw new IllegalArgumentException("Op not found");
         }
+    }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public List<OpResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        Iterable<Op> ops = opCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(ops.spliterator(), false)
+                .map(opMapper::toOpResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
+    @Override
+    public List<OpResponseDTO> getByUserId(int userId){
+        Iterable<Op> ops = opCrudRepository.findByUser_UserId(userId);
+        return StreamSupport.stream(ops.spliterator(), false)
+                .map(opMapper::toOpResponseDTO)
+                .collect(Collectors.toList());
     }
 }

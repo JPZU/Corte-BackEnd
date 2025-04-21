@@ -25,6 +25,9 @@ public class UserRepositoryImp implements UserRepository {
     @Autowired
     private UserMapper userMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<UserResponseDTO> getAll(){
         Iterable<User> users = userCrudRepository.findAll();
@@ -37,34 +40,6 @@ public class UserRepositoryImp implements UserRepository {
     public Optional<UserResponseDTO> getById(int userId){
         return userCrudRepository.findById(userId)
                 .map(userMapper::toUserResponseDTO);
-    }
-
-    @Override
-    public Optional<UserResponseDTO> getByName(String name){
-        return userCrudRepository.findByName(name)
-                .map(userMapper::toUserResponseDTO);
-    }
-
-    @Override
-    public Optional<UserResponseDTO> getByEmail(String email){
-        return userCrudRepository.findByEmail(email)
-                .map(userMapper::toUserResponseDTO);
-    }
-
-    @Override
-    public List<UserResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        Iterable<User> users = userCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(users.spliterator(), false)
-                .map(userMapper::toUserResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UserResponseDTO> findByRole(Rol role){
-        Iterable<User> users = userCrudRepository.findByRole(role);
-        return StreamSupport.stream(users.spliterator(), false)
-                .map(userMapper::toUserResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -101,4 +76,39 @@ public class UserRepositoryImp implements UserRepository {
             throw new IllegalArgumentException("User not found");
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public Optional<UserResponseDTO> getByName(String name){
+        return userCrudRepository.findByName(name)
+                .map(userMapper::toUserResponseDTO);
+    }
+
+    @Override
+    public Optional<UserResponseDTO> getByEmail(String email){
+        return userCrudRepository.findByEmail(email)
+                .map(userMapper::toUserResponseDTO);
+    }
+
+    @Override
+    public List<UserResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        Iterable<User> users = userCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(users.spliterator(), false)
+                .map(userMapper::toUserResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserResponseDTO> findByRole(Rol role){
+        Iterable<User> users = userCrudRepository.findByRole(role);
+        return StreamSupport.stream(users.spliterator(), false)
+                .map(userMapper::toUserResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

@@ -2,7 +2,6 @@ package com.arapos.corte.persistence;
 
 import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
 import com.arapos.corte.domain.dto.Category.CreateCategoryDTO;
-import com.arapos.corte.domain.dto.Supplier.CreateSupplierDTO;
 import com.arapos.corte.domain.repository.CategoryRepository;
 import com.arapos.corte.persistence.crud.CategoryCrudRepository;
 import com.arapos.corte.persistence.entity.Category;
@@ -25,6 +24,9 @@ public class CategoryRepositoryImp implements CategoryRepository {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<CategoryResponseDTO> getAll() {
         Iterable<Category>  categories = categoryCrudRepository.findAll();
@@ -37,20 +39,6 @@ public class CategoryRepositoryImp implements CategoryRepository {
     public Optional<CategoryResponseDTO> getById(int categoryId) {
         return categoryCrudRepository.findById(categoryId)
                 .map(categoryMapper::toCategoryResponseDTO);
-    }
-
-    @Override
-    public Optional<CategoryResponseDTO> getByName(String name) {
-        return categoryCrudRepository.findByName(name)
-                .map(categoryMapper::toCategoryResponseDTO);
-    }
-
-    @Override
-    public List<CategoryResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate) {
-        Iterable<Category>  categories = categoryCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(categories.spliterator(), false)
-                .map(categoryMapper::toCategoryResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -70,11 +58,11 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
         if (existingCategory.isPresent()) {
             Category categoryToUpdate = existingCategory.get();
-            categoryToUpdate.setName(categoryDTO.getName()); // ✅ Actualiza solo el nombre
+            categoryToUpdate.setName(categoryDTO.getName());
             Category updatedCategory = categoryCrudRepository.save(categoryToUpdate);
             return categoryMapper.toCategoryResponseDTO(updatedCategory);
         } else {
-            throw new RuntimeException("Category not found"); // Manejo de error
+            throw new RuntimeException("Category not found");
         }
     }
 
@@ -86,4 +74,25 @@ public class CategoryRepositoryImp implements CategoryRepository {
             throw new RuntimeException("Category with ID " + categoryId + " not found");
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public Optional<CategoryResponseDTO> getByName(String name) {
+        return categoryCrudRepository.findByName(name)
+                .map(categoryMapper::toCategoryResponseDTO);
+    }
+
+    @Override
+    public List<CategoryResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        Iterable<Category>  categories = categoryCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(categories.spliterator(), false)
+                .map(categoryMapper::toCategoryResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

@@ -8,8 +8,6 @@ import com.arapos.corte.persistence.entity.Cloth;
 import com.arapos.corte.persistence.mapper.ClothMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +23,9 @@ public class ClothRepositoryImp implements ClothRepository {
     @Autowired
     private ClothMapper clothMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<ClothResponseDTO> getAll(){
         Iterable<Cloth> cloths = clothCrudRepository.findAll();
@@ -37,44 +38,6 @@ public class ClothRepositoryImp implements ClothRepository {
     public Optional<ClothResponseDTO> getById(int clothId){
         return clothCrudRepository.findById(clothId)
                 .map(clothMapper::toClothResponseDTO);
-    }
-
-    @Override
-    public Optional<ClothResponseDTO> getByName(String name){
-        return clothCrudRepository.findByName(name)
-                .map(clothMapper::toClothResponseDTO);
-    }
-
-    @Override
-    public List<ClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        Iterable<Cloth> cloths = clothCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ClothResponseDTO> findBySupplierId(String supplierName){
-        Iterable<Cloth> cloths = clothCrudRepository.findBySupplier_SupplierId(supplierName);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ClothResponseDTO> findByCategoryId(int categoryId){
-        Iterable<Cloth> cloths = clothCrudRepository.findByCategory_CategoryId(categoryId);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ClothResponseDTO> findByUserId(int userId){
-        Iterable<Cloth> cloths = clothCrudRepository.findByUser_UserId(userId);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -101,7 +64,6 @@ public class ClothRepositoryImp implements ClothRepository {
             clothToUpdate.setMeters(createClothDTO.getMeters());
             clothToUpdate.setIsActive(createClothDTO.getIsActive()); // 💡 Agrega esta línea también
 
-
             // Mapear entidades usando el Mapper
             clothToUpdate.setUser(clothMapper.mapUser(createClothDTO.getUserId()));
             clothToUpdate.setCategory(clothMapper.mapCategory(createClothDTO.getCategoryId()));
@@ -115,6 +77,31 @@ public class ClothRepositoryImp implements ClothRepository {
         } else {
             throw new IllegalArgumentException("Cloth not found with ID: " + createClothDTO.getClothId());
         }
+    }
+
+    @Override
+    public void delete(int clothId){
+        if(clothCrudRepository.findById(clothId).isPresent()){
+            clothCrudRepository.deleteById(clothId);
+        } else {
+            throw new IllegalArgumentException("Cloth not found");
+        }
+    }
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public Optional<ClothResponseDTO> getByName(String name){
+        return clothCrudRepository.findByName(name)
+                .map(clothMapper::toClothResponseDTO);
+    }
+
+    @Override
+    public List<ClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        Iterable<Cloth> cloths = clothCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -133,12 +120,30 @@ public class ClothRepositoryImp implements ClothRepository {
                 .collect(Collectors.toList());
     }
 
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
     @Override
-    public void delete(int clothId){
-        if(clothCrudRepository.findById(clothId).isPresent()){
-            clothCrudRepository.deleteById(clothId);
-        } else {
-            throw new IllegalArgumentException("Cloth not found");
-        }
+    public List<ClothResponseDTO> findBySupplierId(String supplierName){
+        Iterable<Cloth> cloths = clothCrudRepository.findBySupplier_SupplierId(supplierName);
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClothResponseDTO> findByCategoryId(int categoryId){
+        Iterable<Cloth> cloths = clothCrudRepository.findByCategory_CategoryId(categoryId);
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClothResponseDTO> findByUserId(int userId){
+        Iterable<Cloth> cloths = clothCrudRepository.findByUser_UserId(userId);
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
     }
 }

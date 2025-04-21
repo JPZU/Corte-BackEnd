@@ -23,6 +23,9 @@ public class ReferenceRepositoryImp implements ReferenceRepository {
     @Autowired
     private ReferenceMapper referenceMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<ReferenceResponseDTO> getAll(){
         Iterable<Reference> references = referenceCrudRepository.findAll();
@@ -36,14 +39,6 @@ public class ReferenceRepositoryImp implements ReferenceRepository {
         return referenceCrudRepository.findById(referenceId)
                 .map(referenceMapper::toReferenceResponseDTO);
 
-    }
-
-    @Override
-    public List<ReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        Iterable<Reference> references = referenceCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(references.spliterator(), false)
-                .map(referenceMapper::toReferenceResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -89,4 +84,19 @@ public class ReferenceRepositoryImp implements ReferenceRepository {
             throw new RuntimeException("Reference not found");
         }
     }
+
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public List<ReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        Iterable<Reference> references = referenceCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(references.spliterator(), false)
+                .map(referenceMapper::toReferenceResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
 }

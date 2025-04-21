@@ -8,7 +8,6 @@ import com.arapos.corte.persistence.entity.ItemReference;
 import com.arapos.corte.persistence.mapper.ItemReferenceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +23,9 @@ public class ItemReferenceRepositoryImp implements ItemReferenceRepository {
     @Autowired
     private ItemReferenceMapper itemReferenceMapper;
 
+    /* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
     @Override
     public List<ItemReferenceResponseDTO> getAll(){
         Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findAll();
@@ -36,30 +38,6 @@ public class ItemReferenceRepositoryImp implements ItemReferenceRepository {
     public Optional<ItemReferenceResponseDTO> getById(int itemReferenceId){
         return itemReferenceCrudRepository.findById(itemReferenceId)
                 .map(itemReferenceMapper::toItemReferenceResponseDTO);
-    }
-
-    @Override
-    public List<ItemReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
-        Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findByCreatedAtBetween(startDate, endDate);
-        return StreamSupport.stream(itemReferences.spliterator(),false)
-                .map(itemReferenceMapper::toItemReferenceResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ItemReferenceResponseDTO> findByReferenceId(String referenceId){
-        Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findByReference_ReferenceId(referenceId);
-        return StreamSupport.stream(itemReferences.spliterator(),false)
-                .map(itemReferenceMapper::toItemReferenceResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ItemReferenceResponseDTO> findByOpId(int opId){
-        Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findByOp_OpId(opId);
-        return StreamSupport.stream(itemReferences.spliterator(),false)
-                .map(itemReferenceMapper::toItemReferenceResponseDTO)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -100,6 +78,34 @@ public class ItemReferenceRepositoryImp implements ItemReferenceRepository {
         }
     }
 
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    @Override
+    public List<ItemReferenceResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findByCreatedAtBetween(startDate, endDate);
+        return StreamSupport.stream(itemReferences.spliterator(),false)
+                .map(itemReferenceMapper::toItemReferenceResponseDTO)
+                .collect(Collectors.toList());
+    }
 
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
+    @Override
+    public List<ItemReferenceResponseDTO> findByReferenceId(String referenceId){
+        Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findByReference_ReferenceId(referenceId);
+        return StreamSupport.stream(itemReferences.spliterator(),false)
+                .map(itemReferenceMapper::toItemReferenceResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ItemReferenceResponseDTO> findByOpId(int opId){
+        Iterable<ItemReference> itemReferences = itemReferenceCrudRepository.findByOp_OpId(opId);
+        return StreamSupport.stream(itemReferences.spliterator(),false)
+                .map(itemReferenceMapper::toItemReferenceResponseDTO)
+                .collect(Collectors.toList());
+    }
 }
 
