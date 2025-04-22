@@ -52,6 +52,10 @@ public class OpService {
         return opRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
+    public Optional<OpResponseDTO> getByConsecutiveNumber(int number) {
+        return opRepository.getByConsecutiveNumber(number);
+    }
+
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */

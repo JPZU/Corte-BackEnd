@@ -21,6 +21,7 @@ public interface OpMapper {
         @Mapping(source = "totalMeters", target = "totalMeters"),
         @Mapping(source = "quantityCloths", target = "quantityCloths"),
         @Mapping(source = "schemaLength", target = "schemaLength"),
+        @Mapping(source = "consecutiveNumber", target = "consecutiveNumber"),
         @Mapping(source = "createdAt", target = "createdAt"),
         @Mapping(source = "updatedAt", target = "updatedAt"),
     /* --------------------------------------------------------
@@ -54,6 +55,7 @@ public interface OpMapper {
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
+        @Mapping(target = "consecutiveNumber", ignore = true), // Se generará automáticamente por el backend
         @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
         @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
     })

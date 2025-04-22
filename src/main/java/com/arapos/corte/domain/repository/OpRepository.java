@@ -13,6 +13,7 @@ public interface OpRepository {
     List<OpResponseDTO> getAll();
     Optional<OpResponseDTO> getById(int opId);
     List<OpResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    Optional<OpResponseDTO> getByConsecutiveNumber(int consecutiveNumber);
     OpResponseDTO save(CreateOpDTO createOpDTO);
     OpResponseDTO update(CreateOpDTO createOpDTO);
     void delete(int opId);

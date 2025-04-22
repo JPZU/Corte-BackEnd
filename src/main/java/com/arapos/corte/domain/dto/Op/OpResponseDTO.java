@@ -12,6 +12,7 @@ public class OpResponseDTO {
     private BigDecimal totalMeters;
     private int quantityCloths;
     private BigDecimal schemaLength;
+    private int consecutiveNumber;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -78,6 +79,14 @@ public class OpResponseDTO {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public int getConsecutiveNumber() {
+        return consecutiveNumber;
+    }
+
+    public void setConsecutiveNumber(int consecutiveNumber) {
+        this.consecutiveNumber = consecutiveNumber;
     }
 
     /* --------------------------------------------------------

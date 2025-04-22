@@ -34,6 +34,9 @@ public class Op {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "consecutive_number", nullable = false)
+    private int consecutiveNumber;
+
     /* --------------------------------------------------------
                         RELATIONSHIPS
     --------------------------------------------------------- */
@@ -107,6 +110,14 @@ public class Op {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public int getConsecutiveNumber() {
+        return consecutiveNumber;
+    }
+
+    public void setConsecutiveNumber(int consecutiveNumber) {
+        this.consecutiveNumber = consecutiveNumber;
     }
 
     /* --------------------------------------------------------

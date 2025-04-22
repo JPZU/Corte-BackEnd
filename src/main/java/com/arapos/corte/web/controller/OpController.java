@@ -60,6 +60,13 @@ public class OpController {
         return ResponseEntity.ok(opService.getByCreatedAtBetween(startDate, endDate));
     }
 
+    @GetMapping("/consecutive/{number}")
+    public ResponseEntity<OpResponseDTO> getByConsecutiveNumber(@PathVariable("number") int number) {
+        return opService.getByConsecutiveNumber(number)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */

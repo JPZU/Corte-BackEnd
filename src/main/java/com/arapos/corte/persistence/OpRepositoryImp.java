@@ -46,10 +46,17 @@ public class OpRepositoryImp implements OpRepository {
         if(createOpDTO.getOpId() != 0){
             throw new IllegalArgumentException("Id cannot be present for create a new Op");
         }
+
         Op opEntity = opMapper.toOp(createOpDTO);
+
+        // Generar el número consecutivo
+        int lastConsecutive = opCrudRepository.findMaxConsecutiveNumber();
+        opEntity.setConsecutiveNumber(lastConsecutive + 1);
+
         Op savedOp = opCrudRepository.save(opEntity);
         return opMapper.toOpResponseDTO(savedOp);
     }
+
 
     @Override
     public OpResponseDTO update(CreateOpDTO createOpDTO){
@@ -89,6 +96,12 @@ public class OpRepositoryImp implements OpRepository {
         return StreamSupport.stream(ops.spliterator(), false)
                 .map(opMapper::toOpResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<OpResponseDTO> getByConsecutiveNumber(int consecutiveNumber) {
+        return opCrudRepository.findByConsecutiveNumber(consecutiveNumber)
+                .map(opMapper::toOpResponseDTO);
     }
 
     /* --------------------------------------------------------
