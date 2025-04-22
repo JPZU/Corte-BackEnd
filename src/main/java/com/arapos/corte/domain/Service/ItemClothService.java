@@ -105,8 +105,103 @@ public class ItemClothService {
         return savedItem;
     }
 
-    public ItemClothResponseDTO update(CreateItemClothDTO createItemClothDTO){
-        return itemClothRepository.update(createItemClothDTO);
+    @Transactional
+    public ItemClothResponseDTO update(CreateItemClothDTO newDTO) {
+        // 1. Obtener el itemCloth anterior
+        ItemClothResponseDTO oldItem = getById(newDTO.getItemClothId())
+                .orElseThrow(() -> new IllegalArgumentException("ItemCloth not found with ID: " + newDTO.getItemClothId()));
+
+        int oldClothId = oldItem.getCloth().getClothId();
+        int newClothId = newDTO.getClothId();
+
+        // 2. Si la tela cambió, actualizar ambas telas (anterior y nueva)
+        if (oldClothId != newClothId) {
+            // 2.1 Restaurar metros a la tela anterior
+            ClothResponseDTO oldCloth = clothService.getById(oldClothId)
+                    .orElseThrow(() -> new IllegalArgumentException("Old cloth not found"));
+
+            BigDecimal restoredMeters = oldCloth.getMeters().add(oldItem.getMeters());
+            boolean oldClothActive = restoredMeters.compareTo(new BigDecimal("1")) > 0;
+
+            CreateClothDTO updatedOldCloth = new CreateClothDTO();
+            updatedOldCloth.setClothId(oldCloth.getClothId());
+            updatedOldCloth.setName(oldCloth.getName());
+            updatedOldCloth.setColor(oldCloth.getColor());
+            updatedOldCloth.setMeters(restoredMeters);
+            updatedOldCloth.setIsActive(oldClothActive);
+            updatedOldCloth.setCategoryId(oldCloth.getCategory().getCategoryId());
+            updatedOldCloth.setSupplierId(oldCloth.getSupplier().getSupplierId());
+            updatedOldCloth.setUserId(oldCloth.getUser().getUserId());
+            clothService.update(updatedOldCloth);
+
+            // 2.2 Descontar metros en la nueva tela
+            ClothResponseDTO newCloth = clothService.getById(newClothId)
+                    .orElseThrow(() -> new IllegalArgumentException("New cloth not found"));
+
+            BigDecimal updatedNewMeters = newCloth.getMeters().subtract(newDTO.getMeters());
+            if (updatedNewMeters.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Not enough meters in new cloth");
+            }
+
+            boolean newClothActive = updatedNewMeters.compareTo(new BigDecimal("1")) > 0;
+
+            CreateClothDTO updatedNewCloth = new CreateClothDTO();
+            updatedNewCloth.setClothId(newCloth.getClothId());
+            updatedNewCloth.setName(newCloth.getName());
+            updatedNewCloth.setColor(newCloth.getColor());
+            updatedNewCloth.setMeters(updatedNewMeters);
+            updatedNewCloth.setIsActive(newClothActive);
+            updatedNewCloth.setCategoryId(newCloth.getCategory().getCategoryId());
+            updatedNewCloth.setSupplierId(newCloth.getSupplier().getSupplierId());
+            updatedNewCloth.setUserId(newCloth.getUser().getUserId());
+            clothService.update(updatedNewCloth);
+        } else {
+            // 3. Si no cambió la tela, solo ajusta la diferencia
+            ClothResponseDTO cloth = clothService.getById(newClothId)
+                    .orElseThrow(() -> new IllegalArgumentException("Cloth not found"));
+
+            BigDecimal difference = newDTO.getMeters().subtract(oldItem.getMeters()); // puede ser + o -
+            BigDecimal updatedMeters = cloth.getMeters().subtract(difference);
+
+            if (updatedMeters.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Not enough meters in cloth to update");
+            }
+
+            boolean isActive = updatedMeters.compareTo(new BigDecimal("1")) > 0;
+
+            CreateClothDTO updatedCloth = new CreateClothDTO();
+            updatedCloth.setClothId(cloth.getClothId());
+            updatedCloth.setName(cloth.getName());
+            updatedCloth.setColor(cloth.getColor());
+            updatedCloth.setMeters(updatedMeters);
+            updatedCloth.setIsActive(isActive);
+            updatedCloth.setCategoryId(cloth.getCategory().getCategoryId());
+            updatedCloth.setSupplierId(cloth.getSupplier().getSupplierId());
+            updatedCloth.setUserId(cloth.getUser().getUserId());
+            clothService.update(updatedCloth);
+        }
+
+        // 4. Actualizar el itemCloth
+        ItemClothResponseDTO updatedItem = itemClothRepository.update(newDTO);
+
+        // 5. Recalcular el total de metros de la op
+        OpResponseDTO op = opService.getById(newDTO.getOpId())
+                .orElseThrow(() -> new IllegalArgumentException("Op not found with ID: " + newDTO.getOpId()));
+
+        List<ItemClothResponseDTO> itemCloths = getByOpId(op.getOpId());
+        BigDecimal totalMeters = itemCloths.stream()
+                .map(ItemClothResponseDTO::getMeters)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        CreateOpDTO updatedOp = new CreateOpDTO();
+        updatedOp.setOpId(op.getOpId());
+        updatedOp.setTotalMeters(totalMeters);
+        updatedOp.setQuantityCloths(op.getQuantityCloths());
+        updatedOp.setSchemaLength(op.getSchemaLength());
+        updatedOp.setUserId(op.getUser().getUserId());
+        opService.update(updatedOp);
+
+        return updatedItem;
     }
 
     public boolean delete(int itemClothId){
