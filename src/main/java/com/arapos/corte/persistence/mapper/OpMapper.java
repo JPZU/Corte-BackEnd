@@ -44,6 +44,7 @@ public interface OpMapper {
         @Mapping(source = "opId", target = "opId"), // Para poder actualizar
         @Mapping(source = "quantityCloths", target = "quantityCloths"),
         @Mapping(source = "schemaLength", target = "schemaLength"),
+        @Mapping(source = "totalMeters", target = "totalMeters"), // se calcula en el servicio
     /* --------------------------------------------------------
                     relationships
     --------------------------------------------------------- */
@@ -51,7 +52,6 @@ public interface OpMapper {
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
-        @Mapping(target = "totalMeters", ignore = true), // se calcula en el servicio
         @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
         @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
         @Mapping(target = "itemReferencesList", ignore = true), // Evita mapear relaciones OneToMany
