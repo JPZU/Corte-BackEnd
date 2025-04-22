@@ -26,7 +26,6 @@ public interface UserMapper {
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
-            @Mapping(target = "password", ignore = true),
     })
     UserResponseDTO toUserResponseDTO(User user);
 
