@@ -41,7 +41,7 @@ public interface ItemClothMapper {
             @Mapping(source = "itemClothId", target = "itemClothId"),
             @Mapping(source = "meters", target = "meters"),
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
             @Mapping(target = "op", expression = "java(mapOp(createItemClothDTO.getOpId()))"), // Asigna el ID a la entidad Op
             @Mapping(target = "cloth", expression = "java(mapCloth(createItemClothDTO.getClothId()))"), // Asigna el ID a la entidad Cloth

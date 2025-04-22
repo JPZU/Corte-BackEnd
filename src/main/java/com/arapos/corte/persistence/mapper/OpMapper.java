@@ -46,16 +46,16 @@ public interface OpMapper {
         @Mapping(source = "schemaLength", target = "schemaLength"),
         @Mapping(source = "totalMeters", target = "totalMeters"), // se calcula en el servicio
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
         @Mapping(target = "user", expression = "java(mapUser(createOpDTO.getUserId()))"), // Mapea ID de usuario
+        @Mapping(target = "itemReferencesList", ignore = true), // Evita mapear relaciones OneToMany
+        @Mapping(target = "itemClothsList", ignore = true),
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
         @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
         @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
-        @Mapping(target = "itemReferencesList", ignore = true), // Evita mapear relaciones OneToMany
-        @Mapping(target = "itemClothsList", ignore = true),
     })
     Op toOp(CreateOpDTO createOpDTO);
 

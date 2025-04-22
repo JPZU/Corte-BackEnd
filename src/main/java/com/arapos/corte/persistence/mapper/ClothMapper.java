@@ -49,8 +49,9 @@ public interface ClothMapper {
             @Mapping(source = "meters", target = "meters"),
             @Mapping(source = "isActive", target = "isActive"),
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
+            @Mapping(target = "itemClothsList", ignore = true), // Evita mapear relaciones OneToMany
             @Mapping(target = "user", expression = "java(mapUser(createClothDTO.getUserId()))"), // Convierte ID a entidad
             @Mapping(target = "category", expression = "java(mapCategory(createClothDTO.getCategoryId()))"), // Convierte ID a entidad
             @Mapping(target = "supplier", expression = "java(mapSupplier(createClothDTO.getSupplierId()))"),// Convierte ID a entidad
@@ -59,7 +60,6 @@ public interface ClothMapper {
     --------------------------------------------------------- */
             @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
-            @Mapping(target = "itemClothsList", ignore = true), // Evita mapear relaciones OneToMany
     })
     Cloth toCloth(CreateClothDTO createClothDTO);
 

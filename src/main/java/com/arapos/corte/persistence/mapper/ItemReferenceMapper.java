@@ -43,13 +43,15 @@ public interface ItemReferenceMapper {
     --------------------------------------------------------- */
             @Mapping(source = "itemReferenceId",target = "itemReferenceId"),
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
             @Mapping(target = "op", expression = "java(mapOp(createItemReferenceDTO.getOpId()))"),
-            @Mapping(target = "reference", expression = "java(mapReference(createItemReferenceDTO.getReferenceId()))")
+            @Mapping(target = "reference", expression = "java(mapReference(createItemReferenceDTO.getReferenceId()))"),
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
+            @Mapping(target = "createdAt", ignore = true),
+            @Mapping(target = "updatedAt", ignore = true),
     })
     ItemReference toItemReference(CreateItemReferenceDTO createItemReferenceDTO);
 

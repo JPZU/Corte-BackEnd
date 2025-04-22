@@ -40,7 +40,7 @@ public interface ReferenceMapper {
             @Mapping(source = "referenceId", target = "referenceId"),
             @Mapping(source = "description", target = "description"),
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
     /* --------------------------------------------------------
                         unmapped

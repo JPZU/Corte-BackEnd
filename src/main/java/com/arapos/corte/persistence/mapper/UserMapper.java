@@ -19,13 +19,14 @@ public interface UserMapper {
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "role", target = "role"),
             @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "updatedAt", target = "updatedAt")
+            @Mapping(source = "updatedAt", target = "updatedAt"),
     /* --------------------------------------------------------
                     relationships
     --------------------------------------------------------- */
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
+            @Mapping(target = "password", ignore = true),
     })
     UserResponseDTO toUserResponseDTO(User user);
 
@@ -42,7 +43,7 @@ public interface UserMapper {
             @Mapping(source = "password", target = "password"),
             @Mapping(source = "role", target = "role"),
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
     /* --------------------------------------------------------
                         unmapped

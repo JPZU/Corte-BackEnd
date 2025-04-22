@@ -39,14 +39,14 @@ public interface SupplierMapper {
             @Mapping(source = "supplierId", target = "supplierId"),
             @Mapping(source = "name", target = "name"),
     /* --------------------------------------------------------
-                    relationships
+                    relationships entity
     --------------------------------------------------------- */
+            @Mapping(target = "clothsList", ignore = true),
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true),
-            @Mapping(target = "clothsList", ignore = true),
     })
     Supplier toSupplier(CreateSupplierDTO createSupplierDTO);
 
