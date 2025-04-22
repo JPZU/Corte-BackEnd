@@ -4,5 +4,6 @@ public enum Rol {
     SUPER_ADMIN,
     ADMIN,
     EDITOR,
-    VIEWER
+    VIEWER,
+    INACTIVE
 }
