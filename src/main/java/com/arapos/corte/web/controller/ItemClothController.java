@@ -33,11 +33,6 @@ public class ItemClothController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<ItemClothResponseDTO> save(@RequestBody CreateItemClothDTO createItemClothDTO) {
-        return new ResponseEntity<>(itemClothService.save(createItemClothDTO), HttpStatus.CREATED);
-    }
-
     @PutMapping("/update")
     public ResponseEntity<ItemClothResponseDTO> update(@RequestBody CreateItemClothDTO createItemClothDTO) {
         return ResponseEntity.ok(itemClothService.update(createItemClothDTO));

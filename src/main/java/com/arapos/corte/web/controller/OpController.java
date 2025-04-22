@@ -33,11 +33,6 @@ public class OpController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<OpResponseDTO> save(@RequestBody CreateOpDTO createOpDTO) {
-        return new ResponseEntity<>(opService.save(createOpDTO), HttpStatus.CREATED);
-    }
-
     @PutMapping("/update")
     public ResponseEntity<OpResponseDTO> update(@RequestBody CreateOpDTO createOpDTO) {
         return ResponseEntity.ok(opService.update(createOpDTO));
