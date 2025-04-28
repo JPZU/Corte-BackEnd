@@ -6,6 +6,7 @@ import com.arapos.corte.domain.repository.UserRepository;
 import com.arapos.corte.persistence.entity.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,7 +19,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /* --------------------------------------------------------
                             BASIC CRUD
@@ -33,11 +35,12 @@ public class UserService {
 
     public UserResponseDTO save(CreateUserDTO createUserDTO){
 //        Hash password before save in the user
-//        createUserDTO.setPassword(bCryptPasswordEncoder.encode(createUserDTO.getPassword()));
+        createUserDTO.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
         return userRepository.save(createUserDTO);
     }
 
     public UserResponseDTO update(CreateUserDTO createUserDTO){
+        createUserDTO.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
         return userRepository.update(createUserDTO);
     }
 
