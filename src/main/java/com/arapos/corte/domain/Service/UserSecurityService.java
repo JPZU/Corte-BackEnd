@@ -25,12 +25,12 @@ public class UserSecurityService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.arapos.corte.persistence.entity.User userEntity = this.userCrudRepository.findByName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        com.arapos.corte.persistence.entity.User userEntity = this.userCrudRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User " + email + " not found"));
 
         return User.builder()
-                .username(userEntity.getName())
+                .username(userEntity.getEmail())
                 .password(userEntity.getPassword())
                 .roles(userEntity.getRole().name())
                 .build();

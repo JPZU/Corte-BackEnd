@@ -1,5 +1,6 @@
 package com.arapos.corte.web.controller;
 
+import com.arapos.corte.domain.Service.AuthService;
 import com.arapos.corte.domain.dto.User.CreateUserDTO;
 import com.arapos.corte.web.config.JwtUtil;
 import com.auth0.jwt.JWT;
@@ -19,25 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
-
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-    }
+    private AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody CreateUserDTO createUserDTO){
-        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(createUserDTO.getName(), createUserDTO.getPassword());
-        Authentication authentication = this.authenticationManager.authenticate(login);
-
-        System.out.println(authentication.isAuthenticated());
-        System.out.println(authentication.getPrincipal());
-
-        String jwt = this.jwtUtil.create(login.getName());
-
+        String jwt = authService.login(createUserDTO);
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
     }
 }
