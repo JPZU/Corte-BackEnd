@@ -3,7 +3,9 @@ FROM eclipse-temurin:22-jdk AS builder
 
 WORKDIR /app
 COPY . .
-RUN ./gradlew clean build -x test
+
+RUN chmod +x gradlew
+RUN ./gradlew clean test build --no-daemon
 
 # Etapa de ejecución
 FROM eclipse-temurin:22-jdk
