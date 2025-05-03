@@ -13,6 +13,7 @@ public class OpResponseDTO {
     private int quantityCloths;
     private BigDecimal schemaLength;
     private int consecutiveNumber;
+    private String descriptions;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -87,6 +88,14 @@ public class OpResponseDTO {
 
     public void setConsecutiveNumber(int consecutiveNumber) {
         this.consecutiveNumber = consecutiveNumber;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String description) {
+        this.descriptions = description;
     }
 
     /* --------------------------------------------------------

@@ -22,6 +22,7 @@ public interface OpMapper {
         @Mapping(source = "quantityCloths", target = "quantityCloths"),
         @Mapping(source = "schemaLength", target = "schemaLength"),
         @Mapping(source = "consecutiveNumber", target = "consecutiveNumber"),
+        @Mapping(source = "descriptions", target = "descriptions"),
         @Mapping(source = "createdAt", target = "createdAt"),
         @Mapping(source = "updatedAt", target = "updatedAt"),
     /* --------------------------------------------------------
@@ -46,6 +47,7 @@ public interface OpMapper {
         @Mapping(source = "quantityCloths", target = "quantityCloths"),
         @Mapping(source = "schemaLength", target = "schemaLength"),
         @Mapping(source = "totalMeters", target = "totalMeters"), // se calcula en el servicio
+        @Mapping(source = "descriptions", target = "descriptions"),
     /* --------------------------------------------------------
                     relationships entity
     --------------------------------------------------------- */

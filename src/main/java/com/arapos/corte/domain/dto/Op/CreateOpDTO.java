@@ -22,6 +22,8 @@ public class CreateOpDTO {
     @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal schemaLength;
 
+    private String descriptions;
+
     /* --------------------------------------------------------
                         RELATIONSHIPS
     --------------------------------------------------------- */
@@ -70,6 +72,14 @@ public class CreateOpDTO {
 
     public void setSchemaLength(BigDecimal schemaLength) {
         this.schemaLength = schemaLength;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
 
     /* --------------------------------------------------------

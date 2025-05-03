@@ -37,6 +37,9 @@ public class Op {
     @Column(name = "consecutive_number", nullable = false)
     private int consecutiveNumber;
 
+    @Column(nullable = true)
+    private String descriptions;
+
     /* --------------------------------------------------------
                         RELATIONSHIPS
     --------------------------------------------------------- */
@@ -118,6 +121,14 @@ public class Op {
 
     public void setConsecutiveNumber(int consecutiveNumber) {
         this.consecutiveNumber = consecutiveNumber;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
 
     /* --------------------------------------------------------

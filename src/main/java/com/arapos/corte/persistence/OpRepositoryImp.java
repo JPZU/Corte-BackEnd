@@ -66,6 +66,7 @@ public class OpRepositoryImp implements OpRepository {
 
             opToUpdate.setQuantityCloths(createOpDTO.getQuantityCloths());
             opToUpdate.setSchemaLength(createOpDTO.getSchemaLength());
+            opToUpdate.setDescriptions(createOpDTO.getDescriptions());
 
             // Mapear entidades usando el Mapper
             opToUpdate.setUser(opMapper.mapUser(createOpDTO.getUserId()));
