@@ -61,4 +61,37 @@ public class UserServiceTest {
         assertEquals("juanzuluaga@gmail.com", result.getEmail());
         assertEquals(Rol.ADMIN, result.getRole());
     }
+
+    @Test
+    void update_ShouldReturnUserResponseDTO_WhenValidInput() {
+        // Arrange
+        CreateUserDTO dto = new CreateUserDTO();
+        dto.setUserId(1);
+        dto.setName("Juan Updated");
+        dto.setEmail("juan_updated@example.com");
+        dto.setPassword("newPassword123");
+        dto.setRole(Rol.ADMIN);
+
+        // Simula el encoder
+        when(passwordEncoder.encode("newPassword123")).thenReturn("encodedPassword");
+
+        // Simula la respuesta del repositorio
+        UserResponseDTO updatedResponse = new UserResponseDTO();
+        updatedResponse.setUserId(1);
+        updatedResponse.setName("Juan Updated");
+        updatedResponse.setEmail("juan_updated@example.com");
+        updatedResponse.setRole(Rol.ADMIN);
+
+        when(userRepository.update(any(CreateUserDTO.class))).thenReturn(updatedResponse);
+
+        // Act
+        UserResponseDTO result = userService.update(dto);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.getUserId());
+        assertEquals("Juan Updated", result.getName());
+        assertEquals("juan_updated@example.com", result.getEmail());
+        assertEquals(Rol.ADMIN, result.getRole());
+    }
 }

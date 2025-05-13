@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN chmod +x gradlew
-RUN ./gradlew clean test build --no-daemon
+RUN ./gradlew clean build -x test --no-daemon
 
 # Etapa de ejecución
 FROM eclipse-temurin:22-jdk

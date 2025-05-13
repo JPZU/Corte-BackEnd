@@ -35,4 +35,6 @@ public class UserSecurityService implements UserDetailsService {
                 .roles(userEntity.getRole().name())
                 .build();
     }
+
+
 }
