@@ -67,6 +67,9 @@ public class ItemClothService {
         updatedClothDTO.setColor(cloth.getColor());
         updatedClothDTO.setMeters(metersUpdated);
         updatedClothDTO.setIsActive(isActive);
+        updatedClothDTO.setNotes(cloth.getNotes());
+        updatedClothDTO.setPrice(cloth.getPrice());
+        updatedClothDTO.setSupplierInvoice(cloth.getSupplierInvoice());
         updatedClothDTO.setCategoryId(cloth.getCategory().getCategoryId());
         updatedClothDTO.setSupplierId(cloth.getSupplier().getSupplierId());
         updatedClothDTO.setUserId(cloth.getUser().getUserId());
@@ -129,6 +132,9 @@ public class ItemClothService {
             updatedOldCloth.setColor(oldCloth.getColor());
             updatedOldCloth.setMeters(restoredMeters);
             updatedOldCloth.setIsActive(oldClothActive);
+            updatedOldCloth.setNotes(oldCloth.getNotes());
+            updatedOldCloth.setPrice(oldCloth.getPrice());
+            updatedOldCloth.setSupplierInvoice(oldCloth.getSupplierInvoice());
             updatedOldCloth.setCategoryId(oldCloth.getCategory().getCategoryId());
             updatedOldCloth.setSupplierId(oldCloth.getSupplier().getSupplierId());
             updatedOldCloth.setUserId(oldCloth.getUser().getUserId());
