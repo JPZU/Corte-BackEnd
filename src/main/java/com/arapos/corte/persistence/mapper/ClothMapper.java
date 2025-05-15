@@ -24,6 +24,9 @@ public interface ClothMapper {
             @Mapping(source = "createdAt", target = "createdAt"),
             @Mapping(source = "updatedAt", target = "updatedAt"),
             @Mapping(source = "isActive", target = "isActive"),
+            @Mapping(source = "notes", target = "notes"),
+            @Mapping(source = "price", target = "price"),
+            @Mapping(source = "supplierInvoice", target = "supplierInvoice"),
     /* --------------------------------------------------------
                     relationships
     --------------------------------------------------------- */
@@ -48,6 +51,9 @@ public interface ClothMapper {
             @Mapping(source = "color", target = "color"),
             @Mapping(source = "meters", target = "meters"),
             @Mapping(source = "isActive", target = "isActive"),
+            @Mapping(source = "notes", target = "notes"),
+            @Mapping(source = "price", target = "price"),
+            @Mapping(source = "supplierInvoice", target = "supplierInvoice"),
     /* --------------------------------------------------------
                     relationships entity
     --------------------------------------------------------- */

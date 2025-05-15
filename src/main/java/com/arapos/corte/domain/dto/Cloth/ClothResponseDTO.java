@@ -19,6 +19,9 @@ public class ClothResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean isActive;
+    private String notes;
+    private int price;
+    private String supplierInvoice;
 
     /* --------------------------------------------------------
                         RELATIONSHIPS
@@ -93,6 +96,30 @@ public class ClothResponseDTO {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getSupplierInvoice() {
+        return supplierInvoice;
+    }
+
+    public void setSupplierInvoice(String supplierInvoice) {
+        this.supplierInvoice = supplierInvoice;
     }
 
     /* --------------------------------------------------------

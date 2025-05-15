@@ -62,7 +62,10 @@ public class ClothRepositoryImp implements ClothRepository {
             clothToUpdate.setName(createClothDTO.getName());
             clothToUpdate.setColor(createClothDTO.getColor());
             clothToUpdate.setMeters(createClothDTO.getMeters());
-            clothToUpdate.setIsActive(createClothDTO.getIsActive()); // 💡 Agrega esta línea también
+            clothToUpdate.setIsActive(createClothDTO.getIsActive());// 💡 Agrega esta línea también
+            clothToUpdate.setNotes(createClothDTO.getNotes());
+            clothToUpdate.setPrice(createClothDTO.getPrice());
+            clothToUpdate.setSupplierInvoice(createClothDTO.getSupplierInvoice());
 
             // Mapear entidades usando el Mapper
             clothToUpdate.setUser(clothMapper.mapUser(createClothDTO.getUserId()));
@@ -115,6 +118,14 @@ public class ClothRepositoryImp implements ClothRepository {
     @Override
     public List<ClothResponseDTO> findByIsActiveFalse() {
         Iterable<Cloth> cloths = clothCrudRepository.findByIsActiveFalse();
+        return StreamSupport.stream(cloths.spliterator(), false)
+                .map(clothMapper::toClothResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public  List<ClothResponseDTO> findBySupplierInvoice(String supplierInvoice) {
+        Iterable<Cloth> cloths = clothCrudRepository.findBySupplierInvoice(supplierInvoice);
         return StreamSupport.stream(cloths.spliterator(), false)
                 .map(clothMapper::toClothResponseDTO)
                 .collect(Collectors.toList());

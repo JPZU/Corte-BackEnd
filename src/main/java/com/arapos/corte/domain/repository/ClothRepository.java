@@ -16,6 +16,7 @@ public interface ClothRepository {
     List<ClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<ClothResponseDTO> findByIsActiveTrue();
     List<ClothResponseDTO> findByIsActiveFalse();
+    List<ClothResponseDTO> findBySupplierInvoice(String supplierInvoice);
     ClothResponseDTO save(CreateClothDTO cloth);
     ClothResponseDTO update(CreateClothDTO cloth);
     void delete(int clothId);

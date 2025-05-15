@@ -40,6 +40,15 @@ public class Cloth {
     columnDefinition = "TINYINT(1)")
     private boolean isActive;
 
+    @Column(length = 255)
+    private String notes;
+
+    @Column(nullable = false)
+    private int price;
+
+    @Column(name = "supplier_invoice", length = 255,nullable = false)
+    private String supplierInvoice;
+
     /* --------------------------------------------------------
                         RELATIONSHIPS
     --------------------------------------------------------- */
@@ -127,6 +136,30 @@ public class Cloth {
 
     public void setIsActive(boolean active) {
         isActive = active;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getSupplierInvoice() {
+        return supplierInvoice;
+    }
+
+    public void setSupplierInvoice(String supplierInvoice) {
+        this.supplierInvoice = supplierInvoice;
     }
 
     /* --------------------------------------------------------

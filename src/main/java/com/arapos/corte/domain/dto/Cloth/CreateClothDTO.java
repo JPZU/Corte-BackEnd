@@ -1,9 +1,6 @@
 package com.arapos.corte.domain.dto.Cloth;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -28,6 +25,16 @@ public class CreateClothDTO {
     @NotNull(message = "isActive is required")
     private Boolean isActive;
 
+    @Size(max = 255, message = "Notes must not exceed 255 character")
+    private String notes;
+
+    @NotNull(message = "Price is required")
+    @Min(value = 1, message = "Price must be greater than zero")
+    private int price;
+
+    @NotBlank(message = "Supplier invoice is required")
+    @Size(max = 255, message = "Supplier invoice must not exceed 255 character")
+    private String supplierInvoice;
     /* --------------------------------------------------------
                         RELATIONSHIPS
     --------------------------------------------------------- */
@@ -91,6 +98,30 @@ public class CreateClothDTO {
 
     public void setIsActive(Boolean active) {
         isActive = active;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getSupplierInvoice() {
+        return supplierInvoice;
+    }
+
+    public void setSupplierInvoice(String supplierInvoice) {
+        this.supplierInvoice = supplierInvoice;
     }
 
     /* --------------------------------------------------------

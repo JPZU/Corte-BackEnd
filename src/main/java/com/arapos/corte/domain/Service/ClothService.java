@@ -62,6 +62,10 @@ public class ClothService {
         return clothRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
+    public List<ClothResponseDTO> getBySupplierInvoice(String supplierInvoice){
+        return clothRepository.findBySupplierInvoice(supplierInvoice);
+    }
+
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */

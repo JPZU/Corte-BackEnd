@@ -3,6 +3,7 @@ package com.arapos.corte.web.controller;
 import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
 import com.arapos.corte.domain.dto.Cloth.CreateClothDTO;
 import com.arapos.corte.domain.Service.ClothService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,12 @@ public class ClothController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ClothResponseDTO> save(@RequestBody CreateClothDTO createClothDTO) {
+    public ResponseEntity<ClothResponseDTO> save(@Valid @RequestBody CreateClothDTO createClothDTO) {
         return new ResponseEntity<>(clothService.save(createClothDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ClothResponseDTO> update(@RequestBody CreateClothDTO createClothDTO) {
+    public ResponseEntity<ClothResponseDTO> update(@Valid @RequestBody CreateClothDTO createClothDTO) {
         return ResponseEntity.ok(clothService.update(createClothDTO));
     }
 
@@ -76,6 +77,11 @@ public class ClothController {
     @GetMapping("/is-not-active")
     public ResponseEntity<List<ClothResponseDTO>> getIsNotActive() {
         return ResponseEntity.ok(clothService.getIsNotActive());
+    }
+
+    @GetMapping("/supplier-invoice/{supplierInvoice}")
+    public ResponseEntity<List<ClothResponseDTO>> getBySupplierInvoice(@PathVariable String supplierInvoice) {
+        return ResponseEntity.ok(clothService.getBySupplierInvoice(supplierInvoice));
     }
 
     /* --------------------------------------------------------

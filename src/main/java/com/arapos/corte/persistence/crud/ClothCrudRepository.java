@@ -16,6 +16,7 @@ public interface ClothCrudRepository extends CrudRepository<Cloth, Integer> {
     List<Cloth> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<Cloth> findByIsActiveTrue();
     List<Cloth> findByIsActiveFalse();
+    List<Cloth> findBySupplierInvoice(String supplierInvoice);
     /* --------------------------------------------------------
                         METHOD REAlATIONSHIP
     --------------------------------------------------------- */
