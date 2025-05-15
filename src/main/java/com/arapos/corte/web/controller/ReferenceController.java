@@ -3,6 +3,7 @@ package com.arapos.corte.web.controller;
 import com.arapos.corte.domain.dto.Reference.CreateReferenceDTO;
 import com.arapos.corte.domain.dto.Reference.ReferenceResponseDTO;
 import com.arapos.corte.domain.Service.ReferenceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,12 @@ public class ReferenceController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ReferenceResponseDTO> save(@RequestBody CreateReferenceDTO createReferenceDTO) {
+    public ResponseEntity<ReferenceResponseDTO> save(@Valid @RequestBody CreateReferenceDTO createReferenceDTO) {
         return new ResponseEntity<>(referenceService.save(createReferenceDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ReferenceResponseDTO> update(@RequestBody CreateReferenceDTO createReferenceDTO) {
+    public ResponseEntity<ReferenceResponseDTO> update(@Valid @RequestBody CreateReferenceDTO createReferenceDTO) {
         return new ResponseEntity<>(referenceService.update(createReferenceDTO), HttpStatus.OK);
     }
 

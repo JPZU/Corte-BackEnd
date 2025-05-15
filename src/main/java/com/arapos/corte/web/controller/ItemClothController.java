@@ -3,6 +3,7 @@ package com.arapos.corte.web.controller;
 import com.arapos.corte.domain.dto.ItemCloth.CreateItemClothDTO;
 import com.arapos.corte.domain.dto.ItemCloth.ItemClothResponseDTO;
 import com.arapos.corte.domain.Service.ItemClothService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class ItemClothController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ItemClothResponseDTO> update(@RequestBody CreateItemClothDTO createItemClothDTO) {
+    public ResponseEntity<ItemClothResponseDTO> update(@Valid @RequestBody CreateItemClothDTO createItemClothDTO) {
         return ResponseEntity.ok(itemClothService.update(createItemClothDTO));
     }
 

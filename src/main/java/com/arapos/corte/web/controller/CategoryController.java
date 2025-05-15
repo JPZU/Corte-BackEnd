@@ -3,6 +3,7 @@ package com.arapos.corte.web.controller;
 import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
 import com.arapos.corte.domain.dto.Category.CreateCategoryDTO;
 import com.arapos.corte.domain.Service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,12 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CategoryResponseDTO> save(@RequestBody CreateCategoryDTO createCategoryDTO) {
+    public ResponseEntity<CategoryResponseDTO> save(@Valid @RequestBody CreateCategoryDTO createCategoryDTO) {
         return new ResponseEntity<>(categoryService.save(createCategoryDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<CategoryResponseDTO> update(@RequestBody CreateCategoryDTO categoryDTO) {
+    public ResponseEntity<CategoryResponseDTO> update(@Valid @RequestBody CreateCategoryDTO categoryDTO) {
         return new ResponseEntity<>(categoryService.update(categoryDTO), HttpStatus.OK);
     }
 

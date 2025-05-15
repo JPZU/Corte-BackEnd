@@ -3,6 +3,7 @@ package com.arapos.corte.web.controller;
 import com.arapos.corte.domain.dto.ItemReference.CreateItemReferenceDTO;
 import com.arapos.corte.domain.dto.ItemReference.ItemReferenceResponseDTO;
 import com.arapos.corte.domain.Service.ItemReferenceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class ItemReferenceController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ItemReferenceResponseDTO> update(@RequestBody CreateItemReferenceDTO createItemReferenceDTO) {
+    public ResponseEntity<ItemReferenceResponseDTO> update(@Valid @RequestBody CreateItemReferenceDTO createItemReferenceDTO) {
         return ResponseEntity.ok(itemReferenceService.update(createItemReferenceDTO));
     }
 

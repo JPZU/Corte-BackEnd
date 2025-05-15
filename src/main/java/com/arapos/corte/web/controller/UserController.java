@@ -4,6 +4,7 @@ import com.arapos.corte.domain.dto.User.CreateUserDTO;
 import com.arapos.corte.domain.dto.User.UserResponseDTO;
 import com.arapos.corte.domain.Service.UserService;
 import com.arapos.corte.persistence.entity.Rol;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> save(@RequestBody CreateUserDTO createUserDTO) {
+    public ResponseEntity<UserResponseDTO> save(@Valid @RequestBody CreateUserDTO createUserDTO) {
         return new ResponseEntity<>(userService.save(createUserDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserResponseDTO> update(@RequestBody CreateUserDTO createUserDTO) {
+    public ResponseEntity<UserResponseDTO> update(@Valid @RequestBody CreateUserDTO createUserDTO) {
         return new ResponseEntity<>(userService.update(createUserDTO), HttpStatus.OK);
     }
 

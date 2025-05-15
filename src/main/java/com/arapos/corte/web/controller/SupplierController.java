@@ -4,6 +4,7 @@ import com.arapos.corte.domain.Service.SupplierService;
 import com.arapos.corte.domain.dto.Supplier.CreateSupplierDTO;
 import com.arapos.corte.domain.dto.Supplier.SupplierResponseDTO;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,12 @@ public class SupplierController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<SupplierResponseDTO> save(@RequestBody CreateSupplierDTO createSupplierDTO) {
+    public ResponseEntity<SupplierResponseDTO> save(@Valid @RequestBody CreateSupplierDTO createSupplierDTO) {
         return new ResponseEntity<>(supplierService.save(createSupplierDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<SupplierResponseDTO> update(@RequestBody CreateSupplierDTO createSupplierDTO) {
+    public ResponseEntity<SupplierResponseDTO> update(@Valid @RequestBody CreateSupplierDTO createSupplierDTO) {
         return new ResponseEntity<>(supplierService.update(createSupplierDTO), HttpStatus.OK);
     }
 
