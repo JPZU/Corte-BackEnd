@@ -2,13 +2,26 @@ package com.arapos.corte.domain.dto.Op;
 
 import com.arapos.corte.domain.dto.ItemReference.CreateItemReferenceDTO;
 import com.arapos.corte.domain.dto.ItemCloth.CreateItemClothDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 public class FullOpRequestDTO {
 
+    @NotNull(message = "Operation data is required")
+    @Valid
     private CreateOpDTO op;
+
+    @NotNull(message = "Item references list is required")
+    @NotEmpty(message = "At least one item reference is required")
+    @Valid
     private List<CreateItemReferenceDTO> references;
+
+    @NotNull(message = "Item cloths list is required")
+    @NotEmpty(message = "At least one item cloth is required")
+    @Valid
     private List<CreateItemClothDTO> cloths;
 
     public CreateOpDTO getOp() {
