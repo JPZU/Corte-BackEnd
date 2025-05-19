@@ -65,7 +65,7 @@ public class CreateClothDTO {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.color = color.toLowerCase();
     }
 
     public BigDecimal getMeters() {
@@ -81,7 +81,7 @@ public class CreateClothDTO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public int getClothId() {
@@ -105,7 +105,7 @@ public class CreateClothDTO {
     }
 
     public void setNotes(String notes) {
-        this.notes = notes;
+        this.notes = notes.toLowerCase();
     }
 
     public int getPrice() {
@@ -121,7 +121,7 @@ public class CreateClothDTO {
     }
 
     public void setSupplierInvoice(String supplierInvoice) {
-        this.supplierInvoice = supplierInvoice;
+        this.supplierInvoice = supplierInvoice.toLowerCase();
     }
 
     /* --------------------------------------------------------
