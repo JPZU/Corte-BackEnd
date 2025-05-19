@@ -7,6 +7,10 @@ import com.arapos.corte.persistence.crud.ClothCrudRepository;
 import com.arapos.corte.persistence.entity.Cloth;
 import com.arapos.corte.persistence.mapper.ClothMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -129,6 +133,14 @@ public class ClothRepositoryImp implements ClothRepository {
         return StreamSupport.stream(cloths.spliterator(), false)
                 .map(clothMapper::toClothResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ClothResponseDTO> getAllPagedCloths(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Cloth> clothPage = clothCrudRepository.findAll(pageable);
+
+        return clothPage.map(clothMapper::toClothResponseDTO);
     }
 
     /* --------------------------------------------------------

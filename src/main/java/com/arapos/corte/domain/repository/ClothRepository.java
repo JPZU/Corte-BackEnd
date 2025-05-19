@@ -2,6 +2,8 @@ package com.arapos.corte.domain.repository;
 
 import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
 import com.arapos.corte.domain.dto.Cloth.CreateClothDTO;
+import org.springframework.data.domain.Page;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,7 @@ public interface ClothRepository {
     List<ClothResponseDTO> findByIsActiveTrue();
     List<ClothResponseDTO> findByIsActiveFalse();
     List<ClothResponseDTO> findBySupplierInvoice(String supplierInvoice);
+    Page<ClothResponseDTO> getAllPagedCloths(int page, int size);
     ClothResponseDTO save(CreateClothDTO cloth);
     ClothResponseDTO update(CreateClothDTO cloth);
     void delete(int clothId);

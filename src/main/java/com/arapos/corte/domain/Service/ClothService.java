@@ -5,6 +5,7 @@ import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
 import com.arapos.corte.domain.dto.Cloth.CreateClothDTO;
 import com.arapos.corte.domain.repository.ClothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -64,6 +65,10 @@ public class ClothService {
 
     public List<ClothResponseDTO> getBySupplierInvoice(String supplierInvoice){
         return clothRepository.findBySupplierInvoice(supplierInvoice);
+    }
+
+    public Page<ClothResponseDTO> getAllPagedCloths(int page, int size){
+        return clothRepository.getAllPagedCloths(page, size);
     }
 
     /* --------------------------------------------------------

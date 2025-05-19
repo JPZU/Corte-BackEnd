@@ -5,12 +5,15 @@ import com.arapos.corte.domain.dto.Cloth.CreateClothDTO;
 import com.arapos.corte.domain.Service.ClothService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -83,6 +86,23 @@ public class ClothController {
     public ResponseEntity<List<ClothResponseDTO>> getBySupplierInvoice(@PathVariable String supplierInvoice) {
         return ResponseEntity.ok(clothService.getBySupplierInvoice(supplierInvoice));
     }
+
+    @GetMapping("/paged")
+    public ResponseEntity<Map<String, Object>> getAllClothsPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<ClothResponseDTO> clothPage = clothService.getAllPagedCloths(page, size);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", clothPage.getContent());
+        response.put("currentPage", clothPage.getNumber());
+        response.put("totalItems", clothPage.getTotalElements());
+        response.put("totalPages", clothPage.getTotalPages());
+
+        return ResponseEntity.ok(response);
+    }
+
 
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
