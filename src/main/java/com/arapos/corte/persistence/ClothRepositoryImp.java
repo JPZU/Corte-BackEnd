@@ -138,9 +138,11 @@ public class ClothRepositoryImp implements ClothRepository {
 
     @Override
     public Page<ClothResponseDTO> getAllPagedCloths(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Cloth> clothPage = clothCrudRepository.findAll(pageable);
+        // Primero isActive (true primero), luego createdAt descendente
+        Sort sort = Sort.by(Sort.Order.desc("isActive"), Sort.Order.desc("createdAt"));
+        Pageable pageable = PageRequest.of(page, size, sort);
 
+        Page<Cloth> clothPage = clothCrudRepository.findAll(pageable);
         return clothPage.map(clothMapper::toClothResponseDTO);
     }
 
