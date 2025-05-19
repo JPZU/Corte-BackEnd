@@ -90,7 +90,7 @@ public class ClothController {
     @GetMapping("/paged")
     public ResponseEntity<Map<String, Object>> getAllClothsPaged(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "16") int size
     ) {
         Page<ClothResponseDTO> clothPage = clothService.getAllPagedCloths(page, size);
 
@@ -106,7 +106,7 @@ public class ClothController {
     @GetMapping("/filter")
     public ResponseEntity<Map<String, Object>> filterCloths(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(defaultValue = "16") int size,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Boolean isActive,
             @RequestParam(required = false) Integer categoryId,

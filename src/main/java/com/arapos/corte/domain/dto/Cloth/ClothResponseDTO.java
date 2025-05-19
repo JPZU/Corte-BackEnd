@@ -55,7 +55,7 @@ public class ClothResponseDTO {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.color = color.toLowerCase();
     }
 
     public LocalDateTime getCreatedAt() {
@@ -79,7 +79,7 @@ public class ClothResponseDTO {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public LocalDateTime getUpdatedAt() {
@@ -103,7 +103,7 @@ public class ClothResponseDTO {
     }
 
     public void setNotes(String notes) {
-        this.notes = notes;
+        this.notes = notes.toLowerCase();
     }
 
     public int getPrice() {
@@ -119,7 +119,7 @@ public class ClothResponseDTO {
     }
 
     public void setSupplierInvoice(String supplierInvoice) {
-        this.supplierInvoice = supplierInvoice;
+        this.supplierInvoice = supplierInvoice.toLowerCase();
     }
 
     /* --------------------------------------------------------
