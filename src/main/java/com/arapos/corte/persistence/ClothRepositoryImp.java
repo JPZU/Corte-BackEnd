@@ -147,7 +147,7 @@ public class ClothRepositoryImp implements ClothRepository {
     }
 
     @Override
-    public Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
+    public Page<ClothResponseDTO> filterCloths(String name, String supplierInvoice, Integer userId, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
         Specification<Cloth> spec = Specification.where(null);
@@ -155,6 +155,18 @@ public class ClothRepositoryImp implements ClothRepository {
         if (name != null && !name.isBlank()) {
             spec = spec.and((root, query, cb) ->
                     cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%")
+            );
+        }
+
+        if (supplierInvoice != null && !supplierInvoice.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(cb.lower(root.get("supplierInvoice")), supplierInvoice.toLowerCase())
+            );
+        }
+
+        if (userId != null ) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("user").get("userId"), userId)
             );
         }
 

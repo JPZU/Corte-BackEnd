@@ -108,11 +108,13 @@ public class ClothController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "16") int size,
             @RequestParam(required = false) String name,
+            @RequestParam(required = false) String supplierInvoice,
+            @RequestParam(required = false) Integer userId,
             @RequestParam(required = false) Boolean isActive,
             @RequestParam(required = false) Integer categoryId,
             @RequestParam(required = false) String supplierId
     ) {
-        Page<ClothResponseDTO> clothPage = clothService.filterCloths(name, isActive, categoryId, supplierId, page, size);
+        Page<ClothResponseDTO> clothPage = clothService.filterCloths(name, supplierInvoice, userId, isActive, categoryId, supplierId, page, size);
 
         Map<String, Object> response = new HashMap<>();
         response.put("data", clothPage.getContent());

@@ -71,8 +71,8 @@ public class ClothService {
         return clothRepository.getAllPagedCloths(page, size);
     }
 
-    public Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
-        return clothRepository.filterCloths(name, isActive, categoryId, supplierId, page, size);
+    public Page<ClothResponseDTO> filterCloths(String name,  String supplierInvoice, Integer userId, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
+        return clothRepository.filterCloths(name, supplierInvoice, userId, isActive, categoryId, supplierId, page, size);
     }
 
     /* --------------------------------------------------------
