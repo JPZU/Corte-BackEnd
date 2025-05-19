@@ -71,6 +71,10 @@ public class ClothService {
         return clothRepository.getAllPagedCloths(page, size);
     }
 
+    public Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
+        return clothRepository.filterCloths(name, isActive, categoryId, supplierId, page, size);
+    }
+
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */

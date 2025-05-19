@@ -103,6 +103,25 @@ public class ClothController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<Map<String, Object>> filterCloths(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Boolean isActive,
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) String supplierId
+    ) {
+        Page<ClothResponseDTO> clothPage = clothService.filterCloths(name, isActive, categoryId, supplierId, page, size);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", clothPage.getContent());
+        response.put("currentPage", clothPage.getNumber());
+        response.put("totalItems", clothPage.getTotalElements());
+        response.put("totalPages", clothPage.getTotalPages());
+
+        return ResponseEntity.ok(response);
+    }
 
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS

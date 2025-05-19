@@ -20,6 +20,7 @@ public interface ClothRepository {
     List<ClothResponseDTO> findByIsActiveFalse();
     List<ClothResponseDTO> findBySupplierInvoice(String supplierInvoice);
     Page<ClothResponseDTO> getAllPagedCloths(int page, int size);
+    Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, String supplierId, int page, int size);
     ClothResponseDTO save(CreateClothDTO cloth);
     ClothResponseDTO update(CreateClothDTO cloth);
     void delete(int clothId);
