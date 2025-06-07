@@ -17,11 +17,8 @@ public interface ClothCrudRepository extends JpaRepository<Cloth, Integer>, JpaS
     List<Cloth> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<Cloth> findByIsActiveTrue();
     List<Cloth> findByIsActiveFalse();
-    List<Cloth> findBySupplierInvoice(String supplierInvoice);
     /* --------------------------------------------------------
                         METHOD REAlATIONSHIP
     --------------------------------------------------------- */
-    List<Cloth> findBySupplier_SupplierId(String supplierId);
     List<Cloth> findByCategory_CategoryId(int categoryId);
-    List<Cloth> findByUser_UserId(int userId);
 }
