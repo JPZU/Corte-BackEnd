@@ -52,7 +52,7 @@ public class User {
 
 //    relationship users with cloths: 0..*
     @OneToMany(mappedBy = "user")
-    private List<Cloth> clothsList;
+    private List<ClothEntry> clothEntriesList;
 
     /* -----------------------
             manyToOne
@@ -124,12 +124,12 @@ public class User {
             oneToMany
     ------------------------ */
 
-    public List<Cloth> getClothsList() {
-        return clothsList;
+    public List<ClothEntry> getClothEntriesList() {
+        return clothEntriesList;
     }
 
-    public void setClothsList(List<Cloth> clothsList) {
-        this.clothsList = clothsList;
+    public void setClothEntriesList(List<ClothEntry> clothEntriesList) {
+        this.clothEntriesList = clothEntriesList;
     }
 
     public List<Op> getOpsList() {

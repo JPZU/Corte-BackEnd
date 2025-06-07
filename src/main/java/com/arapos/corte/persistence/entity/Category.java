@@ -42,6 +42,9 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Cloth> clothsList;
 
+    @OneToMany(mappedBy = "category")
+    private List<ClothEntryItem> clothEntryItemsList;
+
     /* -----------------------
             manyToOne
     ------------------------ */
@@ -94,6 +97,14 @@ public class Category {
 
     public void setClothsList(List<Cloth> clothsList) {
         this.clothsList = clothsList;
+    }
+
+    public List<ClothEntryItem> getClothEntryItemsList() {
+        return clothEntryItemsList;
+    }
+
+    public void setClothEntryItemsList(List<ClothEntryItem> clothEntryItemsList) {
+        this.clothEntryItemsList = clothEntryItemsList;
     }
 
     /* -----------------------

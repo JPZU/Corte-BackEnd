@@ -37,7 +37,7 @@ public class Supplier {
 
     //    relationship suppliers with cloths: 0..*
     @OneToMany(mappedBy = "supplier")
-    private List<Cloth> clothsList;
+    private List<ClothEntry> clothEntriesList;
 
     /* -----------------------
             manyToOne
@@ -85,12 +85,12 @@ public class Supplier {
             oneToMany
     ------------------------ */
 
-    public List<Cloth> getClothsList() {
-        return clothsList;
+    public List<ClothEntry> getClothEntriesList() {
+        return clothEntriesList;
     }
 
-    public void setClothsList(List<Cloth> clothsList) {
-        this.clothsList = clothsList;
+    public void setClothEntriesList(List<ClothEntry> clothEntriesList) {
+        this.clothEntriesList = clothEntriesList;
     }
 
     /* -----------------------
