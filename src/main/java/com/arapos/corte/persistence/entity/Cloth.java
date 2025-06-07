@@ -22,11 +22,12 @@ public class Cloth {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 50, nullable = false)
-    private String color;
-
     @Column(precision = 8, scale = 2, nullable = false)
     private BigDecimal meters;
+
+    @Column(name = "is_active", nullable = false,
+    columnDefinition = "TINYINT(1)")
+    private boolean isActive;
 
     @Column(name = "created_at", insertable = false,
     updatable = false)
@@ -35,19 +36,6 @@ public class Cloth {
     @Column(name = "updated_at", insertable = false,
     updatable = false)
     private LocalDateTime updatedAt;
-
-    @Column(name = "is_active", nullable = false,
-    columnDefinition = "TINYINT(1)")
-    private boolean isActive;
-
-    @Column(length = 255)
-    private String notes;
-
-    @Column(nullable = false)
-    private int price;
-
-    @Column(name = "supplier_invoice", length = 255,nullable = false)
-    private String supplierInvoice;
 
     /* --------------------------------------------------------
                         RELATIONSHIPS
@@ -61,24 +49,17 @@ public class Cloth {
     @OneToMany(mappedBy = "cloth")
     private List<ItemCloth> itemClothsList;
 
+    @OneToMany(mappedBy = "cloth")
+    private List<ClothEntryItem> clothEntryItemsList;
+
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    //    relationship cloths with users: 1
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     //    relationship cloths with categories: 1
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-
-    //    relationship cloths with suppliers: 1
-    @ManyToOne
-    @JoinColumn(name = "supplier_id", nullable = false)
-    private Supplier supplier;
 
     /* --------------------------------------------------------
                         CONSTRUCTOR
@@ -106,14 +87,6 @@ public class Cloth {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public BigDecimal getMeters() {
         return meters;
     }
@@ -138,30 +111,6 @@ public class Cloth {
         isActive = active;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getSupplierInvoice() {
-        return supplierInvoice;
-    }
-
-    public void setSupplierInvoice(String supplierInvoice) {
-        this.supplierInvoice = supplierInvoice;
-    }
-
     /* --------------------------------------------------------
                 GETTER AND SETTER RELATIONSHIPS
     --------------------------------------------------------- */
@@ -178,17 +127,17 @@ public class Cloth {
         this.itemClothsList = itemClothsList;
     }
 
+    public List<ClothEntryItem> getClothEntryItemsList() {
+        return clothEntryItemsList;
+    }
+
+    public void setClothEntryItemsList(List<ClothEntryItem> clothEntryItemsList) {
+        this.clothEntryItemsList = clothEntryItemsList;
+    }
+
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
 
     public Category getCategory() {
         return category;
@@ -198,11 +147,4 @@ public class Cloth {
         this.category = category;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
