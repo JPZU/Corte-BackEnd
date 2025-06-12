@@ -18,16 +18,13 @@ public interface ClothRepository {
     List<ClothResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<ClothResponseDTO> findByIsActiveTrue();
     List<ClothResponseDTO> findByIsActiveFalse();
-    List<ClothResponseDTO> findBySupplierInvoice(String supplierInvoice);
     Page<ClothResponseDTO> getAllPagedCloths(int page, int size);
-    Page<ClothResponseDTO> filterCloths(String name, String supplierInvoice, Integer userId, Boolean isActive, Integer categoryId, String supplierId, int page, int size);
+    Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, int page, int size);
     ClothResponseDTO save(CreateClothDTO cloth);
     ClothResponseDTO update(CreateClothDTO cloth);
     void delete(int clothId);
     /* --------------------------------------------------------
                         METHOD REAlATIONSHIP
     --------------------------------------------------------- */
-    List<ClothResponseDTO> findBySupplierId(String supplierId);
     List<ClothResponseDTO> findByCategoryId(int categoryId);
-    List<ClothResponseDTO> findByUserId(int userId);
 }
