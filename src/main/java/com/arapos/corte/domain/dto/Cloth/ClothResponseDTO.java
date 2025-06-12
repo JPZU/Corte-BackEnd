@@ -1,8 +1,6 @@
 package com.arapos.corte.domain.dto.Cloth;
 
 import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
-import com.arapos.corte.domain.dto.Supplier.SupplierResponseDTO;
-import com.arapos.corte.domain.dto.User.UserResponseDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,14 +12,11 @@ public class ClothResponseDTO {
     --------------------------------------------------------- */
     private int clothId;
     private String name;
-    private String color;
     private BigDecimal meters;
+    private Boolean isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Boolean isActive;
-    private String notes;
-    private int price;
-    private String supplierInvoice;
+
 
     /* --------------------------------------------------------
                         RELATIONSHIPS
@@ -30,9 +25,7 @@ public class ClothResponseDTO {
     /* -----------------------
             manyToOne
     ------------------------ */
-    private UserResponseDTO user;
     private CategoryResponseDTO category;
-    private SupplierResponseDTO supplier;
 
     /* --------------------------------------------------------
                         CONSTRUCTOR
@@ -48,14 +41,6 @@ public class ClothResponseDTO {
 
     public void setClothId(int clothId) {
         this.clothId = clothId;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -98,30 +83,6 @@ public class ClothResponseDTO {
         this.isActive = isActive;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getSupplierInvoice() {
-        return supplierInvoice;
-    }
-
-    public void setSupplierInvoice(String supplierInvoice) {
-        this.supplierInvoice = supplierInvoice;
-    }
-
     /* --------------------------------------------------------
                 GETTER AND SETTER RELATIONSHIPS
     --------------------------------------------------------- */
@@ -135,21 +96,5 @@ public class ClothResponseDTO {
 
     public void setCategory(CategoryResponseDTO category) {
         this.category = category;
-    }
-
-    public SupplierResponseDTO getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(SupplierResponseDTO supplier) {
-        this.supplier = supplier;
-    }
-
-    public UserResponseDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserResponseDTO user) {
-        this.user = user;
     }
 }
