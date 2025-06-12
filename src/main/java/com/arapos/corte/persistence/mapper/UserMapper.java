@@ -50,7 +50,7 @@ public interface UserMapper {
             @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "opsList", ignore = true), // Evita mapear relaciones OneToMany
-            @Mapping(target = "clothsList", ignore = true)
+            @Mapping(target = "clothEntriesList", ignore = true)
     })
     User toUser(CreateUserDTO createUserDTO);
 

@@ -41,7 +41,7 @@ public interface SupplierMapper {
     /* --------------------------------------------------------
                     relationships entity
     --------------------------------------------------------- */
-            @Mapping(target = "clothsList", ignore = true),
+            @Mapping(target = "clothEntriesList", ignore = true),
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */

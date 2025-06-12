@@ -42,6 +42,7 @@ public interface CategoryMapper {
                     relationships entity
     --------------------------------------------------------- */
             @Mapping(target = "clothsList", ignore = true),
+            @Mapping(target = "clothEntryItemsList", ignore = true),
     /* --------------------------------------------------------
                         unmapped
     --------------------------------------------------------- */
