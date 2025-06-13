@@ -11,7 +11,7 @@ public interface ClothEntryItemRepository {
                             METHOD CLASS
     --------------------------------------------------------- */
     List<ClothEntryItemResponseDTO> getAll();
-    Optional<ClothEntryItemResponseDTO> getById(int clothId);
+    Optional<ClothEntryItemResponseDTO> getById(int clothEntryItemId);
     Optional<ClothEntryItemResponseDTO> getByName(String name);
     List<ClothEntryItemResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     ClothEntryItemResponseDTO save(CreateClothEntryItemDTO clothEntryItem);

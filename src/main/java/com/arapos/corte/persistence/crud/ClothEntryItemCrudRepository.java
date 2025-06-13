@@ -2,6 +2,7 @@ package com.arapos.corte.persistence.crud;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,6 +13,7 @@ public interface ClothEntryItemCrudRepository extends JpaRepository<ClothEntryIt
     /* --------------------------------------------------------
                             METHOD CLASS
     --------------------------------------------------------- */
+    Optional<ClothEntryItem> findByName(String name);
     List<ClothEntryItem> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     /* --------------------------------------------------------
