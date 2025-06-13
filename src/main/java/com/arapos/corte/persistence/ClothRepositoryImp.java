@@ -65,17 +65,11 @@ public class ClothRepositoryImp implements ClothRepository {
 
             // Actualizar valores con los nuevos datos
             clothToUpdate.setName(createClothDTO.getName());
-            clothToUpdate.setColor(createClothDTO.getColor());
             clothToUpdate.setMeters(createClothDTO.getMeters());
             clothToUpdate.setIsActive(createClothDTO.getIsActive());// 💡 Agrega esta línea también
-            clothToUpdate.setNotes(createClothDTO.getNotes());
-            clothToUpdate.setPrice(createClothDTO.getPrice());
-            clothToUpdate.setSupplierInvoice(createClothDTO.getSupplierInvoice());
 
             // Mapear entidades usando el Mapper
-            clothToUpdate.setUser(clothMapper.mapUser(createClothDTO.getUserId()));
             clothToUpdate.setCategory(clothMapper.mapCategory(createClothDTO.getCategoryId()));
-            clothToUpdate.setSupplier(clothMapper.mapSupplier(createClothDTO.getSupplierId()));
 
             // Guardar cambios en la base de datos
             Cloth updatedCloth = clothCrudRepository.save(clothToUpdate);
@@ -129,14 +123,6 @@ public class ClothRepositoryImp implements ClothRepository {
     }
 
     @Override
-    public  List<ClothResponseDTO> findBySupplierInvoice(String supplierInvoice) {
-        Iterable<Cloth> cloths = clothCrudRepository.findBySupplierInvoice(supplierInvoice);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public Page<ClothResponseDTO> getAllPagedCloths(int page, int size) {
         // Primero isActive (true primero), luego createdAt descendente
         Sort sort = Sort.by(Sort.Order.desc("isActive"), Sort.Order.desc("createdAt"));
@@ -147,7 +133,7 @@ public class ClothRepositoryImp implements ClothRepository {
     }
 
     @Override
-    public Page<ClothResponseDTO> filterCloths(String name, String supplierInvoice, Integer userId, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
+    public Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
         Specification<Cloth> spec = Specification.where(null);
@@ -155,18 +141,6 @@ public class ClothRepositoryImp implements ClothRepository {
         if (name != null && !name.isBlank()) {
             spec = spec.and((root, query, cb) ->
                     cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%")
-            );
-        }
-
-        if (supplierInvoice != null && !supplierInvoice.isBlank()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(cb.lower(root.get("supplierInvoice")), supplierInvoice.toLowerCase())
-            );
-        }
-
-        if (userId != null ) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("user").get("userId"), userId)
             );
         }
 
@@ -182,12 +156,6 @@ public class ClothRepositoryImp implements ClothRepository {
             );
         }
 
-        if (supplierId != null && !supplierId.isBlank()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.equal(root.get("supplier").get("supplierId"), supplierId)
-            );
-        }
-
         Page<Cloth> clothPage = clothCrudRepository.findAll(spec, pageable);
         return clothPage.map(clothMapper::toClothResponseDTO);
     }
@@ -196,24 +164,8 @@ public class ClothRepositoryImp implements ClothRepository {
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
     @Override
-    public List<ClothResponseDTO> findBySupplierId(String supplierName){
-        Iterable<Cloth> cloths = clothCrudRepository.findBySupplier_SupplierId(supplierName);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<ClothResponseDTO> findByCategoryId(int categoryId){
         Iterable<Cloth> cloths = clothCrudRepository.findByCategory_CategoryId(categoryId);
-        return StreamSupport.stream(cloths.spliterator(), false)
-                .map(clothMapper::toClothResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ClothResponseDTO> findByUserId(int userId){
-        Iterable<Cloth> cloths = clothCrudRepository.findByUser_UserId(userId);
         return StreamSupport.stream(cloths.spliterator(), false)
                 .map(clothMapper::toClothResponseDTO)
                 .collect(Collectors.toList());
