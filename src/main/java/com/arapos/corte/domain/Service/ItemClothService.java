@@ -64,15 +64,9 @@ public class ItemClothService {
         CreateClothDTO updatedClothDTO = new CreateClothDTO();
         updatedClothDTO.setClothId(cloth.getClothId());
         updatedClothDTO.setName(cloth.getName());
-        updatedClothDTO.setColor(cloth.getColor());
         updatedClothDTO.setMeters(metersUpdated);
         updatedClothDTO.setIsActive(isActive);
-        updatedClothDTO.setNotes(cloth.getNotes());
-        updatedClothDTO.setPrice(cloth.getPrice());
-        updatedClothDTO.setSupplierInvoice(cloth.getSupplierInvoice());
         updatedClothDTO.setCategoryId(cloth.getCategory().getCategoryId());
-        updatedClothDTO.setSupplierId(cloth.getSupplier().getSupplierId());
-        updatedClothDTO.setUserId(cloth.getUser().getUserId());
 
         clothService.update(updatedClothDTO);
 
@@ -94,7 +88,6 @@ public class ItemClothService {
         for (ItemClothResponseDTO item : itemCloths) {
             totalMeters = totalMeters.add(item.getMeters());
         }
-
 
         CreateOpDTO updatedOpDTO = new CreateOpDTO();
         updatedOpDTO.setOpId(op.getOpId());
@@ -129,15 +122,9 @@ public class ItemClothService {
             CreateClothDTO updatedOldCloth = new CreateClothDTO();
             updatedOldCloth.setClothId(oldCloth.getClothId());
             updatedOldCloth.setName(oldCloth.getName());
-            updatedOldCloth.setColor(oldCloth.getColor());
             updatedOldCloth.setMeters(restoredMeters);
             updatedOldCloth.setIsActive(oldClothActive);
-            updatedOldCloth.setNotes(oldCloth.getNotes());
-            updatedOldCloth.setPrice(oldCloth.getPrice());
-            updatedOldCloth.setSupplierInvoice(oldCloth.getSupplierInvoice());
             updatedOldCloth.setCategoryId(oldCloth.getCategory().getCategoryId());
-            updatedOldCloth.setSupplierId(oldCloth.getSupplier().getSupplierId());
-            updatedOldCloth.setUserId(oldCloth.getUser().getUserId());
             clothService.update(updatedOldCloth);
 
             // 2.2 Descontar metros en la nueva tela
@@ -154,12 +141,9 @@ public class ItemClothService {
             CreateClothDTO updatedNewCloth = new CreateClothDTO();
             updatedNewCloth.setClothId(newCloth.getClothId());
             updatedNewCloth.setName(newCloth.getName());
-            updatedNewCloth.setColor(newCloth.getColor());
             updatedNewCloth.setMeters(updatedNewMeters);
             updatedNewCloth.setIsActive(newClothActive);
             updatedNewCloth.setCategoryId(newCloth.getCategory().getCategoryId());
-            updatedNewCloth.setSupplierId(newCloth.getSupplier().getSupplierId());
-            updatedNewCloth.setUserId(newCloth.getUser().getUserId());
             clothService.update(updatedNewCloth);
         } else {
             // 3. Si no cambió la tela, solo ajusta la diferencia
@@ -178,12 +162,9 @@ public class ItemClothService {
             CreateClothDTO updatedCloth = new CreateClothDTO();
             updatedCloth.setClothId(cloth.getClothId());
             updatedCloth.setName(cloth.getName());
-            updatedCloth.setColor(cloth.getColor());
             updatedCloth.setMeters(updatedMeters);
             updatedCloth.setIsActive(isActive);
             updatedCloth.setCategoryId(cloth.getCategory().getCategoryId());
-            updatedCloth.setSupplierId(cloth.getSupplier().getSupplierId());
-            updatedCloth.setUserId(cloth.getUser().getUserId());
             clothService.update(updatedCloth);
         }
 
