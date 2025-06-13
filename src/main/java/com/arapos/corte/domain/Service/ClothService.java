@@ -63,30 +63,19 @@ public class ClothService {
         return clothRepository.findByCreatedAtBetween(startDate, endDate);
     }
 
-    public List<ClothResponseDTO> getBySupplierInvoice(String supplierInvoice){
-        return clothRepository.findBySupplierInvoice(supplierInvoice);
-    }
-
     public Page<ClothResponseDTO> getAllPagedCloths(int page, int size){
         return clothRepository.getAllPagedCloths(page, size);
     }
 
-    public Page<ClothResponseDTO> filterCloths(String name,  String supplierInvoice, Integer userId, Boolean isActive, Integer categoryId, String supplierId, int page, int size) {
-        return clothRepository.filterCloths(name, supplierInvoice, userId, isActive, categoryId, supplierId, page, size);
+    public Page<ClothResponseDTO> filterCloths(String name, Boolean isActive, Integer categoryId, int page, int size) {
+        return clothRepository.filterCloths(name, isActive, categoryId, page, size);
     }
 
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
-    public List<ClothResponseDTO> getBySupplierId(String supplierId){
-        return clothRepository.findBySupplierId(supplierId);
-    }
 
     public List<ClothResponseDTO> getByCategoryId(int categoryId){
         return clothRepository.findByCategoryId(categoryId);
-    }
-
-    public List<ClothResponseDTO> findByUserId(int userId){
-        return clothRepository.findByUserId(userId);
     }
 }
