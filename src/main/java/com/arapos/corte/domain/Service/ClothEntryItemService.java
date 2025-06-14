@@ -12,6 +12,9 @@ import com.arapos.corte.domain.repository.ClothEntryItemRepository;
 import com.arapos.corte.domain.repository.ClothRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import jakarta.transaction.Transactional;
 
@@ -23,6 +26,17 @@ public class ClothEntryItemService {
 
     @Autowired
     private ClothEntryItemRepository clothEntryItemRepository;
+
+/* --------------------------------------------------------
+                            BASIC CRUD
+    --------------------------------------------------------- */
+    public List<ClothEntryItemResponseDTO> getAll(){
+        return clothEntryItemRepository.getAll();
+    }
+
+    public Optional<ClothEntryItemResponseDTO> getById(int clothEntryItemId){
+        return clothEntryItemRepository.getById(clothEntryItemId);
+    }
 
     @Transactional
     public ClothEntryItemResponseDTO save(CreateClothEntryItemDTO dto) {
@@ -168,5 +182,38 @@ public class ClothEntryItemService {
         // 4.4 Actualizar clothId y el ítem final
         dto.setClothId(finalClothId);
         return clothEntryItemRepository.update(dto);
+    }
+
+    public boolean delete(int clothEntryItemId){
+        if(clothEntryItemRepository.getById(clothEntryItemId).isPresent()){
+            clothEntryItemRepository.delete(clothEntryItemId);
+            return true;
+        }else {
+            return false;
+        }
+    }
+    /* --------------------------------------------------------
+                        PERSONALIZED QUERYS
+    --------------------------------------------------------- */
+    public Optional<ClothEntryItemResponseDTO> getByName(String name){
+        return clothEntryItemRepository.getByName(name);
+    }
+
+    public List<ClothEntryItemResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
+        return clothEntryItemRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+    /* --------------------------------------------------------
+                        RELATIONSHIP METHODS
+    --------------------------------------------------------- */
+    public List<ClothEntryItemResponseDTO> findByCategoryId(int categoryId){
+        return clothEntryItemRepository.findByCategoryId(categoryId);
+    }
+
+    public List<ClothEntryItemResponseDTO> findByClothEntryId(int clothEntryId){
+        return clothEntryItemRepository.findByClothEntryId(clothEntryId);
+    }
+
+    public List<ClothEntryItemResponseDTO> findByClothId(int clothId){
+        return clothEntryItemRepository.findByClothId(clothId);
     }
 }
