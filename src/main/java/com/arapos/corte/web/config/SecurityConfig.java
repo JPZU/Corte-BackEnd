@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -73,6 +72,11 @@ public class SecurityConfig {
                                             FULL OP CONTROLLER
                         --------------------------------------------------------- */
                         .requestMatchers(HttpMethod.POST, "/full-op/*").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR")
+
+                        /* --------------------------------------------------------
+                                            FULL CLOTH ENTRY CONTROLLER
+                        --------------------------------------------------------- */
+                        .requestMatchers(HttpMethod.POST, "/cloth-entries/*").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR")
 
                         /* --------------------------------------------------------
                                             ITEM CLOTHS CONTROLLER

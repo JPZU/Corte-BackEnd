@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/cloths_entry")
+@RequestMapping("/cloths-entry")
 public class ClothEntryController {
 
     @Autowired

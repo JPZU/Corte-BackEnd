@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("cloths_entry_item")
+@RequestMapping("cloths-entry-item")
 public class ClothEntryItemController {
 
     @Autowired
