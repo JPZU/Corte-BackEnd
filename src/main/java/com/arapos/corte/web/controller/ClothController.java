@@ -82,11 +82,6 @@ public class ClothController {
         return ResponseEntity.ok(clothService.getIsNotActive());
     }
 
-    @GetMapping("/supplier-invoice/{supplierInvoice}")
-    public ResponseEntity<List<ClothResponseDTO>> getBySupplierInvoice(@PathVariable String supplierInvoice) {
-        return ResponseEntity.ok(clothService.getBySupplierInvoice(supplierInvoice));
-    }
-
     @GetMapping("/paged")
     public ResponseEntity<Map<String, Object>> getAllClothsPaged(
             @RequestParam(defaultValue = "0") int page,
@@ -108,13 +103,11 @@ public class ClothController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "16") int size,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String supplierInvoice,
-            @RequestParam(required = false) Integer userId,
             @RequestParam(required = false) Boolean isActive,
-            @RequestParam(required = false) Integer categoryId,
-            @RequestParam(required = false) String supplierId
+            @RequestParam(required = false) Integer categoryId
+            // String name, Boolean isActive, Integer categoryId, int page, int size
     ) {
-        Page<ClothResponseDTO> clothPage = clothService.filterCloths(name, supplierInvoice, userId, isActive, categoryId, supplierId, page, size);
+        Page<ClothResponseDTO> clothPage = clothService.filterCloths(name, isActive, categoryId, page, size);
 
         Map<String, Object> response = new HashMap<>();
         response.put("data", clothPage.getContent());
@@ -128,18 +121,9 @@ public class ClothController {
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
-    @GetMapping("/supplier/{supplierId}")
-    public ResponseEntity<List<ClothResponseDTO>> getBySupplierName(@PathVariable String supplierId) {
-        return ResponseEntity.ok(clothService.getBySupplierId(supplierId));
-    }
-
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ClothResponseDTO>> getByCategoryName(@PathVariable int categoryId) {
         return ResponseEntity.ok(clothService.getByCategoryId(categoryId));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ClothResponseDTO>> getByUserId(@PathVariable int userId) {
-        return ResponseEntity.ok(clothService.findByUserId(userId));
-    }
 }
