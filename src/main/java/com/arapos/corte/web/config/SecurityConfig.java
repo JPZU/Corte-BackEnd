@@ -54,6 +54,22 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE , "/cloths/*").hasAnyRole("SUPER_ADMIN")
 
                         /* --------------------------------------------------------
+                                            CLOTHS ENTRY CONTROLLER
+                        --------------------------------------------------------- */
+                        .requestMatchers(HttpMethod.GET, "/cloths_entry/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR", "VIEWER")
+                        .requestMatchers(HttpMethod.POST, "/cloths_entry/*").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR")
+                        .requestMatchers(HttpMethod.PUT , "/cloths_entry/*").hasAnyRole("SUPER_ADMIN", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE , "/cloths_entry/*").hasAnyRole("SUPER_ADMIN")
+
+                        /* --------------------------------------------------------
+                                            CLOTHS ENTRY ITEM CONTROLLER
+                        --------------------------------------------------------- */
+                        .requestMatchers(HttpMethod.GET, "/cloths_entry_item/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR", "VIEWER")
+                        .requestMatchers(HttpMethod.POST, "/cloths_entry_item/*").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR")
+                        .requestMatchers(HttpMethod.PUT , "/cloths_entry_item/*").hasAnyRole("SUPER_ADMIN", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE , "/cloths_entry_item/*").hasAnyRole("SUPER_ADMIN")
+
+                        /* --------------------------------------------------------
                                             FULL OP CONTROLLER
                         --------------------------------------------------------- */
                         .requestMatchers(HttpMethod.POST, "/full-op/*").hasAnyRole("SUPER_ADMIN", "ADMIN", "EDITOR")
