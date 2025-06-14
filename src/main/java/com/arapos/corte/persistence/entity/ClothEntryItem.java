@@ -79,6 +79,10 @@ public class ClothEntryItem {
         this.clothEntryItemId = clothEntryItemId;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -99,7 +103,7 @@ public class ClothEntryItem {
         this.price = price;
     }
 
-        public BigDecimal getMetersAdded() {
+    public BigDecimal getMetersAdded() {
         return metersAdded;
     }
 
