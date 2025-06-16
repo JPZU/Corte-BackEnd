@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.arapos.corte.domain.Service.ClothEntryItemService;
 import com.arapos.corte.domain.dto.ClothEntryItem.ClothEntryItemResponseDTO;
 import com.arapos.corte.domain.dto.ClothEntryItem.CreateClothEntryItemDTO;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+// import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("cloths-entry-item")
+@RequestMapping("/cloths-entry-item")
 public class ClothEntryItemController {
 
     @Autowired
