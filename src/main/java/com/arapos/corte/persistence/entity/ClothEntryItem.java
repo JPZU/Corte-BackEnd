@@ -18,9 +18,6 @@ public class ClothEntryItem {
     private int clothEntryItemId;
 
     @Column(length = 50, nullable = false)
-    private String name;
-
-    @Column(length = 50, nullable = false)
     private String color;
 
     @Column(nullable = false)
@@ -50,10 +47,6 @@ public class ClothEntryItem {
     ------------------------ */
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
-
-    @ManyToOne
     @JoinColumn(name = "cloth_entry_id", nullable = false)
     private ClothEntry clothEntry;
 
@@ -77,14 +70,6 @@ public class ClothEntryItem {
 
     public void setClothEntryItemId(int clothEntryItemId) {
         this.clothEntryItemId = clothEntryItemId;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getColor() {
@@ -130,14 +115,6 @@ public class ClothEntryItem {
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public ClothEntry getClothEntry(){
         return clothEntry;

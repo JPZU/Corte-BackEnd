@@ -1,6 +1,5 @@
 package com.arapos.corte.domain.Service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,46 +39,26 @@ public class ClothEntryItemService {
 
     @Transactional
     public ClothEntryItemResponseDTO save(CreateClothEntryItemDTO dto) {
-        // Buscar si ya existe una tela con el mismo nombre y categoría (activa o inactiva)
-        Page<ClothResponseDTO> clothsPage = clothRepository.filterCloths(
-            dto.getName(), null, dto.getCategoryId(), 0, 1
-        );
+        // 1. Validar que la tela exista
+        ClothResponseDTO cloth = clothRepository.getById(dto.getClothId())
+            .orElseThrow(() -> new RuntimeException("La tela con ID " + dto.getClothId() + " no existe"));
 
-        Integer clothId;
+        // 2. Actualizar los metros disponibles sumando los nuevos metros
+        BigDecimal updatedMeters = cloth.getMeters().add(dto.getMetersAdded());
 
-        if (!clothsPage.isEmpty()) {
-            // Si existe, actualizamos los metros disponibles
-            ClothResponseDTO clothDTO = clothsPage.getContent().get(0);
-            BigDecimal updatedMeters = clothDTO.getMeters().add(dto.getMetersAdded());
+        CreateClothDTO updateDTO = new CreateClothDTO();
+        updateDTO.setClothId(cloth.getClothId());
+        updateDTO.setName(cloth.getName());
+        updateDTO.setMeters(updatedMeters);
+        updateDTO.setIsActive(true);
+        updateDTO.setCategoryId(cloth.getCategory().getCategoryId());
 
-            CreateClothDTO updateDTO = new CreateClothDTO();
-            updateDTO.setClothId(clothDTO.getClothId());
-            updateDTO.setName(clothDTO.getName());
-            updateDTO.setMeters(updatedMeters);
-            updateDTO.setIsActive(true);
-            updateDTO.setCategoryId(dto.getCategoryId());
+        clothRepository.update(updateDTO);
 
-            clothRepository.update(updateDTO);
-
-            clothId = clothDTO.getClothId(); // Asignar el ID existente
-        } else {
-            // Si no existe, creamos una nueva tela
-            CreateClothDTO createDTO = new CreateClothDTO();
-            createDTO.setName(dto.getName());
-            createDTO.setMeters(dto.getMetersAdded());
-            createDTO.setIsActive(true);
-            createDTO.setCategoryId(dto.getCategoryId());
-
-            ClothResponseDTO newCloth = clothRepository.save(createDTO);
-            clothId = newCloth.getClothId(); // Asignar el nuevo ID creado
-        }
-
-        // Asignamos el clothId encontrado o creado al DTO original
-        dto.setClothId(clothId);
-
-        // Guardamos el ítem de entrada con la tela correspondiente
+        // 3. Guardar el nuevo ítem de entrada
         return clothEntryItemRepository.save(dto);
     }
+
 
     @Transactional
     public ClothEntryItemResponseDTO update(CreateClothEntryItemDTO dto) {
@@ -89,16 +68,9 @@ public class ClothEntryItemService {
 
         int oldClothId = existing.getCloth().getClothId();
         int newClothId = dto.getClothId();
-
-        // 2. Caso simple: solo cambia color o precio
-        boolean metersChanged = dto.getMetersAdded().compareTo(existing.getMetersAdded()) != 0;
         boolean sameCloth = oldClothId == newClothId;
 
-        if (!metersChanged && sameCloth) {
-            return clothEntryItemRepository.update(dto); // no afecta las telas
-        }
-
-        // 3. Caso: cambia cantidad, pero no la tela asociada
+        // 2. Si no cambió la tela, solo ajustamos los metros
         if (sameCloth) {
             BigDecimal delta = dto.getMetersAdded().subtract(existing.getMetersAdded());
 
@@ -110,21 +82,21 @@ public class ClothEntryItemService {
                 throw new RuntimeException("No se pueden dejar metros negativos");
             }
 
-            CreateClothDTO clothUpdate = new CreateClothDTO();
-            clothUpdate.setClothId(cloth.getClothId());
-            clothUpdate.setName(cloth.getName());
-            clothUpdate.setMeters(updatedMeters);
-            clothUpdate.setIsActive(true);
-            clothUpdate.setCategoryId(cloth.getCategory().getCategoryId());
+            CreateClothDTO updateDTO = new CreateClothDTO();
+            updateDTO.setClothId(cloth.getClothId());
+            updateDTO.setName(cloth.getName());
+            updateDTO.setMeters(updatedMeters);
+            updateDTO.setIsActive(updatedMeters.compareTo(new BigDecimal("1")) > 0);
+            updateDTO.setCategoryId(cloth.getCategory().getCategoryId());
 
-            clothRepository.update(clothUpdate);
+            clothRepository.update(updateDTO);
 
             return clothEntryItemRepository.update(dto);
         }
 
-        // 4. Caso: clothId cambió → mover metros de una tela a otra
+        // 3. Cambió la tela → mover metros entre telas
 
-        // 4.1 Restar metros de la tela anterior
+        // 3.1 Restar metros a la tela anterior
         ClothResponseDTO oldCloth = clothRepository.getById(oldClothId)
                 .orElseThrow(() -> new RuntimeException("Tela anterior no encontrada"));
 
@@ -142,47 +114,24 @@ public class ClothEntryItemService {
 
         clothRepository.update(oldUpdate);
 
-        // 4.2 Verificar si la nueva tela ya existe (por name + category)
-        Page<ClothResponseDTO> match = clothRepository.filterCloths(
-                dto.getName(), null, dto.getCategoryId(), 0, 1);
+        // 3.2 Sumar metros a la nueva tela
+        ClothResponseDTO newCloth = clothRepository.getById(newClothId)
+                .orElseThrow(() -> new RuntimeException("Tela nueva no encontrada"));
 
-        int finalClothId;
-        if (!match.isEmpty()) {
-            // Ya existe → sumarle metros
-            ClothResponseDTO matched = match.getContent().get(0);
-            BigDecimal newMeters = matched.getMeters().add(dto.getMetersAdded());
+        BigDecimal newUpdatedMeters = newCloth.getMeters().add(dto.getMetersAdded());
 
-            CreateClothDTO newUpdate = new CreateClothDTO();
-            newUpdate.setClothId(matched.getClothId());
-            newUpdate.setName(matched.getName());
-            newUpdate.setMeters(newMeters);
-            newUpdate.setIsActive(true);
-            newUpdate.setCategoryId(matched.getCategory().getCategoryId());
+        CreateClothDTO newUpdate = new CreateClothDTO();
+        newUpdate.setClothId(newCloth.getClothId());
+        newUpdate.setName(newCloth.getName());
+        newUpdate.setMeters(newUpdatedMeters);
+        newUpdate.setIsActive(true);
+        newUpdate.setCategoryId(newCloth.getCategory().getCategoryId());
 
-            clothRepository.update(newUpdate);
-            finalClothId = matched.getClothId();
+        clothRepository.update(newUpdate);
 
-        } else {
-            // No existe → crear nueva tela
-            CreateClothDTO newCloth = new CreateClothDTO();
-            newCloth.setName(dto.getName());
-            newCloth.setMeters(dto.getMetersAdded());
-            newCloth.setIsActive(true);
-            newCloth.setCategoryId(dto.getCategoryId());
-
-            ClothResponseDTO created = clothRepository.save(newCloth);
-            finalClothId = created.getClothId();
-        }
-
-        // 4.3 Eliminar tela anterior si quedó vacía
-        if (oldUpdatedMeters.compareTo(BigDecimal.ZERO) == 0) {
-            clothRepository.delete(oldCloth.getClothId());
-        }
-
-        // 4.4 Actualizar clothId y el ítem final
-        dto.setClothId(finalClothId);
         return clothEntryItemRepository.update(dto);
     }
+
 
     public boolean delete(int clothEntryItemId){
         if(clothEntryItemRepository.getById(clothEntryItemId).isPresent()){
@@ -192,23 +141,17 @@ public class ClothEntryItemService {
             return false;
         }
     }
+
     /* --------------------------------------------------------
                         PERSONALIZED QUERYS
     --------------------------------------------------------- */
-    public Optional<ClothEntryItemResponseDTO> getByName(String name){
-        return clothEntryItemRepository.getByName(name);
-    }
-
     public List<ClothEntryItemResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
         return clothEntryItemRepository.findByCreatedAtBetween(startDate, endDate);
     }
+
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
-    public List<ClothEntryItemResponseDTO> findByCategoryId(int categoryId){
-        return clothEntryItemRepository.findByCategoryId(categoryId);
-    }
-
     public List<ClothEntryItemResponseDTO> findByClothEntryId(int clothEntryId){
         return clothEntryItemRepository.findByClothEntryId(clothEntryId);
     }

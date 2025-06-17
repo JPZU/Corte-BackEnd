@@ -62,13 +62,11 @@ public class ClothEntryItemRepositoryImp implements ClothEntryItemRepository{
             ClothEntryItem clothEntryItemToUpdate = existingClothEntryItemOpt.get();
 
             // Actualizar valores con los nuevos datos
-            clothEntryItemToUpdate.setName(createClothEntryItem.getName());
             clothEntryItemToUpdate.setColor(createClothEntryItem.getColor());
             clothEntryItemToUpdate.setPrice(createClothEntryItem.getPrice());
             clothEntryItemToUpdate.setMetersAdded(createClothEntryItem.getMetersAdded());
 
             // Mapear entidades usando el Mapper
-            clothEntryItemToUpdate.setCategory(clothEntryItemMapper.mapCategory(createClothEntryItem.getCategoryId()));
             clothEntryItemToUpdate.setClothEntry(clothEntryItemMapper.mapClothEntry(createClothEntryItem.getClothEntryId()));
             clothEntryItemToUpdate.setCloth(clothEntryItemMapper.mapCloth(createClothEntryItem.getClothId()));
 
@@ -93,12 +91,6 @@ public class ClothEntryItemRepositoryImp implements ClothEntryItemRepository{
                         PERSONALIZED QUERYS
     --------------------------------------------------------- */
     @Override
-    public Optional<ClothEntryItemResponseDTO> getByName(String name){
-        return clothEntryItemCrudRepository.findByName(name)
-                .map(clothEntryItemMapper::toClothEntryItemResponseDTO);
-    }
-
-    @Override
     public List<ClothEntryItemResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
         Iterable<ClothEntryItem> clothEntryItems = clothEntryItemCrudRepository.findByCreatedAtBetween(startDate,endDate);
         return StreamSupport.stream(clothEntryItems.spliterator(), false)
@@ -108,15 +100,6 @@ public class ClothEntryItemRepositoryImp implements ClothEntryItemRepository{
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
-
-    @Override
-    public List<ClothEntryItemResponseDTO> findByCategoryId(int categoryId){
-        Iterable<ClothEntryItem> clothEntryItems = clothEntryItemCrudRepository.findByCategory_CategoryId(categoryId);
-        return StreamSupport.stream(clothEntryItems.spliterator(), false)
-                .map(clothEntryItemMapper::toClothEntryItemResponseDTO)
-                .collect(Collectors.toList());
-    }
-
     @Override
     public List<ClothEntryItemResponseDTO> findByClothEntryId(int clothEntryId){
         Iterable<ClothEntryItem> clothEntryItems = clothEntryItemCrudRepository.findByClothEntry_ClothEntryId(clothEntryId);

@@ -9,10 +9,6 @@ public class CreateClothEntryItemDTO {
     --------------------------------------------------------- */
     private int clothEntryItemId;
 
-    @NotBlank(message = "Name cannot be blank")
-    @Size(max = 50, message = "Name must not exceed 50 character")
-    private String name;
-
     @NotBlank(message = "Color cannot be blank")
     @Size(max = 50, message = "Color must not exceed 50 character")
     private String color;
@@ -32,9 +28,6 @@ public class CreateClothEntryItemDTO {
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    @NotNull(message = "Category ID is required")
-    private int categoryId;
 
     @NotNull(message = "Cloth Entry ID is required")
     private int clothEntryId;
@@ -58,14 +51,6 @@ public class CreateClothEntryItemDTO {
 
     public void setClothEntryItemId(int clothEntryItemId){
         this.clothEntryItemId = clothEntryItemId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name.toLowerCase();
     }
 
     public String getColor() {
@@ -99,14 +84,6 @@ public class CreateClothEntryItemDTO {
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public int getClothEntryId() {
         return clothEntryId;

@@ -3,7 +3,6 @@ package com.arapos.corte.domain.dto.ClothEntryItem;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.arapos.corte.domain.dto.Category.CategoryResponseDTO;
 import com.arapos.corte.domain.dto.Cloth.ClothResponseDTO;
 import com.arapos.corte.domain.dto.ClothEntry.ClothEntryResponseDTO;
 
@@ -12,7 +11,6 @@ public class ClothEntryItemResponseDTO {
                             ATTRIBUTES
     --------------------------------------------------------- */
     private int clothEntryItemId;
-    private String name;
     private String color;
     private int price;
     private BigDecimal metersAdded;
@@ -26,8 +24,6 @@ public class ClothEntryItemResponseDTO {
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    private CategoryResponseDTO category;
     private ClothEntryResponseDTO clothEntry;
     private ClothResponseDTO cloth;
 
@@ -47,14 +43,6 @@ public class ClothEntryItemResponseDTO {
 
     public void setClothEntryItemId(int clothEntryItemId){
         this.clothEntryItemId = clothEntryItemId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name.toLowerCase();
     }
 
     public String getColor() {
@@ -104,15 +92,6 @@ public class ClothEntryItemResponseDTO {
     /* -----------------------
             manyToOne
     ------------------------ */
-
-    public CategoryResponseDTO getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryResponseDTO category) {
-        this.category = category;
-    }
-
     public ClothEntryResponseDTO getClothEntry() {
         return clothEntry;
     }

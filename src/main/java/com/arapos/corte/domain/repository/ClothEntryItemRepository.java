@@ -12,7 +12,6 @@ public interface ClothEntryItemRepository {
     --------------------------------------------------------- */
     List<ClothEntryItemResponseDTO> getAll();
     Optional<ClothEntryItemResponseDTO> getById(int clothEntryItemId);
-    Optional<ClothEntryItemResponseDTO> getByName(String name);
     List<ClothEntryItemResponseDTO> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     ClothEntryItemResponseDTO save(CreateClothEntryItemDTO clothEntryItem);
     ClothEntryItemResponseDTO update(CreateClothEntryItemDTO clothEntryItem);
@@ -21,7 +20,6 @@ public interface ClothEntryItemRepository {
     /* --------------------------------------------------------
                         METHOD REAlATIONSHIP
     --------------------------------------------------------- */
-    List<ClothEntryItemResponseDTO> findByCategoryId(int categoryId);
     List<ClothEntryItemResponseDTO> findByClothEntryId(int clothEntryId);
     List<ClothEntryItemResponseDTO> findByClothId(int clothId);
 

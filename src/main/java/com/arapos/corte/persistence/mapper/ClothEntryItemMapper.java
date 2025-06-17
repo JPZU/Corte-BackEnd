@@ -3,7 +3,6 @@ import org.mapstruct.*;
 
 import com.arapos.corte.domain.dto.ClothEntryItem.ClothEntryItemResponseDTO;
 import com.arapos.corte.domain.dto.ClothEntryItem.CreateClothEntryItemDTO;
-import com.arapos.corte.persistence.entity.Category;
 import com.arapos.corte.persistence.entity.Cloth;
 import com.arapos.corte.persistence.entity.ClothEntry;
 import com.arapos.corte.persistence.entity.ClothEntryItem;
@@ -18,7 +17,6 @@ public interface ClothEntryItemMapper {
                         mapped
     --------------------------------------------------------- */
             @Mapping(source = "clothEntryItemId", target = "clothEntryItemId"),
-            @Mapping(source = "name", target = "name"),
             @Mapping(source = "color", target = "color"),
             @Mapping(source = "price", target = "price"),
             @Mapping(source = "metersAdded", target = "metersAdded"),
@@ -27,7 +25,6 @@ public interface ClothEntryItemMapper {
     /* --------------------------------------------------------
                     relationships
     --------------------------------------------------------- */
-            @Mapping(source = "category", target = "category"),
             @Mapping(source = "clothEntry", target = "clothEntry"),
             @Mapping(source = "cloth", target = "cloth"),
     /* --------------------------------------------------------
@@ -44,14 +41,12 @@ public interface ClothEntryItemMapper {
                         mapped
     --------------------------------------------------------- */
             @Mapping(source = "clothEntryItemId", target = "clothEntryItemId"),
-            @Mapping(source = "name", target = "name"),
             @Mapping(source = "color", target = "color"),
             @Mapping(source = "price", target = "price"),
             @Mapping(source = "metersAdded", target = "metersAdded"),
     /* --------------------------------------------------------
                     relationships entity
     --------------------------------------------------------- */
-            @Mapping(target = "category", expression = "java(mapCategory(createClothEntryItemDTO.getCategoryId()))"), // Convierte ID a entidad
             @Mapping(target = "clothEntry", expression = "java(mapClothEntry(createClothEntryItemDTO.getClothEntryId()))"), // Convierte ID a entidad
             @Mapping(target = "cloth", expression = "java(mapCloth(createClothEntryItemDTO.getClothId()))"),// Convierte ID a entidad
     /* --------------------------------------------------------
@@ -65,12 +60,6 @@ public interface ClothEntryItemMapper {
     /* --------------------------------------------------------
                 AUXILIARY METHODS TO MAPPER ENTITIES
     --------------------------------------------------------- */
-    default Category mapCategory(int categoryId) {
-        Category category = new Category();
-        category.setCategoryId(categoryId);
-        return category;
-    }
-
     default ClothEntry mapClothEntry(int clothEntryId) {
         ClothEntry clothEntry = new ClothEntry();
         clothEntry.setClothEntryId(clothEntryId);

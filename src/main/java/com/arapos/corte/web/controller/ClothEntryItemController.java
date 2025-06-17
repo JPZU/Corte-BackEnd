@@ -20,7 +20,6 @@ import com.arapos.corte.domain.Service.ClothEntryItemService;
 import com.arapos.corte.domain.dto.ClothEntryItem.ClothEntryItemResponseDTO;
 import com.arapos.corte.domain.dto.ClothEntryItem.CreateClothEntryItemDTO;
 
-// import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 
@@ -67,14 +66,6 @@ public class ClothEntryItemController {
     /* --------------------------------------------------------
                         PERSONALIZED QUERYS
     --------------------------------------------------------- */
-
-    @GetMapping("/name/{name}")
-    public ResponseEntity<ClothEntryItemResponseDTO> getByName(@PathVariable String name) {
-        return clothEntryItemService.getByName(name)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @GetMapping("/created-between")
     public ResponseEntity<List<ClothEntryItemResponseDTO>> getByCreatedAtBetween(
             @RequestParam LocalDateTime startDate,
@@ -85,11 +76,6 @@ public class ClothEntryItemController {
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<ClothEntryItemResponseDTO>> getByCategoryId(@PathVariable int categoryId) {
-        return ResponseEntity.ok(clothEntryItemService.findByCategoryId(categoryId));
-    }
-
     @GetMapping("/cloth_entry/{clothEntryId}")
     public ResponseEntity<List<ClothEntryItemResponseDTO>> getByClothEntryId(@PathVariable int clothEntryId) {
         return ResponseEntity.ok(clothEntryItemService.findByClothEntryId(clothEntryId));
