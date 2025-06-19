@@ -94,6 +94,7 @@ public class ItemClothService {
         updatedOpDTO.setTotalMeters(totalMeters);
         updatedOpDTO.setQuantityCloths(op.getQuantityCloths());
         updatedOpDTO.setSchemaLength(op.getSchemaLength());
+        updatedOpDTO.setDescriptions(op.getDescriptions());
         updatedOpDTO.setUserId(op.getUser().getUserId());
 
         opService.update(updatedOpDTO);
@@ -185,6 +186,7 @@ public class ItemClothService {
         updatedOp.setTotalMeters(totalMeters);
         updatedOp.setQuantityCloths(op.getQuantityCloths());
         updatedOp.setSchemaLength(op.getSchemaLength());
+        updatedOp.setDescriptions(op.getDescriptions());
         updatedOp.setUserId(op.getUser().getUserId());
         opService.update(updatedOp);
 
