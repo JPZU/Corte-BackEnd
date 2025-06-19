@@ -41,7 +41,7 @@ public interface ClothMapper {
             @Mapping(source = "clothId", target = "clothId"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "meters", target = "meters"),
-            @Mapping(source = "isActive", target = "isActive"),
+        //     @Mapping(source = "isActive", target = "isActive"),
     /* --------------------------------------------------------
                     relationships entity
     --------------------------------------------------------- */
@@ -53,6 +53,7 @@ public interface ClothMapper {
     --------------------------------------------------------- */
             @Mapping(target = "createdAt", ignore = true), // Se generará automáticamente por la BD
             @Mapping(target = "updatedAt", ignore = true), // Se generará automáticamente por la BD
+            @Mapping(target = "isActive", ignore = true),
     })
     Cloth toCloth(CreateClothDTO createClothDTO);
 

@@ -59,13 +59,10 @@ public class ItemClothService {
             throw new IllegalArgumentException("Not enough meters in cloth to subtract");
         }
 
-        boolean isActive = metersUpdated.compareTo(new BigDecimal("1")) > 0;
-
         CreateClothDTO updatedClothDTO = new CreateClothDTO();
         updatedClothDTO.setClothId(cloth.getClothId());
         updatedClothDTO.setName(cloth.getName());
         updatedClothDTO.setMeters(metersUpdated);
-        updatedClothDTO.setIsActive(isActive);
         updatedClothDTO.setCategoryId(cloth.getCategory().getCategoryId());
 
         clothService.update(updatedClothDTO);
@@ -118,13 +115,11 @@ public class ItemClothService {
                     .orElseThrow(() -> new IllegalArgumentException("Old cloth not found"));
 
             BigDecimal restoredMeters = oldCloth.getMeters().add(oldItem.getMeters());
-            boolean oldClothActive = restoredMeters.compareTo(new BigDecimal("1")) > 0;
 
             CreateClothDTO updatedOldCloth = new CreateClothDTO();
             updatedOldCloth.setClothId(oldCloth.getClothId());
             updatedOldCloth.setName(oldCloth.getName());
             updatedOldCloth.setMeters(restoredMeters);
-            updatedOldCloth.setIsActive(oldClothActive);
             updatedOldCloth.setCategoryId(oldCloth.getCategory().getCategoryId());
             clothService.update(updatedOldCloth);
 
@@ -137,13 +132,10 @@ public class ItemClothService {
                 throw new IllegalArgumentException("Not enough meters in new cloth");
             }
 
-            boolean newClothActive = updatedNewMeters.compareTo(new BigDecimal("1")) > 0;
-
             CreateClothDTO updatedNewCloth = new CreateClothDTO();
             updatedNewCloth.setClothId(newCloth.getClothId());
             updatedNewCloth.setName(newCloth.getName());
             updatedNewCloth.setMeters(updatedNewMeters);
-            updatedNewCloth.setIsActive(newClothActive);
             updatedNewCloth.setCategoryId(newCloth.getCategory().getCategoryId());
             clothService.update(updatedNewCloth);
         } else {
@@ -158,13 +150,10 @@ public class ItemClothService {
                 throw new IllegalArgumentException("Not enough meters in cloth to update");
             }
 
-            boolean isActive = updatedMeters.compareTo(new BigDecimal("1")) > 0;
-
             CreateClothDTO updatedCloth = new CreateClothDTO();
             updatedCloth.setClothId(cloth.getClothId());
             updatedCloth.setName(cloth.getName());
             updatedCloth.setMeters(updatedMeters);
-            updatedCloth.setIsActive(isActive);
             updatedCloth.setCategoryId(cloth.getCategory().getCategoryId());
             clothService.update(updatedCloth);
         }

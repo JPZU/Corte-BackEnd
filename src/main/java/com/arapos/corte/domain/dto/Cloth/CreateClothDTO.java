@@ -18,7 +18,7 @@ public class CreateClothDTO {
     @DecimalMin(value = "0.01", message = "Meters must be greater than zero")
     private BigDecimal meters;
 
-    @NotNull(message = "isActive is required")
+    // @NotNull(message = "isActive is required")
     private Boolean isActive;
 
     /* --------------------------------------------------------

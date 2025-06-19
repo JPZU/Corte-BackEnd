@@ -7,6 +7,8 @@ import com.arapos.corte.domain.repository.ClothRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +30,16 @@ public class ClothService {
     }
 
     public ClothResponseDTO save(CreateClothDTO createClothDTO){
+        // Logic to set boolean in cloth
+        boolean isActiveOrNot = createClothDTO.getMeters().compareTo(new BigDecimal("1")) > 0;
+        createClothDTO.setIsActive(isActiveOrNot);
         return clothRepository.save(createClothDTO);
     }
 
     public ClothResponseDTO update(CreateClothDTO createClothDTO){
+        // Logic to set boolean in cloth
+        boolean isActiveOrNot = createClothDTO.getMeters().compareTo(new BigDecimal("1")) > 0;
+        createClothDTO.setIsActive(isActiveOrNot);
         return clothRepository.update(createClothDTO);
     }
 
