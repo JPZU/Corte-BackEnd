@@ -34,6 +34,11 @@ public class ItemClothController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<ItemClothResponseDTO> create(@Valid @RequestBody CreateItemClothDTO createItemClothDTO) {
+        return ResponseEntity.ok(itemClothService.save(createItemClothDTO));
+    }
+
     @PutMapping("/update")
     public ResponseEntity<ItemClothResponseDTO> update(@Valid @RequestBody CreateItemClothDTO createItemClothDTO) {
         return ResponseEntity.ok(itemClothService.update(createItemClothDTO));
