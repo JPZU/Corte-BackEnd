@@ -65,6 +65,7 @@ public class OpRepositoryImp implements OpRepository {
             Op opToUpdate = existingOp.get();
 
             opToUpdate.setQuantityCloths(createOpDTO.getQuantityCloths());
+            opToUpdate.setTotalMeters(createOpDTO.getTotalMeters());
             opToUpdate.setSchemaLength(createOpDTO.getSchemaLength());
             opToUpdate.setDescriptions(createOpDTO.getDescriptions());
 
