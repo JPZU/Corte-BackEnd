@@ -76,7 +76,7 @@ public class ClothEntryItemController {
     /* --------------------------------------------------------
                         RELATIONSHIP METHODS
     --------------------------------------------------------- */
-    @GetMapping("/cloth_entry/{clothEntryId}")
+    @GetMapping("/cloth-entry/{clothEntryId}")
     public ResponseEntity<List<ClothEntryItemResponseDTO>> getByClothEntryId(@PathVariable int clothEntryId) {
         return ResponseEntity.ok(clothEntryItemService.findByClothEntryId(clothEntryId));
     }
