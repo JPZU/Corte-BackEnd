@@ -23,7 +23,10 @@ public class ClothEntry {
     @Column(length = 255)
     private String notes;
 
-        @Column(name = "created_at", insertable = false,
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
+    private boolean approve;
+
+    @Column(name = "created_at", insertable = false,
     updatable = false)
     private LocalDateTime createdAt;
 
@@ -85,6 +88,14 @@ public class ClothEntry {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public boolean getApprove(){
+        return approve;
+    }
+
+    public void setApprove(boolean approve){
+        this.approve = approve;
     }
 
     public LocalDateTime getCreatedAt() {

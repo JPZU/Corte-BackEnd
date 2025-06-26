@@ -14,6 +14,8 @@ public class CreateClothEntryDTO {
     @Size(max = 255, message = "notes must not exceed 50 character")
     private String notes;
 
+    private boolean approve;
+
     /* --------------------------------------------------------
                         RELATIONSHIPS
     --------------------------------------------------------- */
@@ -59,6 +61,14 @@ public class CreateClothEntryDTO {
 
     public void setNotes(String notes){
         this.notes = notes;
+    }
+
+    public boolean getApprove(){
+        return approve;
+    }
+
+    public void setApprove(boolean approve){
+        this.approve = approve;
     }
 
     /* --------------------------------------------------------

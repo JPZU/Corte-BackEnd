@@ -19,6 +19,7 @@ public interface ClothEntryMapper {
             @Mapping(source = "clothEntryId", target = "clothEntryId"),
             @Mapping(source = "supplierInvoice", target = "supplierInvoice"),
             @Mapping(source = "notes", target = "notes"),
+            @Mapping(source = "approve", target = "approve"),
             @Mapping(source = "createdAt", target = "createdAt"),
             @Mapping(source = "updatedAt", target = "updatedAt"),
     /* --------------------------------------------------------
@@ -42,6 +43,7 @@ public interface ClothEntryMapper {
             @Mapping(source = "clothEntryId", target = "clothEntryId"),
             @Mapping(source = "supplierInvoice", target = "supplierInvoice"),
             @Mapping(source = "notes", target = "notes"),
+            @Mapping(source = "approve", target = "approve"),
     /* --------------------------------------------------------
                     relationships entity
     --------------------------------------------------------- */

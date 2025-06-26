@@ -10,13 +10,19 @@ import org.springframework.stereotype.Service;
 
 import com.arapos.corte.domain.dto.ClothEntry.ClothEntryResponseDTO;
 import com.arapos.corte.domain.dto.ClothEntry.CreateClothEntryDTO;
+import com.arapos.corte.domain.dto.ClothEntryItem.ClothEntryItemResponseDTO;
 import com.arapos.corte.domain.repository.ClothEntryRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClothEntryService {
 
     @Autowired
     private ClothEntryRepository clothEntryRepository;
+
+    @Autowired
+    private ClothEntryItemService clothEntryItemService;
 
     /* --------------------------------------------------------
                             BASIC CRUD
@@ -33,9 +39,30 @@ public class ClothEntryService {
         return clothEntryRepository.save(createClothEntry);
     }
 
-    public ClothEntryResponseDTO update(CreateClothEntryDTO createClothEntry){
-        return clothEntryRepository.update(createClothEntry);
+    @Transactional
+    public ClothEntryResponseDTO update(CreateClothEntryDTO dto) {
+        // Obtener la entrada original
+        ClothEntryResponseDTO existing = clothEntryRepository.getById(dto.getClothEntryId())
+                .orElseThrow(() -> new RuntimeException("Cloth Entry no encontrada"));
+
+        // Si ya estaba inactiva, no se puede volver a activar
+        if (!existing.getApprove() && dto.getApprove()) {
+            throw new RuntimeException("No se puede volver a aprobar una entrada desactivada");
+        }
+
+        // Si se va a desactivar, revertir el impacto sobre las telas
+        if (existing.getApprove() && !dto.getApprove()) {
+            List<ClothEntryItemResponseDTO> items = clothEntryItemService.findByClothEntryId(dto.getClothEntryId());
+
+            for (ClothEntryItemResponseDTO item : items) {
+                clothEntryItemService.reverse(item);
+            }
+        }
+
+        // Continuar con el update normal
+        return clothEntryRepository.update(dto);
     }
+
 
     public boolean delete(int clothEntryId){
         if (clothEntryRepository.getById(clothEntryId).isPresent()) {

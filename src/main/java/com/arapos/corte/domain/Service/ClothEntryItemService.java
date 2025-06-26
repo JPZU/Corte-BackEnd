@@ -59,78 +59,32 @@ public class ClothEntryItemService {
         return clothEntryItemRepository.save(dto);
     }
 
-
     @Transactional
-    public ClothEntryItemResponseDTO update(CreateClothEntryItemDTO dto) {
-        // 1. Obtener el ítem actual
-        ClothEntryItemResponseDTO existing = clothEntryItemRepository.getById(dto.getClothEntryItemId())
-                .orElseThrow(() -> new RuntimeException("ClothEntryItem no encontrado"));
+    public void reverse(ClothEntryItemResponseDTO item) {
+    // Obtener la tela relacionada
+    ClothResponseDTO cloth = clothRepository.getById(item.getCloth().getClothId())
+            .orElseThrow(() -> new RuntimeException("Tela no encontrada"));
 
-        int oldClothId = existing.getCloth().getClothId();
-        int newClothId = dto.getClothId();
-        boolean sameCloth = oldClothId == newClothId;
+    // Restar los metros
+    BigDecimal updatedMeters = cloth.getMeters().subtract(item.getMetersAdded());
 
-        // 2. Si no cambió la tela, solo ajustamos los metros
-        if (sameCloth) {
-            BigDecimal delta = dto.getMetersAdded().subtract(existing.getMetersAdded());
-
-            ClothResponseDTO cloth = clothRepository.getById(oldClothId)
-                    .orElseThrow(() -> new RuntimeException("Tela no encontrada"));
-
-            BigDecimal updatedMeters = cloth.getMeters().add(delta);
-            if (updatedMeters.compareTo(BigDecimal.ZERO) < 0) {
-                throw new RuntimeException("No se pueden dejar metros negativos");
-            }
-
-            CreateClothDTO updateDTO = new CreateClothDTO();
-            updateDTO.setClothId(cloth.getClothId());
-            updateDTO.setName(cloth.getName());
-            updateDTO.setMeters(updatedMeters);
-            updateDTO.setIsActive(updatedMeters.compareTo(new BigDecimal("1")) > 0);
-            updateDTO.setCategoryId(cloth.getCategory().getCategoryId());
-
-            clothRepository.update(updateDTO);
-
-            return clothEntryItemRepository.update(dto);
-        }
-
-        // 3. Cambió la tela → mover metros entre telas
-
-        // 3.1 Restar metros a la tela anterior
-        ClothResponseDTO oldCloth = clothRepository.getById(oldClothId)
-                .orElseThrow(() -> new RuntimeException("Tela anterior no encontrada"));
-
-        BigDecimal oldUpdatedMeters = oldCloth.getMeters().subtract(existing.getMetersAdded());
-        if (oldUpdatedMeters.compareTo(BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("Metros negativos en tela anterior");
-        }
-
-        CreateClothDTO oldUpdate = new CreateClothDTO();
-        oldUpdate.setClothId(oldCloth.getClothId());
-        oldUpdate.setName(oldCloth.getName());
-        oldUpdate.setMeters(oldUpdatedMeters);
-        oldUpdate.setIsActive(oldUpdatedMeters.compareTo(new BigDecimal("1")) > 0);
-        oldUpdate.setCategoryId(oldCloth.getCategory().getCategoryId());
-
-        clothRepository.update(oldUpdate);
-
-        // 3.2 Sumar metros a la nueva tela
-        ClothResponseDTO newCloth = clothRepository.getById(newClothId)
-                .orElseThrow(() -> new RuntimeException("Tela nueva no encontrada"));
-
-        BigDecimal newUpdatedMeters = newCloth.getMeters().add(dto.getMetersAdded());
-
-        CreateClothDTO newUpdate = new CreateClothDTO();
-        newUpdate.setClothId(newCloth.getClothId());
-        newUpdate.setName(newCloth.getName());
-        newUpdate.setMeters(newUpdatedMeters);
-        newUpdate.setIsActive(true);
-        newUpdate.setCategoryId(newCloth.getCategory().getCategoryId());
-
-        clothRepository.update(newUpdate);
-
-        return clothEntryItemRepository.update(dto);
+    if (updatedMeters.compareTo(BigDecimal.ZERO) < 0) {
+        throw new RuntimeException("No se pueden dejar metros negativos al revertir");
     }
+
+    CreateClothDTO updateDTO = new CreateClothDTO();
+    updateDTO.setClothId(cloth.getClothId());
+    updateDTO.setName(cloth.getName());
+    updateDTO.setMeters(updatedMeters);
+    updateDTO.setIsActive(updatedMeters.compareTo(new BigDecimal("1")) > 0);
+    updateDTO.setCategoryId(cloth.getCategory().getCategoryId());
+
+    clothRepository.update(updateDTO);
+
+    // (Opcional) Eliminar o desactivar el item si decides mantener historial
+    // clothEntryItemRepository.delete(item.getClothEntryItemId());
+    }
+
 
 
     public boolean delete(int clothEntryItemId){

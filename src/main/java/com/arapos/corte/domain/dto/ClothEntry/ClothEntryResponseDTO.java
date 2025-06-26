@@ -13,6 +13,7 @@ public class ClothEntryResponseDTO {
     private int clothEntryId;
     private String supplierInvoice;
     private String notes;
+    private boolean approve;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -72,6 +73,14 @@ public class ClothEntryResponseDTO {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean getApprove(){
+        return approve;
+    }
+
+    public void setApprove(boolean approve){
+        this.approve = approve;
     }
 
     /* --------------------------------------------------------

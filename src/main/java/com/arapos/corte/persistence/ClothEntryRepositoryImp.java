@@ -54,6 +54,7 @@ public class ClothEntryRepositoryImp implements ClothEntryRepository{
             throw new IllegalArgumentException("Id cannot be present for create a new cloth entry");
         }
         ClothEntry clothEntryEntity = clothEntryMapper.toClothEntry(createClothEntryDTO);
+        clothEntryEntity.setApprove(true);
         ClothEntry savedClothEntry = clothEntryCrudRepository.save(clothEntryEntity);
         return clothEntryMapper.toClothEntryResponseDTO(savedClothEntry);
     }
@@ -68,6 +69,7 @@ public class ClothEntryRepositoryImp implements ClothEntryRepository{
             // Actualizar valores con los nuevos datos
             clothEntryToUpdate.setSupplierInvoice(createClothEntryDTO.getSupplierInvoice());
             clothEntryToUpdate.setNotes(createClothEntryDTO.getNotes());
+            clothEntryToUpdate.setApprove(createClothEntryDTO.getApprove());
 
             // Mapear entidades usando el Mapper
             clothEntryToUpdate.setSupplier(clothEntryMapper.mapSupplier(createClothEntryDTO.getSupplierId()));
