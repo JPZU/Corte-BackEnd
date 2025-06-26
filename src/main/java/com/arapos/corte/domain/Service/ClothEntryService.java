@@ -35,9 +35,27 @@ public class ClothEntryService {
         return clothEntryRepository.getById(clothEntryId);
     }
 
-    public ClothEntryResponseDTO save(CreateClothEntryDTO createClothEntry){
+    public ClothEntryResponseDTO save(CreateClothEntryDTO createClothEntry) {
+        // Solo validamos si se quiere aprobar (approve = true)
+        if (createClothEntry.getApprove()) {
+            List<ClothEntryResponseDTO> existing = clothEntryRepository.findBySupplierInvoice(createClothEntry.getSupplierInvoice());
+
+            boolean exists = existing.stream()
+                .anyMatch(e ->
+                    e.getSupplier() != null &&
+                    e.getSupplier().getSupplierId().equals(createClothEntry.getSupplierId()) &&
+                    e.getApprove()
+                );
+
+            if (exists) {
+                throw new RuntimeException("Ya existe una entrada activa con la misma factura y proveedor.");
+            }
+        }
+
         return clothEntryRepository.save(createClothEntry);
     }
+
+
 
     @Transactional
     public ClothEntryResponseDTO update(CreateClothEntryDTO dto) {
