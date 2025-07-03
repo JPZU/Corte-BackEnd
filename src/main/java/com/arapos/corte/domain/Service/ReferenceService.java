@@ -4,6 +4,7 @@ import com.arapos.corte.domain.dto.Reference.CreateReferenceDTO;
 import com.arapos.corte.domain.dto.Reference.ReferenceResponseDTO;
 import com.arapos.corte.domain.repository.ReferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -47,6 +48,10 @@ public class ReferenceService {
     --------------------------------------------------------- */
     public List<ReferenceResponseDTO> getByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate){
         return referenceRepository.findByCreatedAtBetween(startDate, endDate);
+    }
+
+    public Page<ReferenceResponseDTO> getAllPagedReferences(int page, int size){
+        return referenceRepository.getAllPagedReferences(page, size);
     }
 
     /* --------------------------------------------------------

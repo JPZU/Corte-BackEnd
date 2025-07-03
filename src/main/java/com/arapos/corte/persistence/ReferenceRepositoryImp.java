@@ -7,6 +7,10 @@ import com.arapos.corte.persistence.crud.ReferenceCrudRepository;
 import com.arapos.corte.persistence.entity.Reference;
 import com.arapos.corte.persistence.mapper.ReferenceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -94,6 +98,15 @@ public class ReferenceRepositoryImp implements ReferenceRepository {
         return StreamSupport.stream(references.spliterator(), false)
                 .map(referenceMapper::toReferenceResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ReferenceResponseDTO> getAllPagedReferences(int page, int size){
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"));
+        Pageable pageable = PageRequest.of(page,size,sort);
+
+        Page<Reference> referencePage = referenceCrudRepository.findAll(pageable);
+        return referencePage.map(referenceMapper::toReferenceResponseDTO);
     }
 
     /* --------------------------------------------------------
