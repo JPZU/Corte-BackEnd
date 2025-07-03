@@ -38,8 +38,8 @@ public class ClothService {
 
     public ClothResponseDTO update(CreateClothDTO createClothDTO){
         // Logic to set boolean in cloth
-        boolean isActiveOrNot = createClothDTO.getMeters().compareTo(new BigDecimal("1")) > 0;
-        createClothDTO.setIsActive(isActiveOrNot);
+        // boolean isActiveOrNot = createClothDTO.getMeters().compareTo(new BigDecimal("1")) > 0;
+        // createClothDTO.setIsActive(isActiveOrNot);
         return clothRepository.update(createClothDTO);
     }
 
