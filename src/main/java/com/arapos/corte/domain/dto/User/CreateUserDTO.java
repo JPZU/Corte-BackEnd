@@ -3,6 +3,7 @@ package com.arapos.corte.domain.dto.User;
 import com.arapos.corte.persistence.entity.Rol;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class CreateUserDTO {
@@ -24,7 +25,7 @@ public class CreateUserDTO {
     @Size(min = 8, max = 255, message = "Password must be between 8 and 255 character")
     private String password;
 
-    @NotBlank(message = "Rol is required")
+    @NotNull(message = "Rol is required")
     private Rol role;
 
     /* --------------------------------------------------------

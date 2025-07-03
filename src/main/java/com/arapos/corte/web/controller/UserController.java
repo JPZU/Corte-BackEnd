@@ -36,12 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> save(@Valid @RequestBody CreateUserDTO createUserDTO) {
+    public ResponseEntity<UserResponseDTO> save(@RequestBody CreateUserDTO createUserDTO) {
         return new ResponseEntity<>(userService.save(createUserDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserResponseDTO> update(@Valid @RequestBody CreateUserDTO createUserDTO) {
+    public ResponseEntity<UserResponseDTO> update(@RequestBody CreateUserDTO createUserDTO) {
         return new ResponseEntity<>(userService.update(createUserDTO), HttpStatus.OK);
     }
 
